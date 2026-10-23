@@ -1,0 +1,181 @@
+.card {
+  height: 100%;
+  border-color: var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  box-shadow: var(--shadow-soft);
+}
+
+.card :global(.ant-card-head) {
+  min-height: 50px;
+  border-color: rgba(234, 216, 200, 0.74);
+}
+
+.card :global(.ant-card-head-title) {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.card :global(.ant-card-body) {
+  position: relative;
+  z-index: 1;
+  padding: 18px;
+}
+
+.trend {
+  height: 210px;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 8px;
+  position: relative;
+  padding-left: 28px;
+}
+
+.trend svg {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+  background-image: linear-gradient(rgba(234, 216, 200, 0.72) 1px, transparent 1px);
+  background-size: 100% 20%;
+}
+
+.yAxis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--text-yaxis);
+  font-size: 11px;
+  line-height: 1;
+}
+
+.marker {
+  position: absolute;
+  transform: translate(-50%, -22px);
+  padding: 2px 5px;
+  border-radius: 6px 6px 6px 2px;
+  color: var(--paper-thinnest);
+  background: var(--primary);
+  font-size: 10px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.area {
+  fill: rgba(255, 104, 28, 0.12);
+  stroke: none;
+}
+
+.line {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.lineDot {
+  fill: var(--dot-ring);
+  stroke: var(--primary);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-axis);
+  font-size: 13px;
+}
+
+.radar {
+  position: relative;
+  min-height: 238px;
+  display: grid;
+  place-items: center;
+}
+
+.grid {
+  fill: rgba(255, 250, 244, 0.24);
+  stroke: var(--line);
+}
+
+.gridSpoke {
+  stroke: rgba(234, 216, 200, 0.72);
+}
+
+.radarArea {
+  fill: rgba(255, 104, 28, 0.13);
+  stroke: none;
+}
+
+.radarLine {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2.2;
+}
+
+.radarDot {
+  fill: var(--primary);
+  stroke: var(--dot-ring);
+  stroke-width: 2;
+}
+
+.radarLabel {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 58px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.timelineItem strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.timelineItem span {
+  color: var(--text-mute);
+  font-size: 12px;
+}
+
+.timelineItem p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.progressList {
+  display: grid;
+  gap: 12px;
+}
+
+.progressItem {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.9fr) 1fr 70px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(232, 213, 196, 0.72);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+
+.progressItem span {
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.25;
+}

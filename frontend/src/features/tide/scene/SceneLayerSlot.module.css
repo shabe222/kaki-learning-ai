@@ -1,0 +1,166 @@
+.slot {
+  --scene-air-x: 0px;
+  --scene-air-y: 0px;
+  --scene-island-x: 0px;
+  --scene-island-y: 0px;
+  --scene-sea-x: 0px;
+  --scene-sea-y: 0px;
+  --scene-shore-x: 0px;
+  --scene-shore-y: 0px;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--tide-sand);
+}
+
+.baseCoast {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: saturate(0.74) brightness(1.04);
+  user-select: none;
+}
+
+/* Kaki 官方环境：柿子天空（KAKI_THEME_PRIMARY_ENVIRONMENT_BACKGROUND_V1）。
+   不再使用海岸图染色；Ocean 主题仍保留原海岸世界。 */
+:global(.tide-preview-root[data-darya-theme='kaki']) .baseCoast,
+:global(.tide-preview-root[data-darya-theme='kaki']) .depthPlane,
+:global(.tide-preview-root[data-darya-theme='kaki']) .atmosphere {
+  display: none;
+}
+
+.kakiPaper {
+  display: none;
+}
+
+:global(.tide-preview-root[data-darya-theme='kaki']) .kakiPaper {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  /* 一份主资产 + cover 定位：保住上方/右上枝头与中央大面积天空 */
+  background:
+    url('/assets/themes/kaki/kaki-sky-persimmon-v1.webp') 50% 30% / cover no-repeat,
+    linear-gradient(180deg, oklch(93% 0.02 76), oklch(90% 0.03 70));
+}
+
+/* UI READABILITY VEIL：整体轻暖白 + 中央阅读带局部更稳，不遮死图片 */
+.kakiPaper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 42% 58% at 50% 56%, oklch(97.5% 0.008 84 / 0.42), transparent 74%),
+    linear-gradient(180deg,
+      oklch(97% 0.012 84 / 0.52) 0%,
+      oklch(97% 0.01 84 / 0.22) 26%,
+      oklch(96.6% 0.012 82 / 0.2) 58%,
+      oklch(95.4% 0.018 78 / 0.48) 100%);
+}
+
+/* 极轻的秋日纸张颗粒，压住数字平滑感 */
+.kakiPaper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.atmosphere {
+  position: absolute;
+  z-index: 2;
+  inset: -8% -10%;
+  background: oklch(97% 0.012 91 / 0.12);
+  -webkit-mask-image: radial-gradient(ellipse 48% 32% at 50% 48%, black 0 46%, transparent 82%);
+  mask-image: radial-gradient(ellipse 48% 32% at 50% 48%, black 0 46%, transparent 82%);
+  transform: translate3d(var(--scene-air-x), var(--scene-air-y), 0);
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.depthPlane {
+  position: absolute;
+  z-index: 3;
+  inset: -1.5rem;
+  contain: paint;
+}
+
+.depthPlane img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: saturate(0.9) contrast(1.035);
+  mix-blend-mode: soft-light;
+  user-select: none;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.islands {
+  opacity: 0.28;
+  -webkit-mask-image: radial-gradient(ellipse 64% 17% at 50% 55%, black 0 42%, transparent 82%);
+  mask-image: radial-gradient(ellipse 64% 17% at 50% 55%, black 0 42%, transparent 82%);
+}
+
+.islands img {
+  transform: translate3d(var(--scene-island-x), var(--scene-island-y), 0) scale(1.04);
+}
+
+.sea {
+  opacity: 0.2;
+  -webkit-mask-image: radial-gradient(ellipse 78% 22% at 50% 69%, black 0 38%, transparent 82%);
+  mask-image: radial-gradient(ellipse 78% 22% at 50% 69%, black 0 38%, transparent 82%);
+}
+
+.sea img {
+  transform: translate3d(var(--scene-sea-x), var(--scene-sea-y), 0) scale(1.045);
+}
+
+.shore {
+  opacity: 0.16;
+  -webkit-mask-image: radial-gradient(ellipse 84% 24% at 50% 91%, black 0 36%, transparent 84%);
+  mask-image: radial-gradient(ellipse 84% 24% at 50% 91%, black 0 36%, transparent 84%);
+}
+
+.shore img {
+  transform: translate3d(var(--scene-shore-x), var(--scene-shore-y), 0) scale(1.05);
+}
+
+@media (max-width: 64rem) {
+  .baseCoast,
+  .depthPlane img {
+    object-position: 46% 50%;
+  }
+}
+
+@media (max-width: 40rem) {
+  .depthPlane {
+    inset: -0.85rem;
+  }
+
+  .baseCoast,
+  .depthPlane img {
+    object-position: 43% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere {
+    transform: none;
+    transition: none;
+  }
+
+  .depthPlane img {
+    transform: scale(1.045);
+    transition: none;
+  }
+}

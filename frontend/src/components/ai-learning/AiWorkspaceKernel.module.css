@@ -1,0 +1,69 @@
+.host{display:grid;grid-template-columns:minmax(0,1fr);width:100%;height:100%;min-height:0;gap:0}.withShell{grid-template-columns:minmax(360px,36%) minmax(520px,64%)}.workspace{min-width:0;min-height:0;overflow:hidden}.shellPanel{min-width:0;min-height:0;padding:8px;border-left:1px solid #eadfd4;background:#fbf6ef}@media(max-width:900px){.withShell{grid-template-columns:1fr}.withShell .workspace{display:none}.shellPanel{padding:0;border-left:0}}
+.host :global(#workspaceApp #meta),.host :global(#workspaceApp #apiSwitch),.host :global(#workspaceApp footer>details){display:none!important}.host :global(#workspaceApp .head){min-height:64px!important}.host :global(#workspaceApp .head-actions){right:18px!important}.host :global(#workspaceApp .status){color:#7a6253!important}.host :global(#workspaceApp .mode-picker){display:flex!important;flex-wrap:wrap;width:min(540px,calc(100% - 32px));gap:8px;margin:auto}.host :global(#workspaceApp .mode-card){flex:1;min-width:180px;min-height:auto;padding:10px 12px;border-radius:12px}.host :global(#workspaceApp .mode-card strong){margin:0;font-size:14px}.host :global(#workspaceApp .mode-card small){display:none}.host :global(#workspaceApp .messages:has(.mode-picker):before){content:'今天想一起弄明白什么？';display:block;margin:auto;color:#4c382b;font:700 22px/1.35 var(--font-display,serif)}
+.rail :global(#workspaceApp .main),.rail :global(#workspaceApp .head-actions),.rail :global(#memoryDrawer),.rail :global(#artifactDrawer){display:none!important}.rail :global(#workspaceApp){height:100%!important;min-width:0!important}.rail :global(#workspaceApp .side){width:100%!important;min-width:0!important;height:100%!important;border-right:0!important}.rail :global(#workspaceApp .side-section){padding-inline:12px!important}.rail :global(#workspaceApp .side .brand){display:none!important}.rail :global(#workspaceApp .side .side-actions){padding-top:14px!important}
+.host :global(#workspaceApp .side-scroll){position:relative;z-index:2}.host :global(#workspaceApp #adventureEntry){position:relative;z-index:1}
+.host :global(#workspaceApp .mode-picker){width:min(430px,calc(100% - 32px));margin:14px auto 0}.host :global(#workspaceApp .mode-card){min-width:150px;padding:9px 11px;border-radius:11px}.host :global(#workspaceApp .mode-card strong){font-size:13px}.host :global(#workspaceApp .messages:has(.mode-picker):before){margin:0 auto}
+.host :global(#workspaceApp .mode-picker){align-items:stretch;gap:10px}.host :global(#workspaceApp .mode-card){display:grid;gap:6px;min-height:116px;padding:15px 16px;text-align:left;background:#fffdf9}.host :global(#workspaceApp .mode-card small){display:block;color:#78695c;font-size:12px;line-height:1.55}.host :global(#workspaceApp .mode-card [data-mode-action]){justify-self:start;margin-top:auto;color:#a65730;font-size:12px;font-weight:800}.host :global(#workspaceApp .mode-card:hover),.host :global(#workspaceApp .mode-card:focus-visible){border-color:#c8764a;background:#fff8ef;box-shadow:0 7px 18px rgba(121,75,42,.08)}.host :global(#workspaceApp .head-actions){display:flex;gap:7px}.host :global(#workspaceApp .conversation-mode-switch){display:inline-flex;align-items:center}
+
+/* ===== 视觉成品化（目标图 01）：欢迎区 / 双功能卡 / 侧栏 / 控件 ===== */
+.host :global(#workspaceApp .messages:has(.mode-picker)){background:linear-gradient(180deg,rgba(255,253,249,.18) 0%,rgba(255,253,249,.72) 52%,#fffdf9 86%),url(../../assets/generated/hero-mountain-wash.png) center 12%/min(720px,92%) auto no-repeat}
+.host :global(#workspaceApp .messages:has(.mode-picker)):before{content:'今天想一起弄明白什么？';display:block;margin:11vh auto 0;color:#43301f;font:800 clamp(24px,3.2vw,34px)/1.35 var(--font-display,serif);letter-spacing:.14em;text-shadow:0 1px 0 rgba(255,255,255,.65)}
+.host :global(#workspaceApp .mode-picker){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(780px,calc(100% - 36px));margin:26px auto auto}
+.host :global(#workspaceApp .mode-card){display:grid;grid-template-columns:118px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:16px;row-gap:6px;min-width:0;min-height:172px;padding:18px;border:1px solid #f0dcc4;border-radius:18px;text-align:left;background:#fffdf9;box-shadow:0 12px 30px rgba(139,84,45,.07);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.host :global(#workspaceApp .mode-card)::before{content:'';grid-row:1/4;align-self:center;height:126px;border-radius:14px;background:#fff7ec center/cover no-repeat}
+.host :global(#workspaceApp .mode-card[data-mode="assistant"])::before{background-image:url(../../assets/generated/feature-study-assistant.jpg)}
+.host :global(#workspaceApp .mode-card[data-mode="tutor"])::before{background-image:url(../../assets/generated/feature-ai-tutor.jpg)}
+.host :global(#workspaceApp .mode-card strong){grid-column:2;margin:2px 0 0;color:#c65a24;font:800 20px/1.3 var(--font-display,serif);letter-spacing:.06em}
+.host :global(#workspaceApp .mode-card small){grid-column:2;display:block;color:#7a695b;font-size:12.5px;line-height:1.7}
+.host :global(#workspaceApp .mode-card [data-mode-action]){grid-column:2;justify-self:end;align-self:end;display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:6px 13px;border-radius:999px;background:linear-gradient(135deg,#f28a3d,#e2661f);color:#fff;font-size:12px;font-weight:700;box-shadow:0 6px 14px rgba(226,102,31,.26)}
+.host :global(#workspaceApp .mode-card [data-mode-action])::after{content:'→'}
+.host :global(#workspaceApp .mode-card:hover),.host :global(#workspaceApp .mode-card:focus-visible){transform:translateY(-3px);border-color:#e29a63;background:#fffdf9;box-shadow:0 18px 38px rgba(139,84,45,.13)}
+@media(max-width:760px){.host :global(#workspaceApp .mode-picker){grid-template-columns:1fr;gap:12px}.host :global(#workspaceApp .mode-card){grid-template-columns:92px minmax(0,1fr);min-height:132px;padding:14px}.host :global(#workspaceApp .mode-card)::before{height:96px}}
+.host :global(#workspaceApp .side){background:url(../../assets/generated/persimmon-basket.png) left -14px bottom -20px/172px auto no-repeat,linear-gradient(180deg,rgba(255,253,249,.9),rgba(251,244,235,.86))}
+@media(max-width:600px){.host :global(#workspaceApp .side){background:linear-gradient(180deg,rgba(255,253,249,.9),rgba(251,244,235,.86))}.host :global(#workspaceApp .messages:has(.mode-picker)):before{margin-top:20px;letter-spacing:.06em}}
+@media(max-width:600px){.host :global(#workspaceApp .messages:has(.mode-picker)):before{flex:none;margin:0 auto 10px!important;padding-top:4px;line-height:1.3}.host :global(#workspaceApp .mode-picker){margin:0 auto auto}}
+.host :global(#workspaceApp #newChat){border:0;border-radius:12px;padding:12px;background:linear-gradient(135deg,#f5883b,#e2661f);color:#fff;font-weight:800;text-align:center;letter-spacing:.06em;box-shadow:0 10px 22px rgba(226,102,31,.24);transition:filter .18s ease,transform .18s ease}
+.host :global(#workspaceApp #newChat:hover),.host :global(#workspaceApp #newChat:focus-visible){filter:brightness(1.05);transform:translateY(-1px)}
+.host :global(#workspaceApp .session.selected){background:#fdeadd;border-color:#eebd97}
+.host :global(#workspaceApp .side-section){background:rgba(255,253,249,.92)}
+.host :global(#workspaceApp .send-button){min-width:68px;border-color:transparent;border-radius:999px;background:linear-gradient(135deg,#f28a3d,#e2661f);font-weight:700;box-shadow:0 6px 14px rgba(226,102,31,.24)}
+.host :global(#workspaceApp .send-button:hover),.host :global(#workspaceApp .send-button:focus-visible){background:linear-gradient(135deg,#ef7d2e,#d55c17)}
+.host :global(#workspaceApp .smart-action){border:1px solid #eedbc4;border-radius:999px;background:#fffdf9;color:#8a4f2c;padding:6px 12px;box-shadow:0 3px 8px rgba(139,84,45,.05);transition:background .16s ease,border-color .16s ease}
+.host :global(#workspaceApp .smart-action:hover),.host :global(#workspaceApp .smart-action:focus-visible){border-color:#dfa877;background:#fff5ea}
+.host :global(#workspaceApp .composer-shell){border-radius:18px}
+.host :global(#workspaceApp .card){border-radius:20px;box-shadow:0 20px 54px rgba(70,48,28,.09)}
+/* 追问会给 #workspaceApp 加上 resource-open。旧版为此预留整块抽屉宽度，React 宿主里抽屉是 hidden，正文会被 padding 挤出视口。 */
+.host :global(#workspaceApp.resource-open) :global(.main),
+.host :global(#workspaceApp.resource-open.show-resource-view) :global(.main){padding-right:18px!important;visibility:visible!important;pointer-events:auto!important}
+/* 高于移动端的会话栏/印象栏浮层(1200/1201)与浮动控制按钮(1210)，低于顶栏(1300)。 */
+.host :global(#memoryDrawer){inset:58px 0 0;z-index:1260}
+.host :global(#memoryDrawer .drawer-panel){width:min(560px,100%);padding:22px 26px 30px;border-left:1px solid #ecd9c6;background:linear-gradient(180deg,#fffdf9,#fdf7ef);box-shadow:-18px 0 46px rgba(64,42,26,.16)}
+.host :global(#memoryDrawer .drawer-head){padding-bottom:14px;margin-bottom:6px;border-bottom:1px solid #f0e2d2}
+.host :global(#memoryDrawer .drawer-head h2){font-family:var(--font-display,serif);font-size:22px;color:#4a3527}
+.host :global(#memoryDrawer #closeMemories){padding:6px 14px;border:1px solid #e6d1bd;border-radius:999px;background:#fffdf9;color:#8a5432;font-weight:700;transition:background .16s ease,border-color .16s ease}
+.host :global(#memoryDrawer #closeMemories:hover){border-color:#dfa877;background:#fff4e9}
+/* 视频/产物抽屉（artifactDrawer）：与 memoryDrawer 同级的 fixed 浮层，盖过输入区，
+   避免视频播放器被底部 composer 遮挡。 */
+.host :global(#artifactDrawer){inset:58px 0 0;z-index:1260}
+.host :global(#artifactDrawer .drawer-panel){width:min(640px,100%);padding:22px 26px 30px;border-left:1px solid #ecd9c6;background:linear-gradient(180deg,#fffdf9,#fdf7ef);box-shadow:-18px 0 46px rgba(64,42,26,.16)}
+.host :global(#artifactDrawer .drawer-head){padding-bottom:14px;margin-bottom:6px;border-bottom:1px solid #f0e2d2}
+.host :global(#artifactDrawer .drawer-head h2){font-family:var(--font-display,serif);font-size:22px;color:#4a3527}
+.host :global(#artifactDrawer #artifactContent video){display:block;width:100%;max-width:560px;margin:14px auto 0;border-radius:14px;background:#000;box-shadow:0 12px 30px rgba(60,36,20,.18)}
+.host :global(#artifactDrawer #artifactContent pre){white-space:pre-wrap;line-height:1.6;color:#4a3527;background:#faf3ea;border:1px solid #f0e2d2;border-radius:12px;padding:14px 16px}
+
+.hostState{height:100%;min-height:280px;display:flex;align-items:center;justify-content:center;gap:14px;padding:24px;color:#5d493d;background:linear-gradient(180deg,#fffdf9,#fbf6ef)}
+.hostState>div{display:grid;gap:5px;max-width:460px}.hostState strong{font-size:16px;color:#49372c}.hostState small{color:#806f64;line-height:1.55}.stateMark{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:14px;background:#f5e1cb;color:#a85225;font:700 18px/1 var(--font-display,serif);box-shadow:0 8px 22px rgba(116,65,31,.09)}
+.hostError .stateMark{background:#fff0e9;color:#a54431}.hostError button{justify-self:start;margin-top:7px;padding:8px 12px;border:1px solid #d98a5c;border-radius:9px;background:#fff7ef;color:#8b4826;font-weight:700;cursor:pointer}.hostError button:hover{background:#ffecdc}.hostError button:focus-visible{outline:3px solid rgba(217,104,36,.22);outline-offset:2px}
+@media(max-width:600px){.hostState{align-items:flex-start;justify-content:flex-start;min-height:220px;padding:28px 18px}.stateMark{width:36px;height:36px;border-radius:11px}}
+
+/* Batch 1.5: keep conversation readable beside a bounded, independently scrolling preview. */
+.host{overflow:hidden}
+.host :global(#workspaceApp){height:calc(100dvh - 58px)!important}
+.withShell{grid-template-columns:minmax(720px,1fr) clamp(560px,44vw,760px)}
+.workspace,.shellPanel{height:100%;min-height:0;overflow:hidden}
+.host :global(#workspaceApp #debug),.host :global(#workspaceApp [data-debug-details]){display:none!important}
+@media(max-width:1280px){
+  .withShell{position:fixed;z-index:1550;inset:0;grid-template-columns:1fr;background:#fffdf9}
+  .withShell .workspace{display:none}
+  .shellPanel{padding:0;border-left:0}
+}

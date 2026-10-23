@@ -1,0 +1,1660 @@
+.surface {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.6rem;
+  padding: 0.85rem clamp(1.1rem, 3vw, 3rem);
+  background: linear-gradient(180deg, color-mix(in oklch, var(--tide-paper) 46%, transparent), transparent 88%);
+}
+
+:global(.tide-preview-root[data-board-full='true']) .heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  width: calc(100% - 2rem);
+  max-width: 96rem;
+  min-height: 3.3rem;
+  margin: 0.7rem auto 0;
+  padding: 0.3rem 0.7rem;
+  gap: 0.6rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 1.1rem;
+  background: color-mix(in oklch, var(--tide-paper) 90%, transparent);
+  box-shadow: 0 0.45rem 1.4rem color-mix(in oklch, var(--tide-ink) 9%, transparent);
+}
+
+.fullNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.3rem, 0.75vw, 0.75rem);
+  min-width: 0;
+  padding-right: clamp(0.45rem, 0.9vw, 0.9rem);
+  border-right: 1px solid var(--tide-line-soft);
+  white-space: nowrap;
+}
+
+.fullBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  margin-right: 0.2rem;
+  color: var(--tide-ink);
+  font: 560 0.88rem/1 var(--tide-font-editorial);
+  letter-spacing: 0.16em;
+}
+
+.fullBrand img {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+.fullNavActive,
+.fullNavLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.35rem;
+  padding: 0.35rem 0.72rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: inherit;
+  font-size: 0.74rem;
+  text-decoration: none;
+}
+
+.fullNavActive {
+  background: var(--tide-focus-soft);
+  color: var(--tide-ink);
+}
+
+.fullNavLink { cursor: pointer; }
+.fullNavLink:hover { background: var(--tide-focus-soft); color: var(--tide-ink); }
+
+.fullNewThread {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 50%;
+  background: var(--tide-paper);
+  color: var(--tide-ink-muted);
+  cursor: pointer;
+}
+
+.fullNewThread:hover:not(:disabled) { color: var(--tide-ink); background: var(--tide-focus-soft); }
+.fullNewThread:disabled { opacity: 0.5; cursor: default; }
+
+.historyButton,
+.retry,
+.state button,
+.voiceButton,
+.voiceError button,
+.sendButton,
+.stopButton,
+.recededHistory {
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+}
+
+.historyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2.4rem;
+  padding: 0.35rem 0.15rem;
+  color: var(--tide-ink-muted);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.utilityActions { display: flex; align-items: center; flex: none; margin-left: auto; gap: clamp(.5rem, 1.4vw, 1.1rem); }
+:global(.tide-preview-root[data-board-full='true']) .utilityActions { grid-column: 3; gap: clamp(0.25rem, 0.75vw, 0.7rem); margin-left: 0; }
+
+@media (max-width: 1480px) {
+  :global(.tide-preview-root[data-board-full='true']) .heading {
+    width: calc(100% - 1.2rem);
+    gap: 0.35rem;
+    padding-inline: 0.5rem;
+  }
+
+  :global(.tide-preview-root[data-board-full='true']) .utilityActions .historyButton {
+    justify-content: center;
+    width: 2.25rem;
+    padding-inline: 0;
+  }
+
+  :global(.tide-preview-root[data-board-full='true']) .utilityActions .historyButton span {
+    display: none;
+  }
+
+  :global(.tide-preview-root[data-board-full='true']) .fullNavLink,
+  :global(.tide-preview-root[data-board-full='true']) .fullNavActive {
+    padding-inline: 0.46rem;
+  }
+}
+.accountMenu { position: relative; color: var(--tide-ink-muted); font-size: .72rem; }
+.accountMenu summary { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.4rem; cursor: pointer; list-style: none; }
+.accountMenu summary::-webkit-details-marker { display: none; }
+.accountMenu > div { position: absolute; z-index: 30; top: 2.4rem; right: 0; min-width: 8rem; padding: .35rem; border: 1px solid var(--tide-line-soft); border-radius: .65rem; background: color-mix(in oklch, var(--tide-paper) 94%, transparent); box-shadow: 0 .8rem 2.5rem oklch(25% .02 220/.12); backdrop-filter: blur(14px); }
+.accountMenu button { display: flex; align-items: center; gap: .4rem; width: 100%; padding: .55rem .65rem; border: 0; border-radius: .45rem; background: transparent; color: var(--tide-ink-muted); font: inherit; cursor: pointer; }
+.accountMenu button:hover { background: var(--tide-focus-soft); color: var(--tide-sea-deep); }
+
+.momentStage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 有黑板的时候：左文字、右板子，两边同时看得到。
+   文字栏的宽度不写死 —— 它按这块板子的宽高比预算好，以内联样式写进来
+   （见 TideChatSurface 里的 textColumnWidth），竖长的板子两侧就不会空出一条。
+   没有黑板就只有文字一栏，跟从前一样。 */
+.momentStage[data-with-board='true'] {
+  grid-template-columns: minmax(15rem, 34fr) minmax(0, 1fr);
+}
+
+.momentStage[data-with-board='false'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 占满：板子拿走整个对话区。文字栏默认收起；
+   「回看全文」把它翻成盖在板子上的一层，看完再收回去。 */
+.momentStage[data-board-full='true'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.momentStage[data-board-full='true'] .textPane {
+  display: none;
+}
+
+.momentStage[data-board-full='true'][data-text-overlay='true'] .textPane {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background: var(--tide-paper);
+  box-shadow: 0 18px 44px rgba(12, 26, 20, 0.22);
+}
+
+/* 浮层上的收起钮：浮层把顶栏也盖住了，收起必须自己带在身上。 */
+.textOverlayClose {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.9rem;
+  z-index: 7;
+  padding: 0.3rem 0.72rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 999px;
+  background: var(--tide-paper);
+  color: var(--tide-ink-muted);
+  font: inherit;
+  font-size: 0.68rem;
+  cursor: pointer;
+}
+
+.textOverlayClose:hover {
+  color: var(--tide-ink);
+  border-color: var(--tide-line-active);
+}
+
+/* 文字自己的滚动区。板子不再住在这一栏里，所以正文永远不会被它顶出画面。 */
+.textPane {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  padding: 1rem clamp(1.25rem, 4vw, 4.5rem) 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tide-line) transparent;
+}
+
+.fresh,
+.state,
+.exchange {
+  width: min(100%, 47rem);
+  margin: auto;
+}
+
+.fresh {
+  align-self: center;
+  padding-bottom: clamp(2rem, 9vh, 7rem);
+}
+
+.place,
+.responseMeta > span,
+.userCue > span {
+  display: block;
+  color: var(--tide-sea-deep);
+  font-size: 0.64rem;
+  font-weight: 660;
+  letter-spacing: 0.16em;
+}
+
+.fresh h2 {
+  max-width: 17ch;
+  margin: 1rem 0 0;
+  color: var(--tide-ink);
+  font-family: var(--tide-font-editorial);
+  font-size: clamp(2rem, 4vw, 3.55rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: 0.025em;
+  text-wrap: balance;
+}
+
+.fresh p {
+  max-width: 36rem;
+  margin: 1.25rem 0 0;
+  color: var(--tide-ink-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.exchange {
+  align-self: center;
+  padding: 1.5rem 0 clamp(2rem, 8vh, 6rem);
+}
+
+
+
+.userCue {
+  max-width: 42rem;
+  margin: 0 0 clamp(1.45rem, 4vh, 2.8rem);
+  color: var(--tide-ink-muted);
+  font-size: clamp(0.83rem, 1.1vw, 0.95rem);
+  line-height: 1.72;
+}
+
+.userCue > span {
+  margin-bottom: 0.38rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.58rem;
+}
+
+.currentResponse {
+  max-width: 47rem;
+  color: var(--tide-ink);
+}
+
+.deliveredArtifact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  margin-top: 0.75rem;
+  padding: 0.32rem 0.78rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 999px;
+  color: var(--tide-sea-deep);
+  background: color-mix(in oklch, var(--tide-paper) 72%, transparent);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: border-color 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.deliveredArtifact:hover {
+  border-color: var(--tide-line-active);
+  background: var(--tide-focus-soft);
+}
+
+.deliveredArtifact:focus-visible {
+  outline: 1px solid var(--tide-line-active);
+  outline-offset: 3px;
+}
+
+.inlineArtifact { display: grid; gap: .6rem; max-width: 42rem; margin-top: 1.45rem; padding: 1rem 1.1rem; border: 1px solid var(--tide-line-soft); border-left-color: var(--tide-line-active); border-radius: .85rem; background: color-mix(in oklch, var(--tide-paper) 68%, transparent); backdrop-filter: blur(12px); }
+.inlineArtifactHead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.inlineArtifactHead span { color: var(--tide-sea-deep); font-size: .63rem; font-weight: 750; letter-spacing: .14em; }
+.inlineArtifactHead small { color: var(--tide-ink-faint); font-size: .65rem; }
+.inlineArtifact > strong { font: 540 1.05rem/1.45 var(--tide-font-editorial); }
+.inlineArtifact > p { margin: 0; color: var(--tide-ink-muted); font-size: .73rem; line-height: 1.65; }
+.inlineArtifactActions { display: flex; gap: .5rem; }
+.inlineArtifactActions button { min-width: 4.5rem; padding: .5rem .8rem; border: 1px solid var(--tide-line-standard); border-radius: 999px; background: transparent; color: var(--tide-sea-deep); font: 650 .7rem var(--tide-font-body); cursor: pointer; }
+.inlineArtifactActions button:disabled { color: var(--tide-ink-faint); cursor: default; opacity: .62; }
+.inlineArtifactError { color: var(--tide-danger) !important; }
+.inlineArtifactDraft { max-height: 24rem; overflow: auto; padding: .75rem .9rem; border: 1px solid var(--tide-line-soft); border-radius: .65rem; background: color-mix(in oklch, var(--tide-paper) 82%, transparent); }
+.inlineArtifactDraft > strong { display: block; margin-bottom: .4rem; color: var(--tide-ink-muted); font-size: .72rem; }
+.inlineArtifactDraft .centerMarkdown { max-width: none; font-family: var(--tide-font-body) !important; font-size: .78rem !important; line-height: 1.62 !important; letter-spacing: 0; overflow-wrap: anywhere; }
+.inlineArtifactDraft .centerMarkdown :is(h1, h2, h3) { margin: .7rem 0 .25rem; color: var(--tide-ink); font-family: var(--tide-font-body) !important; font-size: .86rem !important; font-weight: 720 !important; line-height: 1.4 !important; }
+.inlineArtifactDraft .centerMarkdown :is(p, ul, ol) { margin: .35rem 0; }
+.evidencePanel { display: grid; gap: .62rem; max-width: 42rem; margin-top: 1.35rem; padding: .85rem 1rem; border: 1px solid var(--tide-line-soft); border-radius: .8rem; background: color-mix(in oklch, var(--tide-paper) 64%, transparent); backdrop-filter: blur(12px); }
+.evidenceHeading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.evidenceHeading > span { display: inline-flex; align-items: center; gap: .38rem; color: var(--tide-sea-deep); font-size: .68rem; font-weight: 720; letter-spacing: .08em; }
+.evidenceHeading > small { color: var(--tide-ink-faint); font-size: .64rem; }
+.evidenceSources { display: flex; flex-wrap: wrap; gap: .48rem; }
+.evidenceSource { flex: 1 1 12rem; min-width: 0; border: 1px solid var(--tide-line-soft); border-radius: .62rem; background: color-mix(in oklch, var(--tide-paper) 76%, transparent); }
+.evidenceSource summary { display: grid; gap: .22rem; min-height: 3rem; padding: .58rem .68rem; cursor: pointer; list-style: none; }
+.evidenceSource summary::-webkit-details-marker { display: none; }
+.evidenceSource summary > span { overflow: hidden; color: var(--tide-ink); font-size: .7rem; font-weight: 650; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.evidenceSource summary > small { color: var(--tide-ink-faint); font-size: .6rem; }
+.evidenceSource > p { margin: 0; padding: .1rem .68rem .55rem; color: var(--tide-ink-muted); font-size: .66rem; line-height: 1.58; }
+.evidenceSource > div { display: grid; gap: .42rem; padding: .55rem .68rem .65rem; border-top: 1px solid var(--tide-line-soft); }
+.evidenceSource > div span { color: var(--tide-ink-faint); font-size: .6rem; line-height: 1.45; }
+.evidenceSource a { display: inline-flex; align-items: center; gap: .28rem; width: fit-content; color: var(--tide-sea-deep); font-size: .64rem; text-decoration: none; }
+.evidenceEmpty { margin: 0; color: var(--tide-ink-muted); font-size: .7rem; line-height: 1.6; }
+.evidenceConflict { margin: 0; padding: .5rem .62rem; border-left: 2px solid color-mix(in oklch, var(--tide-danger) 45%, transparent); color: var(--tide-ink-muted); font-size: .66rem; line-height: 1.55; }
+.evidenceBoundary { color: var(--tide-ink-faint); font-size: .59rem; }
+.turnTrace { padding-top: .25rem; border-top: 1px solid var(--tide-line-soft); color: var(--tide-ink-muted); }
+.turnTrace summary { padding-top: .5rem; font-size: .68rem; font-weight: 650; cursor: pointer; }
+.turnTrace ol { display: grid; gap: .65rem; margin: .8rem 0 .1rem; padding: 0; list-style: none; }
+.turnTrace li { display: grid; grid-template-columns: 7rem minmax(0,1fr) auto; gap: .7rem; font-size: .67rem; }
+.turnTrace li span { color: var(--tide-ink); font-weight: 650; }
+.turnTrace li p { margin: 0; line-height: 1.55; }
+.turnTrace li small { color: var(--tide-ink-faint); }
+
+.responseMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 0.78rem;
+  animation: wave-meta-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wave-meta-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.responseMeta small {
+  color: var(--tide-ink-faint);
+  font-size: 0.62rem;
+}
+
+.centerMarkdown {
+  max-width: 65ch;
+  color: var(--tide-ink) !important;
+  font-family: var(--tide-font-editorial) !important;
+  font-size: clamp(1.16rem, 1.45vw, 1.46rem) !important;
+  font-weight: 470;
+  line-height: 1.72 !important;
+  letter-spacing: 0.015em;
+  text-wrap: pretty;
+}
+
+/* 一句一句说的时候，正在讲的那句和刚被顶掉的那句叠在同一处：
+   上一句一边淡出一边让位，下一句同时长出来。位置只由正在讲的那句决定，
+   淡出的那句不占高度，所以说话过程里正文不会上下跳。 */
+.sentenceStage {
+  position: relative;
+  display: grid;
+}
+
+.sentenceStage > * {
+  grid-area: 1 / 1;
+}
+
+.sentenceLeaving {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  animation: tideSentenceOut 0.42s ease-in both;
+}
+
+@keyframes tideSentenceOut {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* 摆动的那个点在"正在说的这一句"上，别跟着淡出的那句一起飘 */
+.currentResponse[data-message-status='streaming'] .sentenceLeaving::after {
+  content: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sentenceLeaving {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* 黑板自己的 pane：文字在左边滚它的，板子在这里常驻。
+   一道竖线把它和文字栏分开，让"分栏"读起来是有意的，不是没对齐。 */
+.boardPane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 1rem clamp(1.25rem, 4vw, 4.5rem) 0.9rem 1rem;
+  border-left: 1px solid var(--tide-line-soft);
+}
+
+.momentStage[data-board-full='true'] .boardPane {
+  border-left: 0;
+  padding-inline: clamp(0.8rem, 2.1vw, 2.15rem);
+}
+
+/* 字幕条：高度固定、永远占位。
+   板子的格子 = pane 高度减掉这条的固定高度，所以讲解时字幕一句句换、
+   板子一毫米都不动 —— 之前字幕一出现格子就矮一截，板子跟着一跳一跳。 */
+.boardHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 4.9rem;
+  margin-bottom: 0.45rem;
+}
+
+.boardPane[data-full='true'] .boardHeader {
+  min-height: 3.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.spaceModeSwitch {
+  display: inline-flex;
+  gap: 0.18rem;
+  padding: 0.18rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--tide-paper) 83%, transparent);
+}
+
+.spaceModeSwitch button {
+  min-height: 1.9rem;
+  padding: 0.3rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: 600 0.68rem/1 var(--tide-font-body);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.spaceModeSwitch button[aria-pressed='true'] {
+  background: var(--tide-focus-soft);
+  color: var(--tide-sea-deep);
+}
+
+.spaceModeSwitch button:focus-visible {
+  outline: 2px solid var(--tide-line-active);
+  outline-offset: 2px;
+}
+
+.boardCaptionSlot {
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+}
+
+.boardSlot {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* All three pieces share the space available inside the pane. No fixed minimum
+   track may push the board or companion beyond a narrow desktop viewport. */
+.boardPane[data-full='true'] .boardSlot {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.65fr) minmax(0, 0.9fr);
+  grid-template-rows: minmax(0, 1fr);
+  column-gap: clamp(0.35rem, 0.8vw, 0.8rem);
+  align-items: center;
+  width: 100%;
+}
+
+.boardPane[data-full='true'] .boardSlot::before {
+  position: absolute;
+  z-index: 0;
+  inset: -5% 0 4%;
+  border: 1px solid color-mix(in oklch, var(--tide-line-standard) 54%, transparent);
+  border-radius: 50% / 18%;
+  background: radial-gradient(ellipse 74% 65% at 50% 30%, color-mix(in oklch, var(--tide-paper) 45%, transparent), transparent 78%);
+  box-shadow: inset 0 0 3rem color-mix(in oklch, var(--tide-sea-deep) 5%, transparent);
+  content: '';
+  pointer-events: none;
+}
+
+.boardPane[data-full='true'] .boardSlot[data-space-mode='fold']::before {
+  border-radius: 1.1rem;
+  opacity: 0.42;
+}
+
+.learningShell {
+  position: absolute;
+  z-index: 0;
+  inset: 1% 0 1%;
+  width: 100%;
+  height: 98%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 88% 42% at 50% 93%, color-mix(in oklch, var(--tide-sea-deep) 11%, transparent), transparent 78%);
+  pointer-events: none;
+}
+
+.boardSlot[data-space-mode='fold'] .learningShell {
+  background: radial-gradient(ellipse 86% 38% at 50% 92%, color-mix(in oklch, var(--tide-sea-deep) 14%, transparent), transparent 80%);
+}
+
+.boardStage {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(12, 26, 20, 0.28);
+}
+
+.boardPane[data-full='true'] .boardStage {
+  z-index: 2;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: stretch;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  box-shadow:
+    0 0.18rem 0.42rem oklch(28% 0.025 72 / 0.14),
+    0 1.05rem 1.8rem oklch(28% 0.025 72 / 0.085),
+    inset 0 0.08rem 0.32rem oklch(22% 0.02 80 / 0.08);
+}
+
+.boardPane[data-full='true'] .boardStage[data-front='true'] {
+  width: 100%;
+  justify-self: center;
+  transform: none;
+  transform-origin: center;
+}
+
+.boardPane[data-full='true'] .boardStage[data-front='false'] {
+  grid-column: 1;
+  align-self: center;
+  justify-self: start;
+  width: 100%;
+  height: auto;
+  max-height: 72%;
+  transform: perspective(72rem) rotateY(12deg) translateX(0.25rem);
+  transform-origin: left center;
+  filter: saturate(0.9) brightness(0.95);
+}
+
+.boardSlot[data-space-mode='fold'] .boardStage[data-front='false'] {
+  transform: perspective(72rem) rotateY(35deg);
+}
+
+/* 放大/还原键：就长在板子右上角。深色半透明的小片，压在粉笔字上也不抢戏。 */
+.boardZoom {  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border: 1px solid rgba(243, 245, 240, 0.26);
+  border-radius: 0.45rem;
+  background: rgba(14, 22, 18, 0.5);
+  color: rgba(243, 245, 240, 0.9);
+  cursor: pointer;
+}
+
+.boardZoom:hover {
+  background: rgba(14, 22, 18, 0.78);
+  color: #f3f5f0;
+}
+
+/* 互换键紧挨放大键左侧，切的是“谁站在中间正面”，不是黑板内容。 */
+.boardSwap {
+  position: absolute;
+  top: 0.5rem;
+  right: 2.68rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border: 1px solid rgba(243, 245, 240, 0.26);
+  border-radius: 0.45rem;
+  background: rgba(14, 22, 18, 0.5);
+  color: rgba(243, 245, 240, 0.9);
+  cursor: pointer;
+}
+
+.boardSwap:hover,
+.boardSwap[aria-pressed='true'] {
+  background: rgba(14, 22, 18, 0.78);
+  color: #f3f5f0;
+}
+
+/* 占满模式里那颗「回看全文」的小胶囊。 */
+.boardPill {
+  padding: 0.3rem 0.72rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 999px;
+  background: var(--tide-paper-tint, rgba(255, 255, 255, 0.62));
+  color: var(--tide-ink-muted);
+  font: inherit;
+  font-size: 0.68rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.boardPill:hover {
+  border-color: var(--tide-line-active);
+  color: var(--tide-ink);
+}
+
+/* 数字人：占满模式里站在黑板右侧。隔离图是 12×5 标准网格，
+   必须浮在板面之上，否则黑板会从中间截掉角色。 */
+.boardCompanion {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  place-items: end center;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.boardCompanionSprite {
+  display: block;
+  width: 15rem;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  /* background-size 与整格定位由组件按 12×5 隔离图内联给出。 */
+  background-position: var(--mascot-frame-x) var(--mascot-frame-y);
+  user-select: none;
+}
+
+.boardPane[data-full='true'] .boardCompanion {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  z-index: 2;
+  isolation: isolate;
+  width: 100%;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: end;
+  justify-self: center;
+  margin-bottom: clamp(0.6rem, 2vh, 1.2rem);
+  pointer-events: auto;
+}
+
+.boardCompanionTrigger {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: end center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.boardCompanionTrigger:focus-visible {
+  outline: 2px solid var(--tide-line-active);
+  outline-offset: 0.25rem;
+  border-radius: 1rem;
+}
+
+.boardCompanionMenu {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: calc(100% - 0.4rem);
+  display: grid;
+  gap: 0.2rem;
+  width: min(11rem, 100%);
+  padding: 0.35rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.9rem;
+  background: color-mix(in oklch, var(--tide-paper) 96%, transparent);
+  box-shadow: 0 0.7rem 1.8rem color-mix(in oklch, var(--tide-ink) 15%, transparent);
+}
+
+.boardCompanionMenu button {
+  padding: 0.52rem 0.65rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: var(--tide-ink);
+  font: 600 0.74rem var(--tide-font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.boardCompanionMenu button:hover,
+.boardCompanionMenu button[aria-pressed='true'] {
+  background: var(--tide-focus-soft);
+  color: var(--tide-sea-deep);
+}
+
+.boardCompanionMenu button:focus-visible {
+  outline: 2px solid var(--tide-line-active);
+}
+
+.boardPane[data-full='true'] .boardCompanion::before {
+  position: absolute;
+  z-index: 0;
+  right: -10%;
+  bottom: -2%;
+  left: -10%;
+  height: 4.4rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 45%, color-mix(in oklch, var(--tide-sand) 42%, transparent) 0%, color-mix(in oklch, var(--tide-paper) 58%, transparent) 42%, transparent 78%);
+  content: '';
+  filter: blur(0.85rem);
+  pointer-events: none;
+}
+
+.boardPane[data-full='true'] .boardCompanion::after {
+  position: absolute;
+  z-index: 0;
+  inset: -18% -7% 4%;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 48% 26% 38% 38% / 15% 12% 24% 24%;
+  background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--tide-paper) 22%, transparent));
+  content: '';
+  opacity: 0.54;
+  transform: perspective(72rem) rotateY(-16deg);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.boardPane[data-full='true'] .boardCompanion[data-space-mode='fold']::after {
+  inset: -21% -8% 1%;
+  border-color: var(--tide-line-standard);
+  border-radius: 0.55rem 1rem 1rem 0.55rem;
+  background: color-mix(in oklch, var(--tide-paper) 30%, transparent);
+  box-shadow: 0 0.9rem 1.7rem color-mix(in oklch, var(--tide-ink) 11%, transparent);
+  opacity: 0.72;
+  transform: perspective(72rem) rotateY(-35deg);
+}
+
+
+
+.boardPane[data-full='true'] .boardCompanionSprite {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100% + 2rem), 16rem);
+  height: auto;
+  filter: drop-shadow(0 0.28rem 0.42rem oklch(28% 0.025 72 / 0.2));
+  transform-origin: 50% 86%;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.boardPane[data-full='true'] .boardCompanion[data-space-mode='fold'] .boardCompanionSprite {
+  transform: rotate(-5deg) translate(-0.35rem, -0.15rem);
+}
+
+.boardPane[data-full='true'] .boardCompanion[data-speech-state='playing'] .boardCompanionSprite {
+  animation: daryaCompanionSpeak 760ms ease-in-out infinite alternate;
+}
+
+@keyframes daryaCompanionSpeak {
+  from { transform: translateY(0) rotate(-2deg); }
+  to { transform: translateY(-0.35rem) rotate(2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boardPane[data-full='true'] .boardCompanion[data-speech-state='playing'] .boardCompanionSprite { animation: none; }
+}
+
+.boardCompanionCaption {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 0.55rem);
+  z-index: 2;
+  width: min(100%, 12rem);
+  max-height: 8rem;
+  padding: 0.65rem 0.8rem;
+  overflow: hidden;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 0.9rem;
+  background: color-mix(in oklch, var(--tide-paper) 94%, transparent);
+  box-shadow: 0 0.6rem 1.4rem color-mix(in oklch, var(--tide-ink) 12%, transparent);
+  color: var(--tide-ink);
+  font: 520 0.76rem/1.55 var(--tide-font-editorial);
+  text-align: left;
+}
+
+.boardCompanionCaption > span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.boardCompanionCaption::after {
+  position: absolute;
+  bottom: -0.42rem;
+  left: 1.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-right: 1px solid var(--tide-line-soft);
+  border-bottom: 1px solid var(--tide-line-soft);
+  background: var(--tide-paper);
+  content: '';
+  transform: rotate(45deg);
+}
+
+/* 1179px 仍是常见笔记本宽度，三折框架在这一档能完整容纳；
+   只有再窄时才收为单板，避免用“隐藏内容”冒充自适应。 */
+@media (max-width: 980px) {
+  .learningShell {
+    display: none;
+  }
+
+  .boardCompanion {
+    display: none;
+  }
+
+  .boardPane[data-full='true'] .boardSlot {
+    display: flex;
+    justify-content: center;
+  }
+
+  .boardPane[data-full='true'] .boardStage {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  .boardPane[data-full='true'] .boardStage[data-front='false'] {
+    max-height: 100%;
+    transform: none;
+    filter: none;
+  }
+
+  .boardSwap {
+    display: none;
+  }
+}
+
+.centerMarkdown :global(p) {
+  margin: 0 !important;
+}
+
+.centerMarkdown :global(p + p) {
+  margin-top: 0.8em !important;
+}
+
+.centerMarkdown :global(h1),
+.centerMarkdown :global(h2),
+.centerMarkdown :global(h3),
+.centerMarkdown :global(ul),
+.centerMarkdown :global(ol),
+.centerMarkdown :global(pre),
+.centerMarkdown :global(table) {
+  font: inherit !important;
+}
+
+.currentResponse[data-message-status='streaming'] .centerMarkdown::after {
+  display: inline-block;
+  width: 0.28rem;
+  height: 0.28rem;
+  margin-left: 0.45rem;
+  border-radius: 50%;
+  background: var(--tide-sea-deep);
+  content: '';
+  animation: wave-stream-pulse 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+@keyframes wave-stream-pulse {
+  from { opacity: 0.28; }
+  to { opacity: 0.92; }
+}
+
+.currentResponse[data-message-status='failed'],
+.currentResponse[data-message-status='stopped'] {
+  color: var(--tide-ink-muted);
+}
+
+.retry,
+.state button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  margin-top: 1rem;
+  padding: 0.32rem 0;
+  border-bottom: 1px solid var(--tide-line-standard);
+  color: var(--tide-sea-deep);
+  font-size: 0.73rem;
+  cursor: pointer;
+}
+
+.streamError {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 40rem;
+  margin-top: 1rem;
+  color: var(--tide-danger);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+
+.state {
+  align-self: center;
+  color: var(--tide-ink-muted);
+}
+
+.state strong {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--tide-ink);
+  font-family: var(--tide-font-editorial);
+  font-size: 1.55rem;
+  font-weight: 520;
+}
+
+.state p {
+  margin: 0.55rem 0 0;
+  font-size: 0.82rem;
+}
+
+.spinner {
+  color: var(--tide-sea-deep);
+  animation: tide-spin 1s linear infinite;
+}
+
+/* 底部那点留白只够托住输入框就行：多出来的高度全部让给对话区，
+   也就是让给黑板 —— 板子是一屏里唯一需要"装得下"的东西。 */
+.composerRegion {
+  padding: 0.5rem clamp(1.25rem, 4vw, 4.5rem) 2.6rem;
+}
+
+.composer {
+  position: relative;
+  width: min(100%, 44rem);
+  margin-inline: auto;
+  padding: 0;
+}
+
+.composer label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.inputLine {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  padding: 0.08rem 0.08rem 0.34rem;
+  border-bottom: 1px solid var(--tide-line-standard);
+  transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.composer:focus-within .inputLine {
+  border-bottom-color: var(--tide-line-active);
+}
+
+.composer textarea {
+  display: block;
+  flex: 1;
+  width: 100%;
+  min-height: 2.55rem;
+  max-height: 9rem;
+  padding: 0.5rem 0 0.12rem;
+  resize: none;
+  border: 0;
+  outline: 0;
+  color: var(--tide-ink);
+  background: transparent;
+  font-size: 0.92rem;
+  line-height: 1.62;
+  transition: border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              height 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.composer textarea::placeholder {
+  color: var(--tide-ink-faint);
+}
+
+.sendButton,
+.stopButton,
+.voiceButton,
+.contextButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.2rem;
+  padding: 0.3rem 0.2rem;
+  color: var(--tide-sea-deep);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.voiceButton {
+  justify-content: center;
+  width: 2.15rem;
+  min-width: 2.15rem;
+  padding-inline: 0;
+  border-radius: 50%;
+  color: var(--tide-ink-muted);
+  transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contextButton {
+  padding-inline: 0.55rem;
+  border-radius: 999px;
+  color: var(--tide-ink-muted);
+  transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contextLabel {
+  color: inherit;
+  font-size: 0.66rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.voiceButton:hover:not(:disabled),
+.contextButton:hover:not(:disabled) {
+  color: var(--tide-sea-deep);
+  background: color-mix(in oklch, var(--tide-sea-deep) 8%, transparent);
+}
+
+.voiceButton:disabled,
+.contextButton:disabled {
+  color: var(--tide-ink-faint);
+  cursor: default;
+}
+
+.hiddenFileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.voiceButtonRecording {
+  color: var(--tide-danger);
+  background: color-mix(in oklch, var(--tide-danger) 8%, transparent);
+}
+
+.voiceStatus {
+  min-height: 1.45rem;
+  padding-top: 0.38rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+.recordingStatus {
+  color: var(--tide-danger);
+}
+
+.voiceError {
+  color: var(--tide-danger);
+}
+
+.voiceError button {
+  margin-left: 0.55rem;
+  padding: 0;
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+}
+
+.voiceStatus > span > button {
+  margin-left: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  color: var(--tide-ink-faint);
+  cursor: default;
+  opacity: 0.56;
+}
+
+.historyButton:focus-visible,
+.recededHistory:focus-visible,
+.retry:focus-visible,
+.state button:focus-visible,
+.sendButton:focus-visible,
+.stopButton:focus-visible,
+.voiceButton:focus-visible,
+.contextButton:focus-visible,
+.voiceError button:focus-visible {
+  outline: 1px solid var(--tide-line-active);
+  outline-offset: 3px;
+}
+
+.voiceStatus > span > button:focus-visible {
+  outline: 1px solid var(--tide-line-active);
+  outline-offset: 3px;
+}
+
+@keyframes tide-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 64rem) {
+  .surface {
+    min-height: 0;
+  }
+
+  .heading {
+    min-height: 4.2rem;
+  }
+
+  .momentStage {
+    padding-inline: clamp(1.2rem, 5vw, 3rem);
+  }
+
+  .composerRegion {
+    padding-inline: clamp(1.2rem, 5vw, 3rem);
+  }
+}
+
+@media (max-width: 40rem) {
+  .heading {
+    min-height: 3.8rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .utilityActions { gap: .65rem; }
+  .utilityActions .historyButton span, .accountMenu summary span { display: none; }
+  .turnTrace li { grid-template-columns: 1fr; gap: .2rem; }
+
+  .momentStage {
+    padding: 0.5rem 1.05rem 0;
+  }
+
+  .fresh,
+  .exchange {
+    align-self: center;
+  }
+
+  .fresh {
+    padding-bottom: 5rem;
+  }
+
+  .fresh h2 {
+    font-size: clamp(1.8rem, 9vw, 2.55rem);
+  }
+
+  .fresh p {
+    max-width: 28rem;
+    font-size: 0.82rem;
+  }
+
+  .exchange {
+    padding: 0.8rem 0 4.4rem;
+  }
+
+  .contextButton {
+    width: 2.15rem;
+    min-width: 2.15rem;
+    padding-inline: 0;
+    border-radius: 50%;
+  }
+
+  .contextLabel {
+    display: none;
+  }
+
+  .userCue {
+    margin-bottom: 1.35rem;
+    font-size: 0.8rem;
+  }
+
+  .centerMarkdown {
+    font-size: clamp(1.08rem, 4.8vw, 1.28rem) !important;
+    line-height: 1.66 !important;
+  }
+
+  .composerRegion {
+    padding: 0.25rem 1rem 4.35rem;
+  }
+
+  .sendButton span,
+  .stopButton span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .currentResponse[data-message-status='streaming'] .centerMarkdown::after {
+    animation: none;
+  }
+  
+  .responseMeta {
+    animation: wave-meta-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* PPT 生成面板：克制的行内面板，跟随主题 token */
+.pptPanel {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 0.7rem;
+  padding: 0.85rem 1rem 0.95rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.8rem;
+  background: color-mix(in oklch, var(--tide-paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.pptPanelHead { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
+.pptPanelHead strong { color: var(--tide-ink); font: 560 0.9rem var(--tide-font-editorial); }
+.pptPanelHead small { color: var(--tide-ink-faint); font-size: 0.66rem; }
+
+.pptPanel input {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.55rem;
+  color: var(--tide-ink);
+  background: color-mix(in oklch, var(--tide-paper) 80%, transparent);
+  font: inherit;
+  font-size: 0.82rem;
+  outline: none;
+}
+
+.pptPanel input:focus { border-color: var(--tide-line-active); }
+
+.pptError { margin: 0; color: var(--tide-danger); font-size: 0.72rem; }
+
+.storybookNotice {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.6rem;
+  background: color-mix(in oklch, var(--tide-paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--tide-ink-muted);
+  font-size: 0.75rem;
+}
+.storybookNotice[data-kind='error'] { border-color: color-mix(in oklch, var(--tide-danger) 38%, transparent); }
+.storybookNotice[data-kind='saved'] { border-color: color-mix(in oklch, var(--tide-sea-deep) 34%, transparent); }
+.storybookNotice span { flex: 1; }
+.storybookNotice button {
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-ink);
+  font: 600 0.72rem var(--tide-font-body);
+  cursor: pointer;
+}
+
+.pptActions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.pptActions button {
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: 600 0.72rem var(--tide-font-body);
+  cursor: pointer;
+}
+.pptActions button:last-child {
+  border-color: var(--tide-sea-deep);
+  color: var(--tide-paper);
+  background: var(--tide-sea-deep);
+}
+.pptActions button:disabled { opacity: 0.55; cursor: default; }
+
+/* 生成中心：全部可生成能力的发现面板，点选快捷指令入框 */
+.capabilityPanel {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 0 0.7rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.85rem;
+  background: color-mix(in oklch, var(--tide-paper) 90%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px color-mix(in oklch, var(--tide-ink) 8%, transparent);
+  animation: capability-rise 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes capability-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.capabilityHead { display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 0.6rem; align-items: baseline; }
+.capabilityHead strong { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--tide-ink); font: 560 0.92rem var(--tide-font-editorial); }
+.capabilityHead small { grid-column: 1; color: var(--tide-ink-faint); font-size: 0.68rem; }
+.capabilityClose {
+  grid-row: 1 / span 2;
+  width: 1.6rem; height: 1.6rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 50%;
+  color: var(--tide-ink-faint);
+  background: transparent;
+  font-size: 0.95rem; line-height: 1;
+  cursor: pointer;
+}
+.capabilityClose:hover { color: var(--tide-ink); }
+
+.capabilityGroups { display: grid; gap: 0.7rem; max-height: min(46vh, 380px); overflow-y: auto; padding-right: 0.2rem; }
+.capabilityGroup h4 {
+  margin: 0 0 0.35rem;
+  color: var(--tide-ink-faint);
+  font: 560 0.66rem var(--tide-font-editorial);
+  letter-spacing: 0.14em;
+}
+.capabilityItems { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 0.45rem; }
+.capabilityItem {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.6rem;
+  background: color-mix(in oklch, var(--tide-paper) 76%, transparent);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+}
+.capabilityItem:hover { border-color: color-mix(in oklch, var(--tide-accent, #cf5f32) 55%, var(--tide-line-standard)); transform: translateY(-1px); background: color-mix(in oklch, var(--tide-paper) 94%, transparent); }
+.capabilityItem strong { color: var(--tide-ink); font: 560 0.78rem var(--tide-font-editorial); }
+.capabilityItem small { color: var(--tide-ink-faint); font-size: 0.64rem; line-height: 1.35; }
+
+.contextButtonActive { border-color: color-mix(in oklch, var(--tide-accent, #cf5f32) 60%, var(--tide-line-standard)) !important; color: var(--tide-accent, #cf5f32); }
+
+/* 今日学习面板：空态首屏的积累状态 */
+.todayPanel {
+  margin-top: 1.6rem;
+  max-width: 560px;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid color-mix(in oklch, var(--tide-ink) 12%, transparent);
+  border-radius: 0.9rem;
+  background: color-mix(in oklch, var(--tide-paper) 86%, transparent);
+  backdrop-filter: blur(10px);
+  text-align: left;
+  animation: capability-rise 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.todayHead { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.6rem; }
+.todayHead span { font: 560 0.72rem var(--tide-font-editorial); letter-spacing: 0.14em; color: var(--tide-ink-faint); }
+.todayHead small { color: var(--tide-ink-faint); font-size: 0.62rem; }
+.todayCards { display: grid; gap: 0.5rem; }
+.todayCard {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.1rem 0.6rem; align-items: baseline;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid color-mix(in oklch, var(--tide-ink) 10%, transparent);
+  border-radius: 0.6rem;
+  background: color-mix(in oklch, var(--tide-paper) 80%, transparent);
+  cursor: pointer; text-align: left;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.todayCard:hover { border-color: color-mix(in oklch, var(--tide-accent, #cf5f32) 55%, transparent); transform: translateY(-1px); }
+.todayCard strong { grid-row: span 2; font: 620 1.3rem var(--tide-font-editorial); color: var(--tide-accent, #cf5f32); }
+.todayCard span { font-size: 0.76rem; color: var(--tide-ink); }
+.todayCard small { grid-column: 2; color: var(--tide-ink-faint); font-size: 0.62rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.todayGoal {
+  padding: 0.55rem 0.7rem;
+  border-left: 3px solid var(--tide-accent, #cf5f32);
+  background: color-mix(in oklch, var(--tide-accent, #cf5f32) 6%, transparent);
+  border-radius: 0.4rem;
+}
+.todayGoal span { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--tide-accent, #cf5f32); font-weight: 560; }
+.todayGoal p { margin: 0.2rem 0 0; font-size: 0.76rem; color: var(--tide-ink); line-height: 1.5; }
+
+/* ---------------- 内联任务条（网页资料 / 深度研究） ---------------- */
+
+/* 贴在输入区上方的一条窄带：它是一条流程的入口或进度，不该长得像对话框，
+   也不该把输入区挤走。 */
+.taskStrip {
+  width: min(100%, 62rem);
+  margin: 0 auto 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 12px;
+  background: var(--tide-paper-tint, rgba(255, 255, 255, 0.72));
+  display: grid;
+  gap: 0.45rem;
+}
+
+/* 研究任务：一颗挂在标题栏上的胶囊，点开才在浮层里展开报告和来源。
+   它不再占对话区的高度 —— 那块高度现在是黑板的。 */
+.researchChipWrap {
+  position: relative;
+  min-width: 0;
+}
+
+:global(.tide-preview-root[data-board-full='true']) .researchChipWrap {
+  grid-column: 2;
+  justify-self: center;
+  width: min(100%, 19rem);
+}
+
+:global(.tide-preview-root[data-board-full='true']) .researchChip {
+  max-width: 100%;
+}
+
+.researchChip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(20rem, 26vw);
+  padding: 0.34rem 0.72rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 999px;
+  background: var(--tide-paper-tint, rgba(255, 255, 255, 0.62));
+  color: var(--tide-ink-muted);
+  font-size: 0.74rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.researchChip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.researchChip em {
+  flex: none;
+  color: var(--tide-ink-faint);
+  font-style: normal;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.researchChip[data-status='FAILED'] {
+  border-color: var(--tide-danger-line);
+  color: var(--tide-danger);
+}
+
+.researchChip[data-status='READY'] {
+  border-color: var(--tide-line-active);
+  color: var(--tide-ink);
+}
+
+  .researchChip[data-status='PARTIAL'] {
+    border-color: var(--tide-line-active);
+    color: var(--tide-ink);
+  }
+
+.researchPopover {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: min(34rem, 78vw);
+  max-height: 62vh;
+  overflow: auto;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 12px;
+  background: var(--tide-paper);
+  box-shadow: 0 20px 44px rgba(12, 26, 20, 0.2);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.taskStripHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.taskStripHead strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--tide-ink);
+}
+
+.taskStripHead button {
+  border: 0;
+  background: none;
+  color: var(--tide-ink-faint);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.taskStripStage {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--tide-ink-muted);
+}
+
+.taskStripForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.taskStripForm input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.42rem 0.6rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tide-ink);
+  font-size: 0.8rem;
+}
+
+.taskStripForm input:focus-visible {
+  outline: 2px solid var(--tide-focus-soft);
+  outline-offset: 1px;
+}
+
+.taskStripForm button {
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--tide-line-active);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tide-ink);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.taskStripForm button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.taskStripError {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: #a3463c;
+}
+
+.taskStripResult {
+  display: grid;
+  gap: 0.5rem;
+  max-height: 46vh;
+  overflow: auto;
+}
+
+.researchRetry {
+  justify-self: start;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--tide-line-active);
+  border-radius: 999px;
+  background: var(--tide-paper);
+  color: var(--tide-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.taskStripMeta {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--tide-ink-faint);
+}
+
+.taskStripSources {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.74rem;
+  color: var(--tide-ink-muted);
+}
+
+.taskStripSources a {
+  color: var(--tide-sea-deep);
+  word-break: break-all;
+}
+
+.taskStrip[data-status='FAILED'] {
+  border-color: rgba(163, 70, 60, 0.4);
+}

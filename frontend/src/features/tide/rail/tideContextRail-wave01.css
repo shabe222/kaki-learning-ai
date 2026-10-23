@@ -1,0 +1,91 @@
+/**
+ * TideContextRail Wave 01 增强
+ * 最小、安全的交互反馈增强，与既有设计系统完全兼容
+ * 
+ * 增强范围：
+ * - 按钮 hover 微妙提升感
+ * - 输入框 focus 微妙发光
+ * - 完整 prefers-reduced-motion 支持
+ */
+
+/* ========================================
+   按钮交互增强
+   ======================================== */
+
+/* 关闭按钮 - 微妙提升 */
+.close:hover {
+  transform: translateY(-0.5px);
+}
+
+.close:active {
+  transform: translateY(0);
+}
+
+/* 机会操作按钮 - 微妙提升 */
+.opportunityActions button:hover {
+  transform: translateY(-0.5px);
+}
+
+.opportunityActions .opportunityOpen:hover {
+  box-shadow: 0 1px 3px oklch(33% 0.03 215 / 0.08);
+}
+
+.opportunityActions button:active {
+  transform: translateY(0);
+}
+
+/* 动作控制按钮 - 微妙提升 */
+.actionControls button:hover {
+  transform: translateY(-0.5px);
+  box-shadow: 0 1px 3px oklch(33% 0.03 215 / 0.08);
+}
+
+.actionControls button:active {
+  transform: translateY(0);
+}
+
+/* 对象操作按钮 - 微妙下划线 */
+.objectActions button:hover,
+.fieldActions button:hover,
+.contextClaimActions button:hover,
+.memoryActions button:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ========================================
+   输入框 focus 增强
+   ======================================== */
+
+/* 所有修正输入框 - 微妙发光 */
+.correction input:focus-visible,
+.objectCorrection input:focus-visible,
+.contextCorrection input:focus-visible,
+.memoryCorrection input:focus-visible {
+  box-shadow: 0 1px 0 0 var(--tide-line-active),
+              0 2px 4px oklch(var(--tide-sea-oklch) / 0.08);
+}
+
+/* ========================================
+   prefers-reduced-motion 支持
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .close:hover,
+  .close:active,
+  .opportunityActions button:hover,
+  .opportunityActions button:active,
+  .actionControls button:hover,
+  .actionControls button:active {
+    transform: none;
+  }
+  
+  .opportunityActions .opportunityOpen:hover,
+  .actionControls button:hover,
+  .correction input:focus-visible,
+  .objectCorrection input:focus-visible,
+  .contextCorrection input:focus-visible,
+  .memoryCorrection input:focus-visible {
+    box-shadow: none;
+  }
+}

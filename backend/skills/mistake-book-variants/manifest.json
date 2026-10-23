@@ -1,0 +1,14 @@
+{
+  "name": "mistake-book-variants",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA; near/far transfer variant design grounded in open transfer-of-learning practice. No third-party text copied.",
+    "methodology_references": ["Near/far transfer item design (open transfer-of-learning literature)"]
+  },
+  "applies": {
+    "agents": ["mistake_book_service"],
+    "resource_kinds": ["personalized_mistake_book"]
+  }
+}

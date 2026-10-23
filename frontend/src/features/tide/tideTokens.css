@@ -1,0 +1,48 @@
+/* DARYA / 柿子智学 — semantic theme tokens.
+   Kaki Morandi（默认）: 暖纸底、低饱和柿子橙、柿叶灰绿、暖炭灰文字。
+   Ocean（备选）: 保留低饱和蓝灰海岸世界。 */
+.tide-preview-root {
+  --tide-light: oklch(97.8% 0.013 82);
+  --tide-paper: oklch(98.3% 0.012 80);
+  --tide-sand-pale: oklch(94.8% 0.022 78);
+  --tide-sand: oklch(92.6% 0.024 76);
+  --tide-sand-deep: oklch(55% 0.09 47);
+  --tide-sea: oklch(55% 0.045 133);
+  --tide-sea-deep: oklch(39% 0.048 130);
+  --tide-ink: oklch(25.5% 0.022 55);
+  --tide-ink-muted: oklch(42% 0.026 58);
+  --tide-ink-faint: oklch(54% 0.023 62);
+  --tide-line-soft: oklch(50% 0.04 62 / 0.18);
+  --tide-line-standard: oklch(46% 0.052 58 / 0.36);
+  --tide-line-active: oklch(50% 0.105 45 / 0.7);
+  --tide-line: var(--tide-line-standard);
+  --tide-line-faint: var(--tide-line-soft);
+  --tide-focus: var(--tide-line-active);
+  --tide-focus-soft: oklch(56% 0.08 48 / 0.15);
+  --tide-danger: oklch(47% 0.125 30);
+  --tide-danger-line: oklch(58% 0.11 30 / 0.32);
+  --tide-ripe: oklch(52% 0.1 40);
+  --tide-leaf: oklch(50% 0.045 133);
+  --tide-code: oklch(23% 0.02 225);
+  --tide-code-ink: oklch(93% 0.012 215);
+  --tide-font-body: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei UI", system-ui, sans-serif;
+  --tide-font-editorial: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+}
+
+.tide-preview-root[data-darya-theme='ocean'] {
+  --tide-light: oklch(98.2% 0.008 94);
+  --tide-paper: oklch(99.1% 0.006 94);
+  --tide-sand-pale: oklch(96.2% 0.018 86);
+  --tide-sand: oklch(90.8% 0.031 82);
+  --tide-sand-deep: oklch(67% 0.055 72);
+  --tide-sea: oklch(57% 0.055 216);
+  --tide-sea-deep: oklch(39% 0.058 216);
+  --tide-line-soft: oklch(52% 0.035 205 / 0.14);
+  --tide-line-standard: oklch(48% 0.04 208 / 0.28);
+  --tide-line-active: oklch(42% 0.055 212 / 0.58);
+  --tide-focus-soft: oklch(42% 0.055 212 / 0.13);
+  --tide-danger: oklch(48% 0.13 30);
+  --tide-danger-line: oklch(58% 0.11 30 / 0.3);
+  --tide-ripe: var(--tide-sea-deep);
+  --tide-leaf: var(--tide-sea);
+}

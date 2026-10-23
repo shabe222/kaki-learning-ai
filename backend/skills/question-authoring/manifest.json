@@ -1,0 +1,14 @@
+{
+  "name": "question-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA; distractor-from-misconception and ladder grading grounded in open item-writing practice. No third-party text copied.",
+    "methodology_references": ["Item-writing guidelines (open literature)", "Mastery-ladder assessment design (open literature)"]
+  },
+  "applies": {
+    "agents": ["question_agent", "exam_service", "tiered_assessments", "materials_quiz"],
+    "resource_kinds": ["exam_assessment", "workspace_question", "tiered_assessment", "material_quiz"]
+  }
+}

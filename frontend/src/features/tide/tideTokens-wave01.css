@@ -1,0 +1,75 @@
+/* WAVE_01: Theme transition enhancement for tideTokens.css
+   Smooth color transitions when switching between kaki and ocean themes.
+   All transitions respect prefers-reduced-motion. */
+
+/* Smooth theme variable transitions */
+.tide-preview-root {
+  transition-property: 
+    --tide-light,
+    --tide-paper,
+    --tide-sand-pale,
+    --tide-sand,
+    --tide-sand-deep,
+    --tide-sea,
+    --tide-sea-deep,
+    --tide-ink,
+    --tide-ink-muted,
+    --tide-ink-faint,
+    --tide-line-soft,
+    --tide-line-standard,
+    --tide-line-active,
+    --tide-focus-soft,
+    --tide-danger,
+    --tide-danger-line,
+    --tide-ripe,
+    --tide-leaf,
+    --tide-code,
+    --tide-code-ink;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Apply transition to all elements that use theme tokens */
+.tide-preview-root *,
+.tide-preview-root *::before,
+.tide-preview-root *::after {
+  transition-property: color, background-color, border-color, box-shadow, fill, stroke;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Preserve existing transitions for interactive elements */
+.tide-preview-root button,
+.tide-preview-root input,
+.tide-preview-root select,
+.tide-preview-root a,
+.tide-preview-root [role="button"] {
+  /* These elements already have specific transitions defined in wave01 files */
+  /* This rule ensures theme transitions don't override interaction transitions */
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 220ms, 220ms, 220ms, 220ms, 200ms;
+}
+
+/* Note: textarea height transition is defined in TideChatSurface.module.css (.composer textarea) */
+
+/* Disable all theme transitions for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .tide-preview-root {
+    transition: none !important;
+  }
+  
+  .tide-preview-root *,
+  .tide-preview-root *::before,
+  .tide-preview-root *::after {
+    transition-property: none !important;
+  }
+  
+  /* Still allow transform transitions for interactive feedback */
+  .tide-preview-root button:not([disabled]),
+  .tide-preview-root input:not([disabled]),
+  .tide-preview-root textarea:not([disabled]),
+  .tide-preview-root a {
+    transition-property: transform !important;
+    transition-duration: 0ms !important;
+  }
+}

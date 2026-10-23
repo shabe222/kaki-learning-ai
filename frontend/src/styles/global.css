@@ -1,0 +1,139 @@
+/* 柿子智学 · DARYA — shared Kaki Morandi tokens（用户端与管理端同一产品家族） */
+:root {
+  --primary: #bd6b3a;
+  --primary-dark: #9a5526;
+  --primary-soft: #f3e6d8;
+  --primary-faint: rgba(189, 107, 58, 0.09);
+  --accent-ripe: #b95c38;
+  --accent-leaf: #75816a;
+  --accent-apricot: #ecd9c4;
+  --accent-peach: #f3e2d3;
+  --canvas: #f2ebdf;
+  --canvas-warm: #f8f3e9;
+  --surface: rgba(253, 249, 243, 0.9);
+  --surface-strong: rgba(255, 253, 249, 0.96);
+  --surface-soft: rgba(246, 240, 231, 0.85);
+  --surface-solid: #fdfaf5;
+  --hover: #f5ede1;
+  --ink: #2e2822;
+  --text: #3a332b;
+  --muted: #776c5f;
+  --text-soft: #5f554a;
+  --text-mute: #948878;
+  --line: rgba(136, 110, 86, 0.2);
+  --border: var(--line);
+  --success: #6e8351;
+  --warning: #ad7a39;
+  --danger: #b0523f;
+  --paper: var(--surface);
+  --paper-strong: var(--surface-strong);
+  --paper-thinnest: #fffdf9;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --control-height: 38px;
+  --shadow-soft: 0 8px 26px rgba(96, 70, 48, 0.055);
+  --shadow-card: 0 14px 40px rgba(96, 70, 48, 0.07);
+  --shadow-focus: 0 0 0 3px rgba(189, 107, 58, 0.15), 0 10px 28px rgba(189, 107, 58, 0.1);
+  --font-body: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  --seal: #bb5230;
+  --pdf: #c65a4a;
+  --word: #5a7aa0;
+  --ppt: #bd6b3a;
+  --dot-ring: #faf5ec;
+  --text-axis: #857a6c;
+  --text-yaxis: #7d7264;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(circle at 88% 0%, rgba(189, 124, 66, 0.055), transparent 26%),
+    linear-gradient(180deg, var(--canvas-warm), var(--canvas));
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.ant-card,
+.ant-table-wrapper,
+.ant-modal-content {
+  box-shadow: var(--shadow-soft);
+}
+
+.ant-btn {
+  min-height: var(--control-height);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, var(--primary), #ca7d4c);
+  box-shadow: 0 6px 16px rgba(189, 107, 58, 0.16);
+}
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector {
+  border-color: var(--line) !important;
+  background: rgba(255, 253, 249, 0.92) !important;
+}
+
+.ant-message {
+  top: 76px !important;
+}
+
+body.notes-route-active .ant-message {
+  top: auto !important;
+  right: 310px;
+  bottom: 72px;
+  left: 548px;
+  width: auto;
+}
+
+::selection {
+  color: var(--ink);
+  background: rgba(189, 130, 80, 0.28);
+}
+
+.ant-empty-description {
+  color: var(--muted);
+}
+
+/* 仅在登录/注册路由下解除全局最小宽度，退出时由 AuthPage 自动移除该 class */
+body.auth-route-active {
+  min-width: 0;
+  overflow-x: hidden;
+}
+/* Route-level fallback stays asset-free so /darya never downloads legacy empty-state art. */
+.app-route-state {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 0.45rem;
+  padding: 2rem;
+  text-align: center;
+  color: #453c33;
+  background: #f3ede2;
+}
+
+.app-route-state span { color: #776c5f; font-size: 0.9rem; }

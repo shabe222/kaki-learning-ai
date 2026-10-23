@@ -1,0 +1,427 @@
+/**
+ * 左侧栏：这条对话的消息流。
+ * 一行一条，当前这条高亮；整条线程一眼看完，不用在主区里上下翻。
+ */
+
+.sidebar {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  width: 15.5rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 1rem 0.85rem 0.9rem;
+  border-right: 1px solid var(--tide-line-soft);
+  background: color-mix(in oklch, var(--tide-paper) 62%, transparent);
+}
+
+/* ---------------- 品牌 ---------------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.brand > div {
+  display: grid;
+  gap: 0.04rem;
+  min-width: 0;
+}
+
+.brand span {
+  color: var(--tide-sea-deep);
+  font-size: 0.6rem;
+  font-weight: 660;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.brand strong {
+  color: var(--tide-ink);
+  font-family: var(--tide-font-editorial);
+  font-size: 1.22rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.1;
+}
+
+.logo {
+  width: 2.05rem;
+  height: 2.05rem;
+  flex: none;
+  object-fit: contain;
+}
+
+/* ---------------- 新的对话 ---------------- */
+
+.newThread {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--tide-ink);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.newThread:hover:not(:disabled) {
+  border-color: var(--tide-line-active);
+  background: var(--tide-focus-soft);
+}
+
+.newThread:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------------- 消息流 ---------------- */
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0 0.15rem;
+}
+
+.sectionHead span {
+  color: var(--tide-sea-deep);
+  font-size: 0.6rem;
+  font-weight: 660;
+  letter-spacing: 0.16em;
+}
+
+/* 两种看法的小切换：列表（一条一行）/ 对话（手机聊天的样子）。 */
+.modeTabs {
+  display: inline-flex;
+  padding: 1px;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 0.32rem;
+  background: color-mix(in oklch, var(--tide-paper) 70%, transparent);
+}
+
+.modeTab {
+  padding: 0.16rem 0.42rem;
+  border: 0;
+  border-radius: 0.24rem;
+  background: transparent;
+  color: var(--tide-ink-faint);
+  font: inherit;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.modeTab[data-active='true'] {
+  background: var(--tide-paper);
+  color: var(--tide-ink);
+  box-shadow: 0 1px 3px oklch(25% 0.02 220 / 0.14);
+}
+
+.list {
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.15rem 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tide-line) transparent;
+  list-style: none;
+}
+
+.list li + li {
+  margin-top: 1px;
+}
+
+/* 一行一条。当前这一条高亮。侧栏只展示 —— 这里不是按钮，点它没有动作。 */
+.row {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.34rem 0.4rem 0.34rem 0.3rem;
+  border-left: 2px solid transparent;
+  border-radius: 0.32rem;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: inherit;
+  text-align: left;
+}
+
+.row[data-role='user'] {
+  color: var(--tide-ink);
+}
+
+.row[data-now='true'] {
+  background: color-mix(in oklch, var(--tide-paper) 78%, transparent);
+  color: var(--tide-ink);
+  border-left-color: var(--tide-line-active);
+}
+
+.role {
+  color: var(--tide-ink-faint);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.row[data-role='user'] .role {
+  color: var(--tide-sea-deep);
+}
+
+.peek {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 0.5rem 0.3rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.7rem;
+  line-height: 1.7;
+}
+
+/* ---------------- 压缩态：一根细栏 ---------------- */
+
+/* 收起后每条消息变成一个小短条，当前这条颜色最深；
+   主区拿回这 200px 宽，板子和正文都更宽裕。 */
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 3rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.75rem 0.3rem;
+  border-right: 1px solid var(--tide-line-soft);
+  background: color-mix(in oklch, var(--tide-paper) 62%, transparent);
+}
+
+.railBtn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  cursor: pointer;
+}
+
+.railBtn:hover:not(:disabled) {
+  background: var(--tide-focus-soft);
+  color: var(--tide-sea-deep);
+}
+
+.railBtn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.railList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0.15rem 0;
+}
+
+.railBar {
+  flex: none;
+  width: 0.95rem;
+  height: 0.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--tide-line-standard);
+}
+
+.railBar[data-role='user'] {
+  background: var(--tide-sand-deep);
+}
+
+.railBar[data-now='true'] {
+  width: 1.15rem;
+  height: 0.4rem;
+  background: var(--tide-ink);
+}
+
+/* ---------------- 品牌行上的收起钮 ---------------- */
+
+.collapseBtn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-left: auto;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--tide-ink-faint);
+  cursor: pointer;
+}
+
+.collapseBtn:hover {
+  background: var(--tide-focus-soft);
+  color: var(--tide-sea-deep);
+}
+
+/* ---------------- 对话（气泡）模式 ---------------- */
+
+/* 按手机聊天的样子等比缩小：头像在外、气泡在内，你右我左。
+   字压到 0.66rem，气泡最多露 8 行 —— 再长的内容点一下，主区展开那一条。 */
+.chat {
+  min-height: 0;
+  margin: 0;
+  padding: 0.2rem 0.15rem 0.2rem 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tide-line) transparent;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.chatRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.34rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+}
+
+.chatRow[data-role='user'] {
+  flex-direction: row-reverse;
+}
+
+.chatAvatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.32rem;
+  height: 1.32rem;
+  border-radius: 0.26rem;
+  background: var(--tide-sand);
+  color: var(--tide-sea-deep);
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.chatRow[data-role='user'] .chatAvatar {
+  background: var(--tide-focus-soft);
+}
+
+.bubble {
+  min-width: 0;
+  max-width: 82%;
+  padding: 0.36rem 0.46rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 0.5rem;
+  background: var(--tide-paper);
+  color: var(--tide-ink);
+  font-size: 0.66rem;
+  line-height: 1.58;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  cursor: default;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
+}
+
+/* 微信那种：靠外的那一角是尖的。 */
+.chatRow[data-role='assistant'] .bubble {
+  border-top-left-radius: 0.12rem;
+}
+
+.chatRow[data-role='user'] .bubble {
+  border-top-right-radius: 0.12rem;
+  background: var(--tide-focus-soft);
+  border-color: transparent;
+}
+
+.chatRow[data-now='true'] .bubble {
+  border-color: var(--tide-line-active);
+}
+
+/* ---------------- 底部 ---------------- */
+
+.footer {
+  display: grid;
+  gap: 0.4rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--tide-line-soft);
+}
+
+.footerButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.4rem 0.3rem;
+  border: 0;
+  border-radius: 0.32rem;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: inherit;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.footerButton:hover {
+  background: var(--tide-focus-soft);
+  color: var(--tide-sea-deep);
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0 0.3rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.62rem;
+}
+
+@media (max-width: 60rem) {
+  .sidebar {
+    width: 12.5rem;
+    padding-inline: 0.6rem;
+  }
+}
+
+@media (max-width: 44rem) {
+  .sidebar {
+    display: none;
+  }
+}

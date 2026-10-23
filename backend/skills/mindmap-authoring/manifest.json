@@ -1,0 +1,14 @@
+{
+  "name": "mindmap-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing mindmap JSON tree schema; MECE structuring grounded in open concept-mapping practice.",
+    "methodology_references": ["Concept mapping / MECE decomposition (open literature)"]
+  },
+  "applies": {
+    "agents": ["mindmap_agent", "workspace_mindmaps"],
+    "resource_kinds": ["workspace_mindmap"]
+  }
+}

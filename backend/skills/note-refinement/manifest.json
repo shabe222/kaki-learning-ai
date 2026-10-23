@@ -1,0 +1,14 @@
+{
+  "name": "note-refinement",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing nine note action types and apply/dismiss rollback contract.",
+    "methodology_references": ["Non-destructive AI editing (DARYA apply/dismiss contract)"]
+  },
+  "applies": {
+    "agents": ["note_service"],
+    "resource_kinds": ["note_suggestion"]
+  }
+}

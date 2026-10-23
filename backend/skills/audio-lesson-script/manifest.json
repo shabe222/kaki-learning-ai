@@ -1,0 +1,14 @@
+{
+  "name": "audio-lesson-script",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA for screen-free audio delivery; TTS uses the existing Edge TTS pipeline.",
+    "methodology_references": ["Auditory sequence design for spoken instruction (open literature)"]
+  },
+  "applies": {
+    "agents": ["audio_lesson_service"],
+    "resource_kinds": ["study_audio_lesson"]
+  }
+}

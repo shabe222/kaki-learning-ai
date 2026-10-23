@@ -1,0 +1,193 @@
+/**
+ * 黑板样式：板面材质与粉笔动画。
+ * 全部走 CSS Module，不引入任何动画库 —— 产品里没有 framer-motion 之类的依赖。
+ */
+
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  display: block;
+  /* 板子本身的材质在 SVG 里画，这里只保证不变形、不溢出 */
+  overflow: hidden;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+/* ---------------- 落笔 ---------------- */
+
+/* pathLength=1 + dasharray:1 让任意长度的路径都能"一笔画出来" */
+.drawIn {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: bbDraw 0.5s ease-out forwards;
+}
+
+@keyframes bbDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.charIn {
+  animation: bbCharIn 0.22s ease-out both;
+}
+
+@keyframes bbCharIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------------- 擦除 ---------------- */
+
+/* 一道擦拭从左往右扫过 + 粉笔灰一起淡掉。
+   两个动画都留着是为了保险：万一浏览器不认 SVG 几何属性的过渡，至少还有淡出。 */
+.wipeGroup {
+  animation: bbWipeFade 0.52s ease-in forwards;
+}
+
+.wipeRect {
+  animation: bbWipeSweep 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bbWipeSweep {
+  from {
+    x: var(--bbwx);
+    width: var(--bbww);
+  }
+  to {
+    x: calc(var(--bbwx) + var(--bbww));
+    width: 0px;
+  }
+}
+
+@keyframes bbWipeFade {
+  0% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------- 指一下 ---------------- */
+
+.pointerRing {
+  fill: none;
+  stroke: #ffd98a;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.55));
+  animation: bbPointerPulse 0.5s ease-in-out 4, bbPointerFade 0.45s ease-in 1.9s forwards;
+}
+
+@keyframes bbPointerPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bbPointerFade {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ---------------- 正在讲的那一句 ---------------- */
+
+/* 这一句住在板子上方，不压在板面上。板子是一整块深色的画，
+   一颗深色胶囊压在下沿既挡笔迹，又像给黑板配了个播放条 —— 而它其实只是 DARYA 此刻说的话。
+   所以放到板子上方、紧贴板子：左边一道竖线点出"这一句正在进行"，其余交给字本身。 */
+.captionLayer {
+  display: grid;
+  width: max-content;
+  max-width: min(100%, 46rem);
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--tide-line-active, rgba(122, 90, 65, 0.55));
+  pointer-events: none;
+}
+
+/* 两句叠在同一个格子里：进来的那句在写，出去的那句在淡，交接处不空一拍。 */
+.caption {
+  grid-area: 1 / 1;
+  margin: 0;
+  color: var(--tide-ink-muted, rgba(61, 47, 38, 0.82));
+  font-family: var(--tide-font-editorial, "KaiTi", "楷体", "STKaiti", "Microsoft YaHei", sans-serif);
+  font-size: clamp(1.02rem, 1.25vw, 1.24rem);
+  line-height: 1.62;
+  letter-spacing: 0.01em;
+  text-wrap: pretty;
+  animation: bbCaptionIn 0.36s cubic-bezier(0.16, 0.84, 0.34, 1) both;
+}
+
+.captionOut {
+  animation: bbCaptionOut 0.42s ease-in both;
+}
+
+@keyframes bbCaptionIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes bbCaptionOut {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* 读屏软件读的内容，屏幕上不占地方 */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 用户偏好减少动态效果时，直接给最终状态 */
+@media (prefers-reduced-motion: reduce) {
+  .drawIn {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  .charIn {
+    animation: none;
+  }
+
+  .wipeGroup,
+  .wipeRect {
+    animation-duration: 0.01s;
+  }
+
+  .pointerRing {
+    animation: none;
+    opacity: 0;
+  }
+
+  .caption,
+  .captionOut {
+    animation: none;
+  }
+}

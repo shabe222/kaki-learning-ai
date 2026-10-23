@@ -1,0 +1,16 @@
+{
+  "kaki-fireworks-night": {
+    "file": "/audio/kaki-fireworks-night.m4a",
+    "use": ["轻松一下月夜烟花", "拾光漫游胜利与拾光宝库庆祝"],
+    "source": "用户提供",
+    "format": "M4A / AAC-LC",
+    "duration_seconds": 33.18,
+    "sample_rate_hz": 44100,
+    "channels": 1,
+    "autoplay": false,
+    "loop": false,
+    "default_volume": 0.28,
+    "built_in_fade_in_seconds": 1.8,
+    "built_in_fade_out_seconds": 3.2
+  }
+}

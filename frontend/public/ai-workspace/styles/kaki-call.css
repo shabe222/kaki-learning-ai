@@ -1,0 +1,101 @@
+/* KAKI_AVATAR_RUNTIME_V3_ANIMATABLE_ASSET + unified voice call presentation.
+   Brain-accepted component asset runtime only; standalone demo chrome is intentionally excluded. */
+.digital-tutor-sprite{background:none!important;filter:none!important;display:block;overflow:visible}
+.digital-tutor-stage[data-renderer="animatable_asset_canvas"] .digital-tutor-portrait{overflow:visible;background:linear-gradient(160deg,#fff4e7,#f9e8d5)}
+.kaki-live2d-canvas,.kaki-animatable-avatar-canvas{display:block;width:100%;height:100%;background:transparent;pointer-events:none;object-fit:contain}
+.kaki-live2d-unavailable{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:7px;padding:10px;text-align:center;color:#705646;background:linear-gradient(160deg,#fff8ef,#f3e5d4)}
+.kaki-live2d-unavailable-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#d97243;color:#fff;font-weight:800;box-shadow:0 8px 18px rgba(109,62,34,.16)}
+.kaki-live2d-unavailable-copy{display:grid;gap:2px}.kaki-live2d-unavailable-copy strong{font-size:11px}.kaki-live2d-unavailable-copy small{font-size:9px;line-height:1.35;color:#8d7768}
+.voice-call-shell{position:absolute;z-index:1200;inset:60px 10px 10px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;border:1px solid #ddc4aa;border-radius:22px;background:linear-gradient(150deg,#fffdf9 0%,#fff7ed 52%,#f7eadb 100%);box-shadow:0 22px 64px rgba(73,46,27,.2);overflow:hidden;color:#403127}
+.voice-call-shell[hidden]{display:none}
+.voice-call-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(202,165,133,.42);background:rgba(255,253,249,.82);backdrop-filter:blur(10px)}
+.voice-call-head-copy{display:grid;gap:2px}.voice-call-head-copy strong{font-size:15px}.voice-call-head-copy small{color:#876f60;font-size:11px}
+.voice-call-controls{display:flex;align-items:center;gap:6px}.voice-call-controls button{padding:7px 10px;border-color:#dfcbb8;background:#fffaf4;color:#6b4936}.voice-call-controls .voice-call-end{border-color:#cf8067;color:#9b412c}
+.voice-call-body{min-height:0;display:grid;grid-template-columns:1fr;position:relative;padding:18px;overflow:hidden;transition:grid-template-columns .36s cubic-bezier(.2,.8,.2,1)}
+.voice-call-shell[data-teaching="true"] .voice-call-body{grid-template-columns:minmax(0,1.45fr) minmax(210px,.55fr);gap:16px;align-items:stretch}
+.voice-call-board{min-width:0;min-height:0;display:none;overflow:auto;padding:16px 18px;border:10px solid transparent;border-radius:18px;color:#f2ead5;background:
+  linear-gradient(#2d3b33,#2d3b33) padding-box,
+  linear-gradient(160deg,#8a5a2b 0%,#6e4523 55%,#5d3b1d 100%) border-box,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.055'/></svg>") repeat,
+  radial-gradient(130% 100% at 16% 4%,rgba(255,255,255,.055),rgba(255,255,255,0) 48%),
+  radial-gradient(120% 95% at 90% 100%,rgba(0,0,0,.22),rgba(0,0,0,0) 60%),
+  linear-gradient(160deg,#2d3b33 0%,#26342f 48%,#202c26 100%);
+  box-shadow:inset 0 3px 14px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.04),0 10px 26px rgba(31,24,15,.14);scrollbar-color:rgba(255,255,255,.28) transparent;text-shadow:0 0 1px rgba(255,255,255,.16)}
+.voice-call-shell[data-teaching="true"] .voice-call-board{display:block;animation:kakiBoardEnter .36s cubic-bezier(.2,.8,.2,1) both}
+.voice-call-avatar-zone{min-width:0;display:grid;place-items:center;align-content:center;gap:14px;transition:transform .36s cubic-bezier(.2,.8,.2,1)}
+.voice-call-avatar{width:min(34vw,300px);aspect-ratio:1/1.08;transition:width .36s cubic-bezier(.2,.8,.2,1),transform .36s cubic-bezier(.2,.8,.2,1)}
+.voice-call-shell[data-teaching="true"] .voice-call-avatar{width:min(25vw,245px);transform:translateX(2px)}
+.voice-call-avatar .kaki-live2d-canvas,.voice-call-avatar .kaki-animatable-avatar-canvas,.voice-call-avatar .kaki-live2d-unavailable{width:100%;height:100%}
+/* 数字人收口：通话中的柿小吉 = 正面固定形象 + 轻量反馈 */
+.voice-call-avatar{display:grid;place-items:center}
+.voice-call-avatar-image{width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 14px 22px rgba(122,66,32,.22));animation:kakiAvatarBreathe 3.8s ease-in-out infinite;transition:filter .3s ease,transform .3s ease,opacity .3s ease}
+.voice-call-avatar[data-avatar-state="listening"] .voice-call-avatar-image{animation:kakiAvatarBreathe 3.8s ease-in-out infinite,kakiAvatarListenGlow 1.6s ease-in-out infinite}
+.voice-call-avatar[data-avatar-state="thinking"] .voice-call-avatar-image{animation:kakiAvatarThink 1.8s ease-in-out infinite}
+.voice-call-avatar[data-avatar-state="speaking"] .voice-call-avatar-image{animation:kakiAvatarSpeak .72s ease-in-out infinite}
+.voice-call-avatar[data-avatar-state="teaching"] .voice-call-avatar-image{animation:kakiAvatarSpeak .9s ease-in-out infinite;filter:drop-shadow(0 14px 22px rgba(122,66,32,.22)) drop-shadow(0 0 18px rgba(226,124,62,.34))}
+.voice-call-avatar[data-avatar-state="interrupted"] .voice-call-avatar-image{animation:none;opacity:.88}
+@keyframes kakiAvatarBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.012)}}
+@keyframes kakiAvatarListenGlow{0%,100%{filter:drop-shadow(0 14px 22px rgba(122,66,32,.22)) drop-shadow(0 0 0 rgba(226,124,62,0))}50%{filter:drop-shadow(0 14px 22px rgba(122,66,32,.22)) drop-shadow(0 0 16px rgba(226,124,62,.4))}}
+@keyframes kakiAvatarThink{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(1.6deg)}}
+@keyframes kakiAvatarSpeak{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.028)}}
+.voice-call-bubble{width:min(560px,82vw);min-height:76px;max-height:150px;overflow:auto;padding:12px 14px;border:1px solid #e4d0bb;border-radius:16px;background:rgba(255,255,255,.88);box-shadow:0 10px 30px rgba(96,59,34,.08);font-size:clamp(13px,1.2vw,15px);line-height:1.65;color:#514238}
+.voice-call-shell[data-teaching="true"] .voice-call-bubble{width:min(310px,28vw)}
+.voice-call-state{display:inline-flex;align-items:center;gap:7px;padding:4px 9px;border-radius:999px;background:#f2dfcd;color:#874c30;font-size:11px;font-weight:700}
+.voice-call-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#c96639;box-shadow:0 0 0 4px rgba(201,102,57,.12)}
+.voice-call-shell[data-state="listening"] .voice-call-state::before{animation:kakiListenPulse 1.15s ease-in-out infinite}
+.voice-call-transcript-shell{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;padding:11px 14px;border-top:1px solid rgba(202,165,133,.42);background:rgba(255,252,247,.9)}
+.voice-call-transcript{min-height:42px;max-height:92px;overflow:auto;display:grid;gap:4px;color:#68594e;font-size:12px;line-height:1.45}.voice-call-transcript p{margin:0}.voice-call-transcript b{color:#8b4a30}
+.voice-call-actions{display:flex;gap:6px}.voice-call-actions button{padding:7px 9px}.voice-call-interrupt{border-color:#d98258!important;color:#8f4829!important}
+.voice-call-recovery{padding:8px 10px;border:1px solid #dfba9b;border-radius:10px;background:#fff4e7;color:#7d5036;font-size:12px}.voice-call-recovery[hidden]{display:none}
+
+.kaki-board-head{display:grid;gap:5px;margin-bottom:16px}.kaki-board-head small{color:rgba(255,250,230,.5);font-size:10px;font-weight:800;letter-spacing:.22em;text-shadow:0 0 2px rgba(255,255,255,.18)}.kaki-board-head strong{font-size:19px;color:#faf2dc;text-shadow:0 0 3px rgba(255,255,255,.22),0 1px 2px rgba(0,0,0,.4)}
+.kaki-board-body{display:grid;gap:12px;line-height:1.62;color:#f0e8d4;text-shadow:0 0 2px rgba(255,255,255,.14)}.kaki-board-skeleton{margin:0;padding:12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.1),rgba(255,255,255,.04));background-size:220% 100%;animation:kakiBoardSkeleton 1.7s ease-in-out infinite;color:rgba(240,232,212,.55)}
+.kaki-board-list,.kaki-board-steps,.kaki-board-flow,.kaki-board-timeline{display:grid;gap:8px;margin:0;padding-left:22px}.kaki-board-step{padding:7px 9px;border-radius:9px;transition:background .2s ease,box-shadow .2s ease}.kaki-board-step.is-active{background:rgba(255,248,214,.13);box-shadow:inset 3px 0 #f0dc8c,0 0 12px rgba(255,240,170,.08)}.kaki-board-formula{padding:16px;border-radius:12px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);font:700 20px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;text-align:center;color:#f6e9ae;text-shadow:0 0 3px rgba(255,255,255,.18)}.kaki-board-timeline{list-style:none;padding-left:0}.kaki-board-timeline .kaki-board-step{position:relative;padding-left:24px}.kaki-board-timeline .kaki-board-step::before{content:"";position:absolute;left:7px;top:14px;width:7px;height:7px;border-radius:50%;background:#f0dc8c;box-shadow:0 0 0 4px rgba(240,220,140,.12),0 0 8px rgba(240,220,140,.4)}.kaki-board-timeline .kaki-board-step:not(:last-child)::after{content:"";position:absolute;left:10px;top:22px;bottom:-8px;width:1px;background:rgba(255,250,220,.18)}
+.kaki-board-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kaki-board-compare section{padding:10px 12px;border:1px solid rgba(255,250,225,.14);border-radius:12px;background:rgba(255,255,255,.045)}.kaki-board-compare section strong{color:#f6e9ae;font-weight:800;text-shadow:0 0 3px rgba(255,255,255,.16)}.kaki-board-compare p{margin:6px 0 0}.kaki-board-problem,.kaki-board-caption{margin:0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}.kaki-board-demo{height:160px;display:flex;align-items:flex-end;gap:9px;padding:16px;border-radius:12px;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}.kaki-board-demo-bar{flex:1;height:var(--demo-value,40%);min-width:18px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#f0c98e,#d9a45e);transition:height .35s ease,filter .2s ease}.kaki-board-demo-bar.is-active{filter:brightness(1.12);box-shadow:0 0 0 3px rgba(240,220,140,.16),0 0 12px rgba(240,220,140,.3)}
+.kaki-board-diagram{display:grid;gap:6px;justify-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.kaki-board-annotations{display:grid;gap:6px;margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(240,220,140,.07);box-shadow:inset 0 0 0 1px rgba(246,233,174,.18)}
+.kaki-board-annotation{margin:0;padding-left:14px;position:relative;color:#f6e9ae;font-size:13px;line-height:1.55;text-shadow:0 0 2px rgba(0,0,0,.35)}
+.kaki-board-annotation::before{content:"◆";position:absolute;left:0;top:0;color:#f0dc8c;font-size:10px}.kaki-board-diagram figcaption{color:rgba(255,250,230,.6);font-size:11px;letter-spacing:.05em}.kaki-board-svg{width:100%;max-width:420px;height:auto;overflow:visible}.kaki-board-svg .kaki-diagram-axis{stroke:rgba(255,250,230,.32);stroke-width:1.4;stroke-linecap:round}.kaki-board-svg .kaki-diagram-aux{stroke:rgba(255,250,230,.26);stroke-width:1.2;stroke-dasharray:4 5;stroke-linecap:round}.kaki-board-svg .kaki-diagram-shape{fill:rgba(240,220,140,.16);stroke:#f6e9ae;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:400;stroke-dashoffset:400;animation:kakiDiagramDraw .8s cubic-bezier(.4,0,.2,1) forwards}.kaki-board-svg .kaki-diagram-bar{fill:rgba(240,220,140,.82);stroke:#f6e9ae;stroke-width:1.2;transform-origin:bottom;animation:kakiBarGrow .55s cubic-bezier(.2,.8,.2,1) both;transition:filter .2s ease}.kaki-board-svg .kaki-diagram-bar.is-active{filter:brightness(1.25);box-shadow:0 0 10px rgba(240,220,140,.4)}.kaki-board-svg .kaki-diagram-slice{transition:opacity .25s ease,filter .25s ease}.kaki-board-svg .kaki-diagram-slice.is-active{filter:brightness(1.2);opacity:1}.kaki-board-svg .kaki-diagram-trace{fill:none;stroke:#f6e9ae;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:600;stroke-dashoffset:600;animation:kakiDiagramDraw 1.1s cubic-bezier(.4,0,.2,1) forwards}.kaki-board-svg .kaki-diagram-dot{fill:#faf2dc;animation:kakiDotIn .4s ease both}.kaki-board-svg .kaki-diagram-label{fill:#e8dfc4;font-size:10px;text-anchor:middle;text-shadow:none}@keyframes kakiDiagramDraw{to{stroke-dashoffset:0}}@keyframes kakiBarGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}@keyframes kakiDotIn{from{opacity:0}to{opacity:1}}
+
+.tutor-call-invite{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-top:5px;padding:9px 10px;border:1px solid #ead5c0;border-radius:11px;background:#fff9f1}.tutor-call-invite span{display:grid;gap:2px}.tutor-call-invite small{color:#806b5d}.tutor-call-invite-actions{display:flex;gap:5px}.tutor-call-invite-actions button{padding:6px 8px;font-size:12px}
+
+@keyframes kakiBoardEnter{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@keyframes kakiListenPulse{50%{transform:scale(1.35);opacity:.55}}
+@keyframes kakiBoardSkeleton{50%{background-position:100% 0}}
+@media(max-width:760px){.voice-call-shell{inset:60px 5px 5px;border-radius:15px}.voice-call-head{align-items:flex-start}.voice-call-controls{flex-wrap:wrap;justify-content:flex-end}.voice-call-body,.voice-call-shell[data-teaching="true"] .voice-call-body{display:flex;flex-direction:column;padding:10px;overflow:auto}.voice-call-board{order:2;min-height:230px}.voice-call-avatar-zone{order:1;flex:none}.voice-call-avatar,.voice-call-shell[data-teaching="true"] .voice-call-avatar{width:min(45vw,210px)}.voice-call-bubble,.voice-call-shell[data-teaching="true"] .voice-call-bubble{width:min(92vw,520px);max-height:110px}.voice-call-transcript-shell{grid-template-columns:1fr}.voice-call-actions{justify-content:flex-end}.kaki-board-compare{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.voice-call-body,.voice-call-avatar-zone,.voice-call-avatar,.kaki-board-step,.kaki-board-demo-bar{transition:none!important}.voice-call-shell[data-teaching="true"] .voice-call-board,.voice-call-shell[data-state="listening"] .voice-call-state::before,.kaki-board-skeleton,.voice-call-avatar-image{animation:none!important}}
+
+.kaki-avatar-audio-channel{display:none!important}
+
+/* 黑板作答输入层（AI 移交作答权给学生时显示）：黑板底部小区域，不遮挡黑板与老师 */
+/* 木框：两套黑板共用（AI 板书黑板 .voice-call-board 与输入黑板 .kaki-blackboard-write） */
+.voice-call-shell .kaki-blackboard-hint{display:block;padding:8px 12px;font-size:13px;font-weight:800;color:#faf2dc;background:rgba(240,220,140,.14);border-bottom:1px solid rgba(255,250,225,.16);letter-spacing:.02em;text-shadow:0 0 3px rgba(0,0,0,.45)}
+.voice-call-shell .kaki-blackboard-write{position:relative;border-radius:12px;overflow:hidden;min-height:0;animation:kakiBoardWriteIn .3s cubic-bezier(.2,.8,.2,1) both}
+/* 输入层挂载在 .voice-call-body 内，底部居中、舒适宽度（不横跨整块黑板、不挡老师） */
+.voice-call-shell .voice-call-body .kaki-blackboard-write{position:absolute;left:50%;transform:translateX(-50%);width:min(480px,calc(100% - 260px));min-width:280px;bottom:14px;top:auto;min-height:0;z-index:6;margin-top:0;display:flex;flex-direction:column;border:10px solid transparent;border-radius:16px;background:
+  linear-gradient(#2d3b33,#2d3b33) padding-box,
+  linear-gradient(160deg,#8a5a2b 0%,#6e4523 55%,#5d3b1d 100%) border-box,
+  linear-gradient(160deg,#2d3b33 0%,#26342f 48%,#202c26 100%);
+  box-shadow:inset 0 3px 14px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.05)}
+.voice-call-shell .kaki-blackboard-write[hidden]{display:none}
+@keyframes kakiBoardWriteIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* 黑板同色输入框：不突兀、白字、内容多时滚动条限制范围 */
+.voice-call-shell .kaki-blackboard-input{
+  display:block;width:100%;box-sizing:border-box;resize:none;overflow-y:auto;
+  min-height:58px;max-height:110px;margin:0;padding:10px 12px;
+  border:0;border-radius:0;outline:0;background:transparent;
+  color:#f6e9ae;caret-color:#f6e9ae;font:inherit;font-size:14px;line-height:1.6;
+  text-shadow:0 0 2px rgba(0,0,0,.4);scrollbar-width:thin;
+}
+.voice-call-shell .kaki-blackboard-input::placeholder{color:rgba(246,233,174,.4)}
+.voice-call-shell .kaki-blackboard-input::-webkit-scrollbar{width:6px}
+.voice-call-shell .kaki-blackboard-input::-webkit-scrollbar-thumb{background:rgba(246,233,174,.3);border-radius:3px}
+.voice-call-shell .kaki-blackboard-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:7px 10px;border-top:1px solid rgba(255,250,225,.12)}
+.voice-call-shell .kaki-blackboard-tools button{padding:4px 12px;border:1px solid rgba(255,250,225,.16);border-radius:999px;background:rgba(255,255,255,.05);color:#f0e8d4;font-size:12px;font-weight:700;transition:background .16s ease,border-color .16s ease;cursor:pointer}
+.voice-call-shell .kaki-blackboard-tools button:hover{border-color:rgba(246,233,174,.55);background:rgba(255,255,255,.1)}
+.voice-call-shell .kaki-blackboard-submit.is-primary{border-color:rgba(240,220,140,.5)!important;background:rgba(240,220,140,.16)!important;color:#faf2dc!important}
+.voice-call-shell .kaki-blackboard-status{padding:8px 12px;border-radius:10px;background:rgba(255,250,225,.08);color:#f6e9ae;font-size:12px;line-height:1.5}
+.voice-call-shell .kaki-blackboard-status.is-busy{background:rgba(240,220,140,.12);animation:kakiBoardStatusPulse 1.2s ease-in-out infinite}
+@keyframes kakiBoardStatusPulse{50%{opacity:.6}}
+@media(max-width:760px){.voice-call-shell .voice-call-body .kaki-blackboard-write{width:min(92%,300px);left:50%;transform:translateX(-50%);bottom:8px}.voice-call-shell .kaki-blackboard-input{max-height:90px}}
+

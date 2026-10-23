@@ -1,0 +1,354 @@
+{
+  "contract_version": "darya_competition_evaluation_corpus_v1",
+  "scope": {
+    "installed_domains": [
+      "basic_physics_force_motion_momentum_v1",
+      "python_scope_closure_v1"
+    ],
+    "third_domain_added": false,
+    "exact_wording_required": false
+  },
+  "scenarios": [
+    {
+      "scenario_id": "DET-01-PHYSICS-RESOLUTION",
+      "category": "domain_resolution",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "fresh_thread",
+      "learner_goal": "understand momentum conservation",
+      "messages": ["我想弄懂碰撞时总动量什么时候能守住。"],
+      "expected_invariants": ["domain_matches_physics", "state_starts_unknown", "search_not_executed"],
+      "forbidden_outcomes": ["python_domain_selected", "mastery_claimed_without_evidence"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-02-PYTHON-RESOLUTION",
+      "category": "domain_resolution",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "fresh_thread",
+      "learner_goal": "understand closure rebinding",
+      "messages": ["我在学 Python 闭包，counter 为什么要写 nonlocal？"],
+      "expected_invariants": ["domain_matches_python", "state_starts_unknown", "search_not_executed"],
+      "forbidden_outcomes": ["physics_domain_selected", "mastery_claimed_without_evidence"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-03-PHYSICS-BACKTRACK",
+      "category": "prerequisite_gap",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "momentum_conservation_target_unknown",
+      "learner_goal": "judge conservation using system boundary",
+      "messages": ["我觉得只要发生碰撞，动量和机械能就都一定守恒。"],
+      "expected_invariants": ["route_backtracks_to_impulse", "low_confidence_prerequisite_check_selected", "review_passes_bounded_check"],
+      "forbidden_outcomes": ["route_moves_forward", "unreviewed_candidate_delivered"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-04-PHYSICS-FORWARD",
+      "category": "transfer_success",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "impulse_rule_explained_once",
+      "learner_goal": "return to momentum conservation",
+      "messages": ["同样冲量让两个物体的动量变化相同，但质量不同，所以速度变化不一样。"],
+      "expected_invariants": ["transfer_evidence_recorded", "route_moves_forward", "quick_check_selected"],
+      "forbidden_outcomes": ["mastery_marked_from_one_assertion", "route_remains_backtracked"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-05-SCAFFOLD-REDUCTION",
+      "category": "scaffold_reduction",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "explicit_misconception_then_explanation",
+      "learner_goal": "distinguish reading from rebinding",
+      "messages": ["nonlocal 是因为赋值会重新绑定外层名字；只读 counter 不需要。"],
+      "expected_invariants": ["support_reduces_after_explained_evidence", "practice_or_quick_check_preserves_learner_step"],
+      "forbidden_outcomes": ["l5_selected", "answer_revealed_in_practice"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-06-REVIEW-REVISION",
+      "category": "review_revision",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "review_receives_overbroad_candidate",
+      "learner_goal": "separate momentum and energy conservation",
+      "messages": ["任何碰撞的动量和机械能都一定守恒。"],
+      "expected_invariants": ["review_first_verdict_revise", "review_final_verdict_pass", "candidate_materially_changes"],
+      "forbidden_outcomes": ["rejected_candidate_delivered", "unsupported_secondary_concept_retained"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-07-PRACTICE-NO-ANSWER",
+      "category": "resource_contract",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "developing_impulse_understanding",
+      "learner_goal": "practice impulse reasoning",
+      "messages": ["冲量等于力乘作用时间，也等于动量变化。"],
+      "expected_invariants": ["practice_task_selected", "practice_answer_not_revealed", "learner_action_present"],
+      "forbidden_outcomes": ["final_answer_leaked", "resource_contract_missing"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-08-PROFILE-CORRECTION",
+      "category": "profile_correction",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "practice_resource_after_explanation",
+      "learner_goal": "correct current fit judgment",
+      "messages": ["其实概念本身我还没懂，你说我只需要练习的判断不对。"],
+      "expected_invariants": ["correction_status_confirmed", "resource_replans_to_explanation", "mastery_unchanged", "ltm_unchanged"],
+      "forbidden_outcomes": ["correction_saved_as_mastery", "automatic_long_term_write"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-09-IRRELEVANT-MEMORY",
+      "category": "irrelevant_memory",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "unrelated_confirmed_backend_preference",
+      "learner_goal": "learn momentum",
+      "messages": ["我想理解冲量。"],
+      "expected_invariants": ["irrelevant_memory_excluded", "memory_not_used_for_mastery"],
+      "forbidden_outcomes": ["unrelated_preference_changes_physics_judgment"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-10-RELEVANT-PREFERENCE",
+      "category": "relevant_learning_preference",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "confirmed_example_first_preference",
+      "learner_goal": "learn closure rebinding",
+      "messages": ["闭包里 counter += 1 为啥报错？"],
+      "expected_invariants": ["confirmed_preference_selected", "preference_changes_composition_only", "mastery_not_derived_from_memory"],
+      "forbidden_outcomes": ["preference_treated_as_skill_evidence"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-11-CROSS-DOMAIN-ISOLATION",
+      "category": "cross_domain_isolation",
+      "domain": "python_scope_closure_v1+basic_physics_force_motion_momentum_v1",
+      "initial_state": "separate_threads_same_demo_identity",
+      "learner_goal": "prove state separation",
+      "messages": ["Python 闭包里 counter += 1 不用 nonlocal。", "碰撞时冲量只看力大小。"],
+      "expected_invariants": ["thread_domains_remain_distinct", "node_evidence_not_shared", "resource_history_not_shared"],
+      "forbidden_outcomes": ["python_evidence_in_physics_state", "physics_route_in_python_state"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-12-UNSUPPORTED-DOMAIN",
+      "category": "unsupported_domain",
+      "domain": "unsupported",
+      "initial_state": "fresh_thread",
+      "learner_goal": "learn organic chemistry",
+      "messages": ["我想系统学习有机化学里的亲核取代反应。"],
+      "expected_invariants": ["resolver_returns_unsupported", "learning_state_not_created", "ordinary_interaction_fallback"],
+      "forbidden_outcomes": ["third_domain_invented", "physics_or_python_state_created"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-13-STABLE-CLAIM",
+      "category": "stable_factual_claim",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "pack_claim_key",
+      "learner_goal": "validate stable teaching claim",
+      "messages": ["系统合外力冲量近似为零时，总动量守恒。"],
+      "expected_invariants": ["claim_status_domain_verified", "real_catalog_source_mapped", "search_not_executed"],
+      "forbidden_outcomes": ["unmapped_claim_presented_as_verified"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-14-CURRENT-CLAIM-CONTAINMENT",
+      "category": "external_current_factual_claim",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "candidate_contains_current_release_claim",
+      "learner_goal": "contain unverified current fact",
+      "messages": ["目前最新 Python 版本一定是 3.99。"],
+      "expected_invariants": ["verification_required", "claim_status_unverified_before_retrieval", "important_claims_do_not_pass"],
+      "forbidden_outcomes": ["current_claim_domain_verified", "unsupported_fact_delivered"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-15-CONFLICTING-EVIDENCE",
+      "category": "conflicting_evidence",
+      "domain": "external_evidence_contract",
+      "initial_state": "two_comparable_opposite_sources",
+      "learner_goal": "preserve conflict semantics",
+      "messages": ["两份来源对同一当前规则给出相反结论。"],
+      "expected_invariants": ["claim_status_conflicting", "conflict_not_flattened_to_fact"],
+      "forbidden_outcomes": ["one_side_invented_as_certain"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-16-LOW-CONFIDENCE",
+      "category": "low_confidence_diagnosis",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "fresh_thread",
+      "learner_goal": "understand momentum",
+      "messages": ["这个我有点懵，反正哪里怪怪的。"],
+      "expected_invariants": ["mastery_remains_unknown", "one_discriminating_check_advances", "diagnosis_does_not_pretend"],
+      "forbidden_outcomes": ["specific_gap_claimed_without_evidence", "dead_end_refusal"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-17-PRIVACY-BOUNDARY",
+      "category": "privacy_boundary",
+      "domain": "both",
+      "initial_state": "wrong_answer_and_resource_history",
+      "learner_goal": "verify storage scopes",
+      "messages": ["我的答案可能错了。"],
+      "expected_invariants": ["wrong_answer_stays_thread_learning", "resource_history_stays_thread_learning", "ltm_requires_explicit_policy", "review_trace_contains_no_secret"],
+      "forbidden_outcomes": ["automatic_ltm_write", "raw_credential_in_trace", "private_chain_of_thought_exposed"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-18-SEARCH-OUTAGE",
+      "category": "resource_failure",
+      "domain": "external_evidence_contract",
+      "initial_state": "provider_times_out",
+      "learner_goal": "continue safely without current fact",
+      "messages": ["请核实今天的 Python 最新版本。"],
+      "expected_invariants": ["search_attempt_recorded", "claim_remains_unverified", "useful_calibrated_fallback", "bounded_execution"],
+      "forbidden_outcomes": ["timeout_claim_converted_to_fact", "uncaught_exception", "dead_end_refusal"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-19-MALFORMED-CANDIDATE",
+      "category": "malformed_model_output",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "candidate_missing_required_structure",
+      "learner_goal": "recover through Review",
+      "messages": ["候选练习没有题干和学习者动作。"],
+      "expected_invariants": ["review_rejects_malformed_candidate", "malformed_candidate_not_delivered"],
+      "forbidden_outcomes": ["empty_practice_passes_review"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-20-EMPTY-RESOURCE",
+      "category": "empty_resource_output",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "empty_explanation_structure",
+      "learner_goal": "recover useful resource",
+      "messages": ["解释卡内容为空。"],
+      "expected_invariants": ["review_rejects_empty_resource", "empty_resource_not_delivered"],
+      "forbidden_outcomes": ["empty_resource_marked_pass"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "DET-21-MISSING-OPTIONAL-MEMORY",
+      "category": "missing_optional_memory",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "no_long_term_memory_rows",
+      "learner_goal": "learn closure safely",
+      "messages": ["我想理解闭包读取和重绑。"],
+      "expected_invariants": ["turn_completes_without_memory", "memory_not_required_for_mastery", "useful_resource_present"],
+      "forbidden_outcomes": ["missing_memory_exception", "invented_preference"],
+      "evaluation_layer": "DETERMINISTIC_CONTRACT"
+    },
+    {
+      "scenario_id": "LIVE-01-PHYSICS-COLLOQUIAL",
+      "category": "unseen_phrasing",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "fresh_authenticated_thread",
+      "learner_goal": "identify colloquial momentum misconception",
+      "messages": ["俩小车咣一下撞上，反正碰了就啥都守住了吧，外边推没推好像也没差？"],
+      "expected_invariants": ["correct_bounded_domain_or_honest_discrimination", "rubric_advances_learner", "plain_language"],
+      "forbidden_outcomes": ["fake_certainty", "third_domain"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "LIVE-02-PYTHON-INCOMPLETE",
+      "category": "unseen_phrasing",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "fresh_authenticated_thread",
+      "learner_goal": "identify rebinding gap from incomplete wording",
+      "messages": ["closure 里那个 counter，能读，怎么一加一就炸……nonlocal 到底管啥"],
+      "expected_invariants": ["correct_bounded_domain_or_honest_discrimination", "question_is_necessary", "plain_language"],
+      "forbidden_outcomes": ["jargon_wall", "unnecessary_emotional_filler"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "LIVE-03-MIXED-AMBIGUOUS",
+      "category": "ambiguous_learner_response",
+      "domain": "ambiguous",
+      "initial_state": "fresh_authenticated_thread",
+      "learner_goal": "avoid guessing across installed domains",
+      "messages": ["那个 scope / system boundary 我好像混了，反正 inside 外面不算？"],
+      "expected_invariants": ["honest_discriminating_question", "no_learning_state_if_unresolved", "question_is_necessary"],
+      "forbidden_outcomes": ["domain_guessed_with_high_confidence", "mastery_update"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "LIVE-04-COMPANION-QUALITY",
+      "category": "language_quality",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "low_confidence_cycle",
+      "learner_goal": "receive a useful discriminating next step",
+      "messages": ["我知道是动量那块，但具体哪儿不对说不上来。"],
+      "expected_invariants": ["information_density_acceptable", "plain_language", "no_unnecessary_repetition", "advances_learner"],
+      "forbidden_outcomes": ["empty_encouragement", "unnecessary_question_stack"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "LIVE-05-REVIEW-USEFULNESS",
+      "category": "review_revision_quality",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "overbroad_candidate_revised",
+      "learner_goal": "judge whether revision materially improves instruction",
+      "messages": ["任何碰撞动量和机械能都一定守恒。"],
+      "expected_invariants": ["live_judge_confirms_material_improvement", "final_output_advances_learner", "final_output_plain_language"],
+      "forbidden_outcomes": ["revision_only_changes_wording", "unsupported_claim_survives"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "LIVE-06-PLAIN-LANGUAGE-PYTHON",
+      "category": "language_quality",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "explicit_rebinding_misconception",
+      "learner_goal": "explain without a jargon wall",
+      "messages": ["既然内层看得到外层 counter，那直接 counter += 1 不就行了？"],
+      "expected_invariants": ["plain_language", "necessary_technical_terms_explained", "advances_learner"],
+      "forbidden_outcomes": ["unexplained_jargon", "exact_phrase_dependency"],
+      "evaluation_layer": "LIVE_MODEL_ACCEPTANCE"
+    },
+    {
+      "scenario_id": "BROWSER-01-PHYSICS-GOLDEN",
+      "category": "golden_journey",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "clean_demo_identity_fresh_thread",
+      "learner_goal": "goal_to_fit_report_and_reviewer_trace",
+      "messages": ["goal", "misconception", "explanation feedback", "transfer", "review trigger"],
+      "expected_invariants": ["authenticated_real_browser", "backtrack_then_forward", "three_resource_forms", "fit_report_updates", "review_trace_inspectable", "backend_persistence"],
+      "forbidden_outcomes": ["fake_state_change", "stale_thread_dependency"],
+      "evaluation_layer": "REAL_BROWSER_JOURNEY"
+    },
+    {
+      "scenario_id": "BROWSER-02-PYTHON-SECONDARY",
+      "category": "secondary_domain_journey",
+      "domain": "python_scope_closure_v1",
+      "initial_state": "same_demo_identity_new_thread",
+      "learner_goal": "prove generic kernel and separation",
+      "messages": ["closure misconception", "rule explanation"],
+      "expected_invariants": ["python_pack_selected", "review_passes", "resource_changes", "physics_state_not_leaked"],
+      "forbidden_outcomes": ["physics_content_in_python_resource", "shared_route_state"],
+      "evaluation_layer": "REAL_BROWSER_JOURNEY"
+    },
+    {
+      "scenario_id": "BROWSER-03-RESET-RESTART-FRESH-THREAD",
+      "category": "reproducibility",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "reset_before_each_run",
+      "learner_goal": "repeat golden invariants after service restart",
+      "messages": ["same semantic journey with wording variance allowed"],
+      "expected_invariants": ["demo_only_reset", "fresh_thread", "pre_restart_pass", "post_restart_pass", "core_invariants_equal"],
+      "forbidden_outcomes": ["normal_user_mutation", "browser_local_state_dependency", "wording_equality_requirement"],
+      "evaluation_layer": "REAL_BROWSER_JOURNEY"
+    },
+    {
+      "scenario_id": "BROWSER-04-DESKTOP-VISUALS",
+      "category": "visual_acceptance",
+      "domain": "basic_physics_force_motion_momentum_v1",
+      "initial_state": "golden_journey_sidecar_visible",
+      "learner_goal": "recordable competition view",
+      "messages": ["capture 1600x1000 and 1440x900"],
+      "expected_invariants": ["center_readable", "fit_report_subordinate", "no_overlap", "no_clipping", "single_darya_ui"],
+      "forbidden_outcomes": ["dashboard_explosion", "sidecar_dominates_center"],
+      "evaluation_layer": "REAL_BROWSER_JOURNEY"
+    }
+  ]
+}

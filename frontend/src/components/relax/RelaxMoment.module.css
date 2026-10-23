@@ -1,0 +1,143 @@
+.trigger {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 16px;
+  border: 1px solid rgba(179,132,92,.3);
+  border-radius: 14px;
+  color: #6f4b36;
+  background: linear-gradient(145deg, rgba(255,253,248,.94), rgba(248,234,213,.88));
+  box-shadow: inset 0 1px rgba(255,255,255,.75), 0 8px 18px rgba(91,58,33,.04);
+  font: 700 14px/1.2 inherit;
+  cursor: pointer;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.trigger:hover { border-color: rgba(184,91,47,.45); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(91,58,33,.1); }
+.trigger small { color: #8b7768; font-size: 11px; font-weight: 500; }
+.compact { position: absolute; right: 18px; bottom: 82px; z-index: 25; min-height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(255,250,241,.92); box-shadow: 0 8px 24px rgba(70,48,31,.16); backdrop-filter: blur(10px); }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  overflow: hidden;
+  color: #fff8e8;
+  background:
+    linear-gradient(180deg, rgba(6,8,18,.46), rgba(10,12,24,.64)),
+    url('/images/relax/moonlit-fireworks-lake.png') center/cover no-repeat;
+  backdrop-filter: blur(1.5px) brightness(.76);
+  isolation: isolate;
+}
+.overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .42;
+  background-image:
+    radial-gradient(circle at 9% 18%, #f3dfaa 0 1px, transparent 1.6px),
+    radial-gradient(circle at 17% 10%, #f3dfaa 0 1px, transparent 1.5px),
+    radial-gradient(circle at 34% 16%, #f3dfaa 0 1px, transparent 1.5px),
+    radial-gradient(circle at 48% 9%, #f3dfaa 0 1px, transparent 1.5px),
+    radial-gradient(circle at 59% 20%, #f3dfaa 0 1px, transparent 1.5px),
+    radial-gradient(circle at 88% 12%, #f3dfaa 0 1px, transparent 1.5px);
+  background-size: 270px 190px;
+}
+.overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: inset 0 0 120px rgba(8,14,13,.5);
+  background: linear-gradient(180deg, transparent 0 65%, rgba(38,27,22,.28));
+}
+
+.sky { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity:.2; }
+.moon { display: none; position: absolute; right: 13%; top: 9%; width: 104px; height: 104px; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #fffbe6, #f2d997 66%, #bd874f); box-shadow: 0 0 24px rgba(255,229,165,.46), 0 0 82px rgba(255,211,121,.25); }
+.moon::after { content: ""; position: absolute; right: -13px; top: -8px; width: 100%; height: 100%; border-radius: 50%; background: #222b28; opacity: .22; filter: blur(2px); }
+.cloudOne, .cloudTwo { position: absolute; height: 74px; border-radius: 50%; background: radial-gradient(ellipse, rgba(236,227,207,.1), transparent 70%); animation: cloudDrift 18s ease-in-out infinite alternate; will-change: transform, opacity; }
+.cloudOne { right: 4%; top: 27%; width: 390px; }
+.cloudTwo { left: 4%; top: 41%; width: 520px; opacity: .66; animation-delay: -7s; }
+.ridgeFar, .ridgeNear { display: none; position: absolute; left: -4%; right: -4%; bottom: 15%; height: 32%; transform-origin: bottom; }
+.ridgeFar { opacity: .2; background: #29322f; clip-path: polygon(0 66%, 8% 52%, 18% 61%, 29% 27%, 41% 58%, 53% 34%, 66% 63%, 79% 30%, 90% 58%, 100% 38%, 100% 100%, 0 100%); filter: blur(8px); }
+.ridgeNear { bottom: 7%; height: 22%; opacity: .32; background: linear-gradient(180deg, #252b28, #1e2422); clip-path: polygon(0 54%, 11% 32%, 23% 62%, 36% 36%, 47% 71%, 59% 43%, 72% 66%, 84% 34%, 100% 58%, 100% 100%, 0 100%); filter: blur(5px); }
+.water { display: none; position: absolute; left: 0; right: 0; bottom: 0; height: 21%; background: linear-gradient(180deg, rgba(42,48,44,.86), rgba(30,36,34,.98)), repeating-linear-gradient(0deg, transparent 0 8px, rgba(240,208,144,.1) 9px 10px); box-shadow: inset 0 12px 30px rgba(5,11,10,.3); }
+.water::before { content: ""; position: absolute; right: 12%; top: 0; width: 130px; height: 100%; opacity: .34; background: linear-gradient(90deg, transparent, rgba(250,215,138,.52), transparent); clip-path: polygon(38% 0, 65% 0, 84% 100%, 10% 100%); filter: blur(10px); }
+.lanterns { display: none; position: absolute; left: 9%; bottom: 17%; width: 7px; height: 7px; border-radius: 50%; background: #f2b355; box-shadow: 0 0 14px #e9a54d, 78px 21px 0 #f2b355, 78px 21px 14px #e9a54d, 162px -6px 0 #f2b355, 162px -6px 14px #e9a54d, 980px 12px 0 #f2b355, 980px 12px 14px #e9a54d; opacity: .76; }
+.canvas { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; cursor: crosshair; }
+
+/* —— 左下角动态文字层：纯文字，无卡片、无遮罩底 —— */
+.copyText {
+  position: absolute;
+  left: 6%;
+  bottom: 11%;
+  z-index: 8;
+  max-width: 40%;
+  pointer-events: none;
+  text-align: left;
+  text-shadow: 0 2px 12px rgba(0,0,0,.32);
+  opacity: 1;
+  transition: opacity .9s ease;
+}
+.copyText.fading { opacity: 0; }
+.mainLine {
+  min-height: 1.45em;
+  margin: 0;
+  font: 700 28px/1.4 "STSong", "SimSun", serif;
+  letter-spacing: .06em;
+  color: rgba(255,248,232,.94);
+}
+.subLine {
+  min-height: 1.5em;
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  color: rgba(255,248,232,.55);
+  transition: opacity .9s ease;
+}
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: rgba(255,248,200,.6);
+  animation: caretBlink 1s step-end infinite;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
+.hint {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: rgba(255,248,232,.34);
+}
+
+/* —— 顶部功能控件层 —— */
+.soundControls { position: absolute; left: 24px; top: 22px; z-index: 10; display: flex; min-height: 40px; align-items: center; gap: 9px; padding: 0 12px; border: 1px solid rgba(255,244,219,.22); border-radius: 999px; background: rgba(22,29,27,.78); }
+.soundControls button { display: grid; width: 26px; height: 26px; place-items: center; padding: 0; border: 0; color: #fff8e8; background: transparent; cursor: pointer; }
+.soundControls input { width: 96px; accent-color: #d8ad63; }
+.close { position: absolute; right: 24px; top: 22px; z-index: 10; display: flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 14px; border: 1px solid rgba(255,244,219,.28); border-radius: 999px; color: #fff8e8; background: rgba(27,33,31,.8); cursor: pointer; }
+.close:hover { border-color: rgba(255,227,166,.5); background: rgba(42,42,35,.62); }
+
+@keyframes cloudDrift { to { transform: translateX(8%); opacity: .4; } }
+
+@media (max-width: 700px) {
+  .trigger small { display: none; }
+  .compact { right: 12px; bottom: 74px; }
+  .moon { right: 9%; width: 76px; height: 76px; }
+  .copyText { left: 5%; bottom: 9%; max-width: 62%; }
+  .mainLine { font-size: 24px; }
+  .subLine { font-size: 13px; }
+  .ridgeFar, .ridgeNear { height: 25%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger { transition: none; }
+  .trigger:hover { transform: none; }
+  .cloudOne, .cloudTwo { animation: none; }
+}

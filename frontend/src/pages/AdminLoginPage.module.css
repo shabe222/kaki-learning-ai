@@ -1,0 +1,17 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  overflow: hidden;
+  background: radial-gradient(circle at 78% 12%, rgba(231,153,94,.1), transparent 30%), linear-gradient(180deg, var(--canvas-warm), var(--canvas));
+}
+.page::before { content:""; position:absolute; z-index:-1; inset:auto 0 0; height:38vh; pointer-events:none; opacity:.075; background:url("../assets/generated/ink-mountains.png") center bottom / min(1500px,100vw) auto no-repeat; -webkit-mask-image:linear-gradient(180deg,transparent,#000 58%); mask-image:linear-gradient(180deg,transparent,#000 58%); }
+.card { width:min(440px,100%); padding:32px 36px 36px; display:grid; gap:14px; border:1px solid var(--line); border-radius:var(--radius-xl); background:rgba(255,253,249,.9); box-shadow:0 24px 64px rgba(91,58,33,.11); backdrop-filter:blur(18px); }
+.brand { display:flex; align-items:center; gap:10px; color:var(--text); font-size:18px; font-weight:800; }
+.brand span { width:42px; height:42px; background:url("../assets/generated/persimmon-logo.png") center / 152% auto no-repeat; }
+.card h1 { margin:4px 0 0; color:var(--text); font:700 32px/1.25 var(--font-display); }
+.card p { margin:0; color:var(--muted); }
+.form { margin-top:8px; }

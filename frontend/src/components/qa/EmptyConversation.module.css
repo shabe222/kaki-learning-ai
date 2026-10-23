@@ -1,0 +1,86 @@
+.empty {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+  padding: 36px 32px;
+  text-align: center;
+}
+
+.glyph {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 154, 86, 0.55);
+  border-radius: 6px;
+  background: linear-gradient(135deg, #fff0e0, #fff8ee);
+  color: var(--primary);
+  box-shadow: 0 12px 26px rgba(255, 122, 40, 0.16);
+}
+
+.empty h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.empty p {
+  margin: 0;
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.contextHint {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border: 1px solid rgba(232, 213, 196, 0.85);
+  border-radius: 14px;
+  background: rgba(255, 251, 245, 0.84);
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.contextHint span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.quickPrompts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.quickButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 154, 86, 0.45);
+  border-radius: 14px;
+  color: var(--primary);
+  background: rgba(255, 251, 245, 0.92);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.quickButton:hover {
+  border-color: rgba(255, 90, 20, 0.75);
+  color: #b73b08;
+  background: #fff0e0;
+}

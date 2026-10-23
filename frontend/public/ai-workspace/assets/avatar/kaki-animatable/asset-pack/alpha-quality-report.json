@@ -1,0 +1,568 @@
+{
+  "files": {
+    "views/front.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "views/front_3q_left.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "views/front_3q_right.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "views/side_left.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "views/side_right.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/arm_left_explain.png": {
+      "size": [
+        367,
+        214
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/arm_left_relaxed.png": {
+      "size": [
+        219,
+        319
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/arm_right_explain.png": {
+      "size": [
+        307,
+        337
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/arm_right_pointer.png": {
+      "size": [
+        259,
+        252
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/arm_right_relaxed.png": {
+      "size": [
+        148,
+        205
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/blush.png": {
+      "size": [
+        266,
+        120
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/blush_L.png": {
+      "size": [
+        111,
+        112
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/blush_R.png": {
+      "size": [
+        112,
+        112
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/body_3q_left.png": {
+      "size": [
+        396,
+        327
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/body_3q_right.png": {
+      "size": [
+        366,
+        328
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/body_front.png": {
+      "size": [
+        375,
+        325
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/body_side_left.png": {
+      "size": [
+        291,
+        329
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/body_side_right.png": {
+      "size": [
+        291,
+        330
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_closed.png": {
+      "size": [
+        272,
+        67
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_closed_L.png": {
+      "size": [
+        121,
+        59
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_closed_R.png": {
+      "size": [
+        122,
+        59
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_half.png": {
+      "size": [
+        254,
+        99
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_half_L.png": {
+      "size": [
+        115,
+        91
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_half_R.png": {
+      "size": [
+        115,
+        91
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_open.png": {
+      "size": [
+        266,
+        130
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_open_L.png": {
+      "size": [
+        116,
+        122
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/eye_open_R.png": {
+      "size": [
+        117,
+        122
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/leaf_back.png": {
+      "size": [
+        390,
+        162
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/leaf_front.png": {
+      "size": [
+        323,
+        165
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/leg_left.png": {
+      "size": [
+        157,
+        175
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/leg_right.png": {
+      "size": [
+        157,
+        175
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_closed.png": {
+      "size": [
+        136,
+        75
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_medium.png": {
+      "size": [
+        177,
+        114
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_small.png": {
+      "size": [
+        130,
+        81
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_smile.png": {
+      "size": [
+        140,
+        77
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_speaking_smile.png": {
+      "size": [
+        153,
+        104
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/mouth_wide.png": {
+      "size": [
+        194,
+        145
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/pointer.png": {
+      "size": [
+        252,
+        260
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/professor_cap.png": {
+      "size": [
+        356,
+        216
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/pupilL.png": {
+      "size": [
+        63,
+        63
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/pupilR.png": {
+      "size": [
+        63,
+        63
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/soft_shadow.png": {
+      "size": [
+        282,
+        89
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    },
+    "components/stem.png": {
+      "size": [
+        269,
+        218
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaqueMagentaPixels": 0
+    }
+  },
+  "summary": {
+    "checked": 43,
+    "transparentCorners": 43,
+    "opaqueMagentaPixels": 0
+  }
+}

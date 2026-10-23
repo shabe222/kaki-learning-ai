@@ -1,0 +1,20 @@
+.entry {
+  border: 1px solid rgba(130, 176, 184, 0.22);
+  border-radius: 999px;
+  background: rgba(10, 40, 48, 0.28);
+  color: rgba(226, 243, 242, 0.82);
+  padding: 7px 12px;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.entry:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.entry:not(:disabled):hover {
+  border-color: rgba(153, 207, 210, 0.46);
+  background: rgba(18, 58, 66, 0.46);
+}

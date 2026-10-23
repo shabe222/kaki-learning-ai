@@ -1,0 +1,25 @@
+{
+  "graph_id": "machine_learning",
+  "title": "机器学习与神经网络",
+  "aliases": ["机器学习", "神经网络", "深度学习"],
+  "source": "计算机神经网络学习知识图谱（比赛适配子集）",
+  "nodes": [
+    {"id":"math_vectors","title":"向量与矩阵","aliases":["线性代数基础"],"tags":["数学","基础"],"estimated_minutes":25,"recommended_resources":["lecture","question"]},
+    {"id":"ml_basics","title":"机器学习基本流程","aliases":["机器学习入门"],"tags":["机器学习","基础"],"estimated_minutes":25,"recommended_resources":["mindmap","lecture"]},
+    {"id":"neuron","title":"神经元与激活函数","aliases":["人工神经元"],"tags":["神经网络","入门"],"estimated_minutes":30,"recommended_resources":["interactive_lesson","code"]},
+    {"id":"forward_propagation","title":"前向传播","aliases":["前向计算"],"tags":["神经网络","推理"],"estimated_minutes":30,"recommended_resources":["interactive_lesson","question"]},
+    {"id":"loss_function","title":"损失函数","aliases":["代价函数"],"tags":["神经网络","训练"],"estimated_minutes":25,"recommended_resources":["lecture","code","question"]},
+    {"id":"gradient_descent","title":"梯度下降","aliases":["优化算法"],"tags":["神经网络","训练","优化"],"estimated_minutes":35,"recommended_resources":["code","question"]},
+    {"id":"backpropagation","title":"反向传播","aliases":["误差反传"],"tags":["神经网络","训练"],"estimated_minutes":40,"recommended_resources":["interactive_lesson","mindmap","question"]},
+    {"id":"model_training","title":"模型训练与评估","aliases":["神经网络训练","模型训练"],"tags":["神经网络","训练","实践"],"estimated_minutes":40,"recommended_resources":["code","question","lecture"]}
+  ],
+  "edges": [
+    {"source":"math_vectors","target":"ml_basics","type":"prerequisite"},
+    {"source":"ml_basics","target":"neuron","type":"prerequisite"},
+    {"source":"neuron","target":"forward_propagation","type":"prerequisite"},
+    {"source":"forward_propagation","target":"loss_function","type":"prerequisite"},
+    {"source":"loss_function","target":"gradient_descent","type":"prerequisite"},
+    {"source":"gradient_descent","target":"backpropagation","type":"prerequisite"},
+    {"source":"backpropagation","target":"model_training","type":"prerequisite"}
+  ]
+}

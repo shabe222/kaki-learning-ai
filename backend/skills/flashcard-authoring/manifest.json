@@ -1,0 +1,26 @@
+{
+  "name": "flashcard-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA. Card-authoring rules grounded in the minimum-information principle of open spaced-repetition practice; scheduling uses vendored MIT code.",
+    "methodology_references": [
+      "Minimum information principle (open spaced-repetition literature)",
+      "Retrieval practice / testing effect (open literature)"
+    ],
+    "vendored_code": [
+      {
+        "project": "py-fsrs (FSRS scheduler)",
+        "repo": "https://github.com/open-spaced-repetition/py-fsrs",
+        "license": "MIT",
+        "install": "pip package fsrs",
+        "usage": "services/flashcard_service.py review scheduling"
+      }
+    ]
+  },
+  "applies": {
+    "agents": ["flashcard_service"],
+    "resource_kinds": ["study_flashcard_deck"]
+  }
+}

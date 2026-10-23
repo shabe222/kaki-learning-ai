@@ -1,0 +1,62 @@
+[
+  {
+    "id": "creator_continue_across_thread",
+    "identity": "函数教学视频制作者",
+    "prior_goal": "让下一期函数教学视频更容易让学生听懂",
+    "current_message": "继续，先给我下一期可以直接拍的版本。",
+    "resolved_goal": "让下一期函数教学视频更容易让学生听懂",
+    "deliverable": "可直接拍摄的完整脚本 V0",
+    "private_question": "下一期具体讲哪个函数知识点？",
+    "research": true,
+    "actions": ["UNDERSTAND", "RESEARCH", "ANALYZE", "CREATE", "DELIVER"],
+    "capability": "HANDOUT"
+  },
+  {
+    "id": "shop_owner_gradual_disclosure",
+    "identity": "社区咖啡店经营者",
+    "prior_goal": "减少工作日下午的空桌",
+    "current_message": "最近下午还是很空，先把公开能查的周边活动和商圈信息查了，店内流水我晚点给。",
+    "resolved_goal": "形成不依赖私人流水也能先执行的下午客流实验",
+    "deliverable": "一页客流实验与记录表 V0",
+    "private_question": "方便时只给最近四周同口径的工作日下午订单数。",
+    "research": true,
+    "actions": ["UNDERSTAND", "RESEARCH", "ANALYZE", "CREATE", "FOLLOW_UP", "DELIVER"],
+    "capability": "PRACTICAL_GUIDE"
+  },
+  {
+    "id": "parent_emotion_without_artifact_expansion",
+    "identity": "正在陪孩子建立阅读习惯的家长",
+    "prior_goal": "让孩子愿意自主阅读",
+    "current_message": "昨晚又吵起来了，我现在很挫败，先帮我把今晚怎么开口想清楚，不要生成资料。",
+    "resolved_goal": "降低今晚对话的对抗感并保留阅读关系",
+    "deliverable": "一段可以直接使用的开场话术",
+    "private_question": null,
+    "research": false,
+    "actions": ["UNDERSTAND", "ANALYZE", "DELIVER", "FOLLOW_UP"],
+    "capability": "NONE"
+  },
+  {
+    "id": "career_goal_correction",
+    "identity": "准备转行的数据录入员",
+    "prior_goal": "报考研究生",
+    "current_message": "我改主意了，暂时不考研，先找能用上现有表格经验的工作。公开岗位要求你先查，工资底线我之后决定。",
+    "resolved_goal": "用现有表格经验筛出可验证的岗位簇并形成第一版求职材料",
+    "deliverable": "岗位簇比较与简历要点 V0",
+    "private_question": "你的工资底线会改变岗位筛选时再补充即可。",
+    "research": true,
+    "actions": ["UNDERSTAND", "RESEARCH", "ANALYZE", "CREATE", "DELIVER"],
+    "capability": "HANDOUT"
+  },
+  {
+    "id": "volunteer_multi_resource_graph",
+    "identity": "社区急救科普志愿者",
+    "prior_goal": "让首次参加活动的居民记住求助步骤",
+    "current_message": "下次活动我想让大家不只是听完，还能当场练一遍。",
+    "resolved_goal": "把科普讲解变成可现场练习和检查的活动",
+    "deliverable": "主持脚本、情境练习卡和检查题",
+    "private_question": "场地是否允许分组会改变练习组织方式；未知时先按不分组版本交付。",
+    "research": true,
+    "actions": ["UNDERSTAND", "RESEARCH", "ANALYZE", "CREATE", "PRACTICE", "CREATE", "DELIVER"],
+    "capability": "PRACTICAL_GUIDE"
+  }
+]

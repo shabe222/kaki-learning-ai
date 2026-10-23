@@ -1,0 +1,186 @@
+.document { color: var(--text); font-size: 15px; line-height: 1.9; }
+.document h1,.document h2,.document h3 { font-family: var(--font-display); color: #30231b; }
+.document p { margin: 0 0 10px; white-space: pre-wrap; }
+.listLine { padding-left: 12px; }
+.slides { display: grid; gap: 18px; }
+.slides article { aspect-ratio: 16/9; min-height: 280px; padding: 7% 8%; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg,#fffdf9,#f8eadc); box-shadow: var(--shadow-soft); }
+.slides article small { color: var(--primary); font-weight: 800; }
+.slides article h2 { font: 700 30px/1.3 var(--font-display); }
+.slides article aside { margin-top: 22px; padding: 12px 14px; border-left: 3px solid var(--primary); color: var(--muted); background: rgba(255,255,255,.55); }
+.mindmap { overflow: auto; padding: 24px; border-radius: 20px; background: radial-gradient(circle at 50% 0,rgba(222,128,68,.13),transparent 44%),#fffdf9; }
+.mindmap ul { display: flex; gap: 18px; list-style: none; padding: 0; }
+.mindmap li { min-width: 140px; }
+.mindmap li span { display: block; padding: 10px 14px; border: 1px solid rgba(190,108,55,.24); border-radius: 14px; background: #fffaf4; color: #4c3528; }
+.mindmap li ul { margin-top: 12px; flex-direction: column; padding-left: 18px; border-left: 1px solid rgba(190,108,55,.24); }
+.code > div,.actions,.actions span { display: flex; align-items: center; gap: 8px; }
+.code pre { overflow: auto; padding: 18px; border-radius: 15px; color: #f8efe7; background: #2d2521; line-height: 1.65; }
+.code .run { color: #e4d5c8; background: #41362f; }
+.questions { display: grid; gap: 14px; }
+.questions section { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fffdf9; }
+.option { margin-top: 8px; padding: 9px 12px; border-radius: 10px; background: var(--surface-soft); }
+.graph { padding: 28px; text-align: center; }
+.actions { justify-content: space-between; margin-bottom: 18px; }
+.actions span { color: var(--muted); }
+
+/* 双主题 deck 预览：严格按生成时的主题快照渲染（与 PPTX 导出同一套 token） */
+.deck_kaki {
+  --deck-bg: #F1ECE4; --deck-surface: #F7F2EA; --deck-primary: #B47B60;
+  --deck-secondary: #7D8877; --deck-accent: #9E6253; --deck-text: #403D39;
+  --deck-muted: #817970; --deck-line: #D9CFC0; --deck-code-bg: #3B3733; --deck-code-text: #F0EAE0;
+}
+.deck_ocean {
+  --deck-bg: #E8EDEC; --deck-surface: #F0F3F1; --deck-primary: #718891;
+  --deck-secondary: #7E8D83; --deck-accent: #947B76; --deck-text: #374045;
+  --deck-muted: #788185; --deck-line: #C9D5D1; --deck-code-bg: #2E383C; --deck-code-text: #E9EFED;
+}
+.slides[class*='deck_'] { gap: 22px; }
+.slides[class*='deck_'] article {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--deck-line);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, var(--deck-surface), var(--deck-bg));
+  box-shadow: none;
+  color: var(--deck-text);
+}
+.slides[class*='deck_'] article::before {
+  content: '';
+  display: block;
+  width: 34px;
+  height: 5px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: var(--deck-primary);
+}
+.slides[class*='deck_'] article small { color: var(--deck-muted); font-weight: 600; letter-spacing: .04em; }
+.slides[class*='deck_'] article h2 { color: var(--deck-text); font-weight: 650; }
+.slides[class*='deck_'] article p { color: var(--deck-text); }
+.slides[class*='deck_'] article .deckSubtitle { color: var(--deck-primary); font-size: 15px; }
+.slides[class*='deck_'] article .deckContent { position: relative; z-index: 2; min-width: 0; }
+.slides[class*='deck_'] article .deckImage { width: 100%; max-height: 44%; object-fit: contain; border-radius: 12px; margin: 8px 0; }
+.slides[class*='deck_'] article .deckEmphasis { margin: 10px 0 14px; color: var(--deck-primary); font: 650 18px/1.45 var(--font-display); }
+
+/* 版式骨架：article 是显式网格，图与文字各占自己的格子。
+   旧实现把侧图绝对定位，而 small/aside 仍是全宽流式内容，只有 .deckContent 被让开，
+   于是讲解提示和页码会落到图的下面；网格让这种重叠在结构上不可能发生。 */
+.slides[class*='deck_'] article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  align-content: start;
+}
+.slides[class*='deck_'] article > small { grid-column: 1; grid-row: 1; }
+.slides[class*='deck_'] article > .deckImage { grid-column: 1; grid-row: 2; }
+.slides[class*='deck_'] article > .deckContent { grid-column: 1; grid-row: 3; }
+.slides[class*='deck_'] article > aside { grid-column: 1; grid-row: 4; }
+
+/* 左右并置：图独占一列，页码、正文、讲解提示都在另一列里依次排。
+   每条规则都必须带 .slides[class*='deck_'] article 前缀：否则会被上面那组通用
+   分区规则按优先级盖掉，两栏退化成单列堆叠（正文一栏 + 全宽大图）。 */
+.slides[class*='deck_'] article.deckVisual_right,
+.slides[class*='deck_'] article.deckVisual_left { grid-template-rows: auto 1fr auto; column-gap: 6%; }
+.slides[class*='deck_'] article.deckVisual_right { grid-template-columns: minmax(0, 52fr) minmax(0, 41fr); }
+.slides[class*='deck_'] article.deckVisual_left { grid-template-columns: minmax(0, 41fr) minmax(0, 52fr); }
+.slides[class*='deck_'] article.deckVisual_right > small { grid-column: 1; grid-row: 1; }
+.slides[class*='deck_'] article.deckVisual_right > .deckContent { grid-column: 1; grid-row: 2; max-width: none; }
+.slides[class*='deck_'] article.deckVisual_left > small { grid-column: 2; grid-row: 1; }
+.slides[class*='deck_'] article.deckVisual_left > .deckContent { grid-column: 2; grid-row: 2; max-width: none; }
+.slides[class*='deck_'] article.deckVisual_right > .deckImage,
+.slides[class*='deck_'] article.deckVisual_left > .deckImage {
+  grid-row: 1 / 3;
+  width: 100%; height: 100%; max-height: none; margin: 0;
+  object-fit: contain;
+}
+.slides[class*='deck_'] article.deckVisual_right > .deckImage { grid-column: 2; }
+.slides[class*='deck_'] article.deckVisual_left > .deckImage { grid-column: 1; }
+.slides[class*='deck_'] article.deckVisual_right > aside,
+.slides[class*='deck_'] article.deckVisual_left > aside { grid-column: 1 / 3; grid-row: 3; }
+
+/* 通版：图铺满整块，文字压在同一格的纸面上；文字显式抬到图之上 */
+.slides[class*='deck_'] article.deckVisual_background,
+.slides[class*='deck_'] article.deckVisual_full_bleed { grid-template-rows: auto 1fr auto; }
+.slides[class*='deck_'] article.deckVisual_background > .deckImage,
+.slides[class*='deck_'] article.deckVisual_full_bleed > .deckImage {
+  grid-column: 1; grid-row: 1 / 4; z-index: 0;
+  width: 100%; height: 100%; max-height: none; margin: 0; border-radius: 0;
+  object-fit: cover; opacity: .28;
+}
+.slides[class*='deck_'] article.deckVisual_full_bleed > .deckImage { opacity: .48; }
+.slides[class*='deck_'] article.deckVisual_background > small,
+.slides[class*='deck_'] article.deckVisual_full_bleed > small,
+.slides[class*='deck_'] article.deckVisual_background > .deckContent,
+.slides[class*='deck_'] article.deckVisual_full_bleed > .deckContent,
+.slides[class*='deck_'] article.deckVisual_background > aside,
+.slides[class*='deck_'] article.deckVisual_full_bleed > aside {
+  grid-column: 1; position: relative; z-index: 2; min-width: 0;
+}
+.slides[class*='deck_'] article.deckVisual_background > small,
+.slides[class*='deck_'] article.deckVisual_full_bleed > small { grid-row: 1; }
+.slides[class*='deck_'] article.deckVisual_background > .deckContent,
+.slides[class*='deck_'] article.deckVisual_full_bleed > .deckContent {
+  grid-row: 2; max-width: 68%; padding: 4% 5%;
+  background: color-mix(in srgb, var(--deck-bg) 82%, transparent);
+}
+.slides[class*='deck_'] article.deckVisual_background > aside,
+.slides[class*='deck_'] article.deckVisual_full_bleed > aside { grid-row: 3; }
+
+/* inline / none 也要有自己的类名：缺类会让 article 丢掉版式类（React 渲染成空 className）。 */
+.slides[class*='deck_'] article.deckVisual_inline,
+.slides[class*='deck_'] article.deckVisual_none { grid-template-columns: minmax(0, 1fr); }
+
+.slides[class*='deck_'] article:not(.deckVisual_right):not(.deckVisual_left)[data-density='airy'] > .deckContent { max-width: 68%; }
+.slides[class*='deck_'] article[data-density='dense'] { padding: 5% 6%; }
+.slides[class*='deck_'] article ul { padding-left: 18px; }
+.slides[class*='deck_'] article li::marker { color: var(--deck-accent); }
+.slides[class*='deck_'] article .deckCode {
+  overflow: auto;
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: var(--deck-code-text);
+  background: var(--deck-code-bg);
+  font: 12.5px/1.6 Consolas, monospace;
+}
+.slides[class*='deck_'] article aside {
+  border-left-color: var(--deck-secondary);
+  color: var(--deck-muted);
+  background: color-mix(in srgb, var(--deck-surface) 72%, transparent);
+}
+
+/* 教学绘本：浏览器组件生成、服务端存下来的那本书。渲染时只展示存下来的
+   内容，取不到的插图如实说明，不用占位图冒充。 */
+.pictureBookCover {
+  display: grid;
+  grid-template-columns: minmax(0, 168px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface-soft);
+}
+.pictureBookCover img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; }
+.pictureBookCoverFallback {
+  width: 100%; aspect-ratio: 4/3; border-radius: 12px;
+  border: 1px dashed var(--line);
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,.03) 10px, rgba(0,0,0,.03) 20px);
+}
+.pictureBookCover strong { display: block; font: 700 20px/1.35 var(--font-display); color: var(--text); }
+.pictureBookCover p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+.pictureBookCover span { display: block; margin-top: 10px; color: var(--muted); font-size: 12.5px; }
+.pictureBookNotice {
+  margin: 0 0 16px; padding: 9px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface-soft);
+  color: var(--muted); font-size: 13px;
+}
+.pictureBookPages { display: grid; gap: 12px; padding-left: 0; list-style: none; }
+.pictureBookPages details { padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fffdf9; }
+.pictureBookPages summary { cursor: pointer; font-weight: 650; color: var(--text); }
+.pictureBookPages img { display: block; width: 100%; margin: 12px 0; border-radius: 12px; }
+.pictureBookPages p { margin: 8px 0 0; white-space: pre-wrap; }
+.pictureBookPageFallback {
+  margin: 12px 0; padding: 22px; border: 1px dashed var(--line); border-radius: 12px;
+  color: var(--muted); font-size: 13px; text-align: center;
+}
+.pictureBookFact { color: var(--muted); font-size: 13.5px; }

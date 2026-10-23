@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <filter id="wc"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" seed="8" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2"/><feBlend in="SourceGraphic" in2="noise" mode="soft-light"/></filter>
+    <radialGradient id="persimmon"><stop stop-color="#ef9b56"/><stop offset=".72" stop-color="#d96e38"/><stop offset="1" stop-color="#a94f2c"/></radialGradient>
+    <linearGradient id="leaf" x2="0" y2="1"><stop stop-color="#718b65"/><stop offset="1" stop-color="#405d48"/></linearGradient>
+    <linearGradient id="ink" x2="0" y2="1"><stop stop-color="#53666a"/><stop offset="1" stop-color="#1e2b2e"/></linearGradient>
+    <g id="mascot-base" filter="url(#wc)">
+      <ellipse cx="100" cy="118" rx="60" ry="55" fill="url(#persimmon)" stroke="#8f482d" stroke-width="3"/>
+      <path d="M99 67Q70 38 48 60q28 7 51 23Q124 44 154 61q-27 5-55 22Q89 48 103 35q16 16-4 32Z" fill="url(#leaf)" stroke="#3d5945" stroke-width="3"/>
+      <path d="M145 117q22 25 16 53l-31-15z" fill="#9b6b42" stroke="#65472f" stroke-width="3"/><path d="M141 122l20 8" stroke="#e1c27d" stroke-width="3"/>
+      <circle cx="82" cy="112" r="5" fill="#342724"/><circle cx="118" cy="112" r="5" fill="#342724"/>
+      <path d="M91 130q9 9 18 0" fill="none" stroke="#4c2f29" stroke-width="4" stroke-linecap="round"/>
+      <path d="M47 125q-19 10-22 29M153 126q16 8 20 25" fill="none" stroke="#8b4b30" stroke-width="8" stroke-linecap="round"/>
+      <path d="M158 80l13 98" stroke="#76512f" stroke-width="6" stroke-linecap="round"/><circle cx="157" cy="75" r="8" fill="#d1a85c" stroke="#76512f" stroke-width="3"/>
+    </g>
+    <g id="pawn"><path d="M76 165q0-30 13-45-15-12-10-30 4-17 21-17t21 17q5 18-10 30 13 15 13 45z" stroke-width="4"/><ellipse cx="100" cy="167" rx="33" ry="10" stroke-width="4"/></g>
+    <g id="inkbeast"><path d="M49 153q-25-54 15-83 9-29 35-14 28-20 39 13 41 25 15 73-19 35-56 30-32 5-48-19Z" fill="url(#ink)" stroke="#26373a" stroke-width="4"/><path d="M64 79 50 49q31 10 42 27M133 78l18-27q-31 8-41 25" fill="#3b5054"/><circle cx="82" cy="112" r="8" fill="#dcb45c"/><circle cx="121" cy="112" r="8" fill="#dcb45c"/><path d="M91 136q10 7 20 0" fill="none" stroke="#c9d1c7" stroke-width="4"/></g>
+  </defs>
+  <!-- 8 mascot states -->
+  <g transform="translate(0 0)"><use href="#mascot-base"/></g>
+  <g transform="translate(200 0)"><use href="#mascot-base"/><path d="M47 124q-25-12-29-35" stroke="#8b4b30" stroke-width="9" stroke-linecap="round"/><path d="M16 88q8-10 17 0" fill="none" stroke="#8b4b30" stroke-width="5"/></g>
+  <g transform="translate(400 0)"><use href="#mascot-base"/><circle cx="78" cy="110" r="8" fill="none" stroke="#d7b25d" stroke-width="3"/><path d="M48 56q25-17 48 20" fill="none" stroke="#4f6e52" stroke-width="5"/></g>
+  <g transform="translate(600 0)"><use href="#mascot-base"/><path d="M159 78 188 42" stroke="#76512f" stroke-width="6"/><path d="M69 104h18M112 104h18" stroke="#342724" stroke-width="3"/></g>
+  <g transform="translate(0 200)"><use href="#mascot-base"/><path d="M49 57q26 8 48 17M151 58q-27 8-50 17" fill="none" stroke="#405d48" stroke-width="7"/><path d="M76 108l12-4M112 104l12 4M94 134q7-6 13 0" fill="none" stroke="#342724" stroke-width="4"/></g>
+  <g transform="translate(200 200)"><use href="#mascot-base"/><path d="M47 125q-25 7-35-6M153 126q20 6 30-5" fill="none" stroke="#8b4b30" stroke-width="9" stroke-linecap="round"/><path d="M91 130q9 13 18 0" fill="none" stroke="#4c2f29" stroke-width="4"/></g>
+  <g transform="translate(400 200)"><use href="#mascot-base"/><circle cx="82" cy="111" r="8" fill="#342724"/><circle cx="118" cy="111" r="8" fill="#342724"/><circle cx="100" cy="134" r="7" fill="#713b32"/><g fill="#f5d374"><circle cx="45" cy="82" r="4"/><circle cx="166" cy="94" r="4"/><circle cx="154" cy="54" r="3"/></g></g>
+  <g transform="translate(600 200)"><use href="#mascot-base"/><path d="M46 126 20 80M154 126l28-48" stroke="#8b4b30" stroke-width="9" stroke-linecap="round"/><path d="M158 80 183 48" stroke="#76512f" stroke-width="6"/><g fill="#f6d36e"><circle cx="31" cy="58" r="5"/><circle cx="166" cy="44" r="4"/><circle cx="187" cy="87" r="5"/></g><path d="M50 58q49-28 101 0" stroke="#d6b656" stroke-width="4" opacity=".8"/></g>
+  <!-- player pieces -->
+  <g transform="translate(0 400)" fill="#c35e35" stroke="#7d3b2b"><use href="#pawn"/><path d="M100 61q-22 18 0 35 23-14 7-36 2 15-7 20-8-7 0-19Z" fill="#e9a349"/></g>
+  <g transform="translate(200 400)" fill="#62989d" stroke="#385f67"><use href="#pawn"/><path d="M100 57q-25 31 0 44 25-13 0-44Z" fill="#a8d0cc"/></g>
+  <g transform="translate(400 400)" fill="#8db9b2" stroke="#4d7772"><use href="#pawn"/><path d="M72 77q28-22 56 0M78 92q22-14 44 0" fill="none" stroke="#edf2df" stroke-width="5"/></g>
+  <g transform="translate(600 400)" fill="#6c9867" stroke="#3f6346"><use href="#pawn"/><path d="M100 58q-27 12-15 39 31-2 30-34-15 12-30 34" fill="#b7c97a" stroke="#507b4f" stroke-width="3"/></g>
+  <!-- ink monsters -->
+  <g transform="translate(0 600)"><use href="#inkbeast"/></g>
+  <g transform="translate(200 600)"><use href="#inkbeast"/><path d="M53 72 35 47M147 72l19-25" stroke="#26373a" stroke-width="9"/></g>
+  <g transform="translate(400 600)"><use href="#inkbeast"/><path d="M60 82 40 58M140 83l22-27M70 153l-25 27M130 153l27 26" stroke="#b59b61" stroke-width="9"/></g>
+  <g transform="translate(600 600)"><use href="#inkbeast"/><path d="M43 85 20 68l9 42M157 84l25-17-10 42" fill="#e8dfbd" stroke="#8e7a55" stroke-width="4"/></g>
+  <!-- boss -->
+  <g transform="translate(0 800)" filter="url(#wc)"><path d="M32 182q-21-57 22-94-8-44 33-49 27-35 55 2 45 5 31 51 33 38 4 88Z" fill="url(#ink)" stroke="#18282b" stroke-width="5"/><path d="M47 113 8 87M160 112l34-31M62 145l-43 38M148 145l38 39" stroke="#26373a" stroke-width="15" stroke-linecap="round"/><circle cx="82" cy="101" r="8" fill="#e3b955"/><circle cx="127" cy="101" r="8" fill="#e3b955"/><path d="M75 132q30 20 60 0" fill="none" stroke="#8ba0a1" stroke-width="5"/><circle cx="106" cy="42" r="22" fill="#edc65f" opacity=".75"/><g fill="#d9c172"><path d="M20 45l18 5-7 21-18-6zM170 42l18-5 7 21-18 6z"/></g></g>
+  <rect width="800" height="1000" fill="none" stroke="#000" stroke-opacity=".01"/>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "name": "presentation-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing slides JSON schema; assertion-style slide titles grounded in open presentation practice.",
+    "methodology_references": ["Assertion-evidence slide design (open literature)"]
+  },
+  "applies": {
+    "agents": ["workspace_presentations"],
+    "resource_kinds": ["workspace_presentation", "workspace_interactive_lesson"]
+  }
+}

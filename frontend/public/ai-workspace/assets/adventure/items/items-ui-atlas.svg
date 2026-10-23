@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <filter id="paper"><feTurbulence baseFrequency=".02" numOctaves="2" seed="5" result="n"/><feBlend in="SourceGraphic" in2="n" mode="multiply"/></filter>
+    <linearGradient id="parchment" x2="0" y2="1"><stop stop-color="#fff6d8"/><stop offset="1" stop-color="#e5cca0"/></linearGradient>
+    <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#f3d47a"/><stop offset="1" stop-color="#a96732"/></linearGradient>
+  </defs>
+  <!-- item_knowledge_page -->
+  <g filter="url(#paper)"><path d="M42 25q60 17 121 0l-5 154q-58-13-119 0z" fill="url(#parchment)" stroke="#9a7247" stroke-width="4"/><path d="M59 62h83M56 87h89M54 113h84M52 140h91" stroke="#8e714e" stroke-width="5" opacity=".45"/></g>
+  <!-- item_secret_scroll -->
+  <g transform="translate(200 0)" filter="url(#paper)"><rect x="50" y="31" width="102" height="142" rx="8" fill="url(#parchment)" stroke="#a57538" stroke-width="4"/><path d="M35 31h132M35 173h132" stroke="#6d4a2e" stroke-width="12" stroke-linecap="round"/><path d="M70 66q31-26 62 0M70 137q31 25 62 0" fill="none" stroke="#c49a50" stroke-width="5"/><circle cx="101" cy="102" r="17" fill="none" stroke="#cf9b42" stroke-width="5"/></g>
+  <!-- chest -->
+  <g transform="translate(400 0)"><path d="M32 91q0-56 68-56t68 56" fill="#7c5d39" stroke="#493728" stroke-width="7"/><rect x="27" y="84" width="146" height="91" rx="9" fill="#7c5835" stroke="#493728" stroke-width="7"/><path d="M61 86v89M139 86v89M27 123h146" stroke="#b1844e" stroke-width="8"/><rect x="84" y="106" width="32" height="42" rx="6" fill="url(#gold)"/><circle cx="100" cy="125" r="6" fill="#654521"/></g>
+  <!-- small medal -->
+  <g transform="translate(600 0)"><circle cx="100" cy="86" r="55" fill="url(#gold)" stroke="#8d5b2f" stroke-width="7"/><circle cx="100" cy="86" r="34" fill="#a95d35" stroke="#f0d176" stroke-width="5"/><path d="M100 60v52M74 86h52" stroke="#f6df9b" stroke-width="8"/><path d="m66 127-18 60 52-25 52 25-18-60" fill="#9f5939" opacity=".9"/></g>
+  <!-- grand medal -->
+  <g transform="translate(0 200)"><path d="M100 16 172 61l-26 91-46 34-46-34-26-91Z" fill="url(#gold)" stroke="#7f5733" stroke-width="7"/><circle cx="100" cy="96" r="47" fill="#ad6338" stroke="#f6db8a" stroke-width="6"/><path d="M58 103q-19-34 3-65M142 103q19-34-3-65" fill="none" stroke="#72906b" stroke-width="8"/><path d="M100 62v68M70 96h60" stroke="#f7df98" stroke-width="10"/></g>
+  <!-- fate scroll -->
+  <g transform="translate(200 200)" filter="url(#paper)"><rect x="24" y="26" width="152" height="151" rx="12" fill="url(#parchment)" stroke="#8f673c" stroke-width="5"/><path d="M13 26h174M13 177h174" stroke="#6c4b2e" stroke-width="11" stroke-linecap="round"/><g fill="none" stroke="#bd9654" stroke-width="3"><rect x="39" y="45" width="52" height="43" rx="6"/><rect x="109" y="45" width="52" height="43" rx="6"/><rect x="39" y="99" width="52" height="43" rx="6"/><rect x="109" y="99" width="52" height="43" rx="6"/></g><rect x="56" y="150" width="88" height="17" rx="8" fill="#bd7440"/></g>
+  <!-- spellbook -->
+  <g transform="translate(400 200)" filter="url(#paper)"><path d="M17 40q43-24 82 5v130q-39-24-82-5z" fill="url(#parchment)" stroke="#795a3b" stroke-width="5"/><path d="M183 40q-43-24-82 5v130q39-24 82-5z" fill="url(#parchment)" stroke="#795a3b" stroke-width="5"/><path d="M100 45v130" stroke="#a88657" stroke-width="5"/><path d="M37 69h43M37 94h43M120 69h43M120 94h43" stroke="#a48b67" stroke-width="4" opacity=".6"/><path d="M17 40q43-24 82 5M183 40q-43-24-82 5" stroke="#526d51" stroke-width="7"/></g>
+  <!-- boss rune/reward frame reusable -->
+  <g transform="translate(600 200)"><circle cx="100" cy="100" r="72" fill="none" stroke="#c99a49" stroke-width="6"/><circle cx="100" cy="100" r="50" fill="none" stroke="#799078" stroke-width="4"/><path d="M28 100h144M100 28v144M49 49l102 102M151 49 49 151" stroke="#d2ae62" stroke-width="3"/><g fill="#e6c875"><circle cx="100" cy="28" r="6"/><circle cx="172" cy="100" r="6"/><circle cx="100" cy="172" r="6"/><circle cx="28" cy="100" r="6"/></g></g>
+</svg>

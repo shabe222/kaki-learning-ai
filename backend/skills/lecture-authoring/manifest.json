@@ -1,0 +1,14 @@
+{
+  "name": "lecture-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA; honest-verification and misconception-first structure follow the product's own trusted-artifact contracts. No third-party text copied.",
+    "methodology_references": ["DARYA claim-verification / 待核实 contract", "Misconception-first instruction (open literature)"]
+  },
+  "applies": {
+    "agents": ["document_agent", "materials_doc"],
+    "resource_kinds": ["workspace_lecture", "material_document", "knowledge_card"]
+  }
+}

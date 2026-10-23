@@ -1,0 +1,109 @@
+/* 连续语音通话面板：克制、无头像，只有转写/回复文字与控制行 */
+.call {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0 0 0.7rem;
+  padding: 0.9rem 1.05rem 0.85rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.9rem;
+  background: color-mix(in oklch, var(--tide-paper) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.callHead {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--tide-sand-deep);
+}
+
+.callHead strong {
+  color: var(--tide-ink);
+  font: 600 0.86rem var(--tide-font-editorial);
+}
+
+.phase { color: var(--tide-ink-faint); font-size: 0.68rem; }
+
+.lines {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.lines p {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--tide-ink);
+}
+
+.lines p > span {
+  color: var(--tide-ink-faint);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding-top: 0.18rem;
+}
+
+.youLine { color: var(--tide-ink-muted); }
+
+.hint {
+  display: block;
+  margin: 0;
+  color: var(--tide-ink-faint);
+  font-size: 0.7rem;
+}
+
+/* 通话里的黑板：板面按 1600×1000 画，这里给它一块保持比例的舞台。
+   电话里没有右侧栏，板子必须在通话面板内部，用户才看得到 DARYA 在写什么。
+   板子上方那一句「正在讲」跟着板子一起走，间距归这层管。 */
+.boardBlock {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.boardStage {
+  width: 100%;
+  aspect-ratio: 1600 / 1000;
+  max-height: 46vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(12, 26, 20, 0.26);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.42rem 0.75rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-ink-muted);
+  font: 600 0.7rem var(--tide-font-body);
+  cursor: pointer;
+  transition: color 140ms ease, background 140ms ease;
+}
+
+.controls button:hover { color: var(--tide-sand-deep); background: var(--tide-focus-soft); }
+
+.controls .end {
+  margin-left: auto;
+  border-color: color-mix(in oklch, var(--tide-danger) 45%, transparent);
+  color: var(--tide-danger);
+}
+
+.controls .end:hover { color: var(--tide-danger); background: color-mix(in oklch, var(--tide-danger) 8%, transparent); }
+
+@media (max-width: 40rem) {
+  .controls button span { display: none; }
+  .controls .end span { display: inline; }
+}

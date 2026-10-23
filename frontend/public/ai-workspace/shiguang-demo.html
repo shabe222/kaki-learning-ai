@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>拾光漫游 · 新冒险演示</title>
+  <link rel="stylesheet" href="/ai-workspace/styles/adventure-v2.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; overflow: hidden;
+      color: #f5e9d8; font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(1100px 460px at 50% -8%, rgba(126,164,196,.22), transparent 62%),
+        radial-gradient(760px 320px at 84% 12%, rgba(240,191,112,.18), transparent 58%),
+        linear-gradient(180deg, #232c3a 0%, #33261b 52%, #221710 100%);
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1.6px 1.6px at 14% 20%, rgba(255,241,205,.85), transparent 100%),
+        radial-gradient(1.2px 1.2px at 28% 9%, rgba(255,255,255,.6), transparent 100%),
+        radial-gradient(1.4px 1.4px at 41% 26%, rgba(255,238,200,.7), transparent 100%),
+        radial-gradient(1.1px 1.1px at 55% 13%, rgba(255,255,255,.5), transparent 100%),
+        radial-gradient(1.5px 1.5px at 68% 22%, rgba(255,241,205,.75), transparent 100%),
+        radial-gradient(1.2px 1.2px at 80% 8%, rgba(255,255,255,.55), transparent 100%);
+    }
+
+    /* ===== 角色选择 ===== */
+    #roleSelect {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; align-items: center; flex-direction: column;
+      overflow-y: auto;
+    }
+    /* 主题输入页：主内容收拢为居中的启动区，落在页面上部偏中（约 20% 处），不贴顶 */
+    #stepTopic {
+      display: flex; align-items: center; flex-direction: column; gap: 14px;
+      padding-top: clamp(60px, 18vh, 150px);
+    }
+    #roleSelect h1 {
+      font: 700 clamp(30px, 4vw, 44px)/1.3 "STSong", serif; letter-spacing: .14em; margin: 0;
+      background: linear-gradient(120deg, #ffe9b8 10%, #f2b767 48%, #d98a58 90%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 3px 14px rgba(0,0,0,.35));
+    }
+    #roleSelect .sub { color: rgba(245,233,216,.72); font-size: 14px; letter-spacing: .06em; }
+    /* 输入框 + 下一步按钮：同一行组合，高度一致，视觉重心一致 */
+    .topic-row {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      flex-wrap: wrap; margin-top: 8px;
+    }
+    .topic-box {
+      width: min(420px, 58vw); padding: 13px 18px;
+      border: 1px solid rgba(255,220,170,.4); border-radius: 999px; outline: none;
+      background: rgba(20,14,8,.45); color: #ffe9c4; font-size: 15px; text-align: center; letter-spacing: .04em;
+    }
+    .topic-box::placeholder { color: rgba(255,233,196,.5); }
+    .topic-box:focus { border-color: #f2b767; box-shadow: 0 0 0 3px rgba(242,183,103,.15); }
+    .topic-next {
+      padding: 13px 30px; border: 1px solid rgba(255,220,170,.5); border-radius: 999px; cursor: pointer;
+      color: #fff2dd; font: 700 15px "STSong", serif; letter-spacing: .12em;
+      background: linear-gradient(140deg, #7a5230, #5d3a24);
+      box-shadow: 0 14px 36px rgba(0,0,0,.45); transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .topic-next:hover { transform: translateY(-2px); }
+    .topic-back {
+      margin-top: 18px; padding: 8px 18px; border: 0; border-radius: 999px; cursor: pointer;
+      color: rgba(245,233,216,.6); font-size: 12px; letter-spacing: .08em;
+      background: transparent; transition: color .15s ease;
+    }
+    .topic-back:hover { color: #f2b767; }
+    /* 身份选择页：分层引导——标题区在上、身份卡主区居中、存档降级到下面 */
+    #stepRole {
+      display: flex; flex-direction: column; align-items: center;
+      width: min(1080px, 96vw);
+      padding-top: clamp(24px, 5vh, 46px);
+    }
+    #stepRole .sub { margin-top: 6px; text-align: center; }
+    #stepRole .role-cards { margin-top: 22px; }
+    /* 显式 display 会覆盖 hidden 属性的默认 display:none，这里补回，保证切页真正隐藏 */
+    #stepTopic[hidden], #stepRole[hidden] { display: none !important; }
+    /* 返回对话（常驻） */
+    .back-dialog {
+      position: fixed; top: 14px; left: 14px; z-index: 200;
+      padding: 8px 16px; border: 1px solid rgba(255,220,170,.35); border-radius: 999px; cursor: pointer;
+      color: rgba(245,233,216,.8); font-size: 12px; letter-spacing: .06em;
+      background: rgba(30,22,15,.55); backdrop-filter: blur(8px);
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .back-dialog:hover { color: #f2b767; border-color: #f2b767; }
+    /* 历史存档（次级模块）：宽度对齐主内容轴线，放在身份卡下方，视觉降级 */
+    .archive-list {
+      margin-top: 22px; width: min(680px, 86vw); text-align: left;
+      border-top: 1px solid rgba(255,220,170,.18); padding-top: 14px;
+      max-height: 32vh; overflow-y: auto;
+    }
+    .archive-list > small { color: rgba(245,233,216,.55); font-size: 11px; letter-spacing: .1em; }
+    .archive-item {
+      display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; padding: 12px 16px;
+      border: 1px solid rgba(255,220,170,.28); border-radius: 14px; cursor: pointer;
+      background: rgba(255,255,255,.05); color: #ffe9c4; text-align: left;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .archive-item:hover { border-color: #f2b767; background: rgba(255,255,255,.09); }
+    .archive-item b { flex: 1; font-size: 13.5px; letter-spacing: .03em; }
+    .archive-item span { color: rgba(245,233,216,.6); font-size: 11px; }
+    .archive-item em { color: #f2b767; font-size: 11px; font-style: normal; letter-spacing: .06em; }
+    .role-cards { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; padding: 0 8px; width: 100%; }
+    .role-card {
+      width: clamp(210px, 22vw, 250px); padding: 22px 18px 18px; cursor: pointer;
+      border: 1px solid rgba(255,220,170,.35); border-radius: 20px;
+      background: linear-gradient(160deg, rgba(74,52,34,.72), rgba(43,32,22,.78));
+      box-shadow: inset 0 1px rgba(255,255,255,.08), 0 18px 40px rgba(0,0,0,.35);
+      text-align: center; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .role-card:hover { transform: translateY(-4px); border-color: #f2b767; box-shadow: 0 22px 48px rgba(0,0,0,.45), 0 0 24px rgba(242,183,103,.18); }
+    .role-card .seal {
+      width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 18px;
+      display: grid; place-items: center; font: 700 26px serif; color: #fff7e7;
+      background: linear-gradient(145deg, #bd6840, #7e3c28);
+      box-shadow: inset 0 1px rgba(255,255,255,.3), 0 8px 18px rgba(105,53,29,.3);
+    }
+    .role-card strong { display: block; font: 700 19px/1.3 "STSong", serif; color: #ffe9c4; letter-spacing: .08em; margin-top: 2px; }
+    .role-card span { display: block; margin-top: 8px; color: rgba(245,233,216,.68); font-size: 12.5px; line-height: 1.7; min-height: 44px; }
+    .role-card em { display: block; margin-top: 12px; color: #f2b767; font: 600 12px sans-serif; font-style: normal; letter-spacing: .1em; }
+    /* 自定义形象卡 */
+    .role-card.is-custom { border-style: dashed; }
+    .role-card.is-custom .seal { background: linear-gradient(145deg, #7aa39a, #3f6b60); }
+    .custom-form { display: none; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .custom-form.on { display: flex; }
+    .custom-form input {
+      padding: 10px 14px; border: 1px solid rgba(255,220,170,.5); border-radius: 12px;
+      background: rgba(20,14,8,.45); color: #ffe9c4; font-size: 14px; text-align: center; outline: none;
+    }
+    .custom-form input:focus { border-color: #f2b767; }
+    .custom-form input::placeholder { color: rgba(255,233,196,.5); }
+    .swatches { display: flex; justify-content: center; gap: 10px; }
+    .swatches i {
+      width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 2px solid transparent;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .swatches i:hover { transform: scale(1.12); }
+    .swatches i.sel { border-color: #fff; transform: scale(1.12); }
+    .custom-form .go {
+      padding: 11px; border: 0; border-radius: 12px; cursor: pointer;
+      color: #fff; font: 700 14px "STSong", serif; letter-spacing: .12em;
+      background: linear-gradient(140deg, #7a9a8f, #3f6b60); transition: transform .16s ease;
+    }
+    .custom-form .go:hover { transform: translateY(-2px); }
+
+    /* ===== 游戏场景 ===== */
+    #game { position: fixed; inset: 0; display: none; }
+    #game.on { display: block; }
+    .demo-scene {
+      position: absolute; inset: 0;
+      background-color: #c6b899; background-position: center; background-size: cover;
+      transition: background-image .6s ease, filter .6s ease;
+    }
+    .demo-scene::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(39,29,21,.1), transparent 18% 82%, rgba(39,29,21,.12)),
+        linear-gradient(180deg, rgba(43,35,25,.1), transparent 40%, rgba(28,20,15,.52));
+    }
+    .demo-scene .char {
+      position: absolute; z-index: 8; object-fit: contain; pointer-events: none;
+      filter: drop-shadow(0 18px 16px rgba(28,20,15,.3));
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .demo-scene .char.mascot { right: auto; left: 21%; bottom: 24%; width: clamp(120px, 13%, 190px); animation: demo-float 3.4s ease-in-out infinite; }
+    .demo-scene .char.player { left: 2%; bottom: 18%; width: clamp(210px, 24%, 380px); }
+    .demo-scene .char.enemy { right: 7%; bottom: 40%; width: clamp(150px, 19%, 280px); animation: demo-breathe 3.2s ease-in-out infinite; }
+    .demo-scene .char.boss { right: 6%; bottom: 34%; width: clamp(220px, 30%, 420px); animation: demo-breathe 3.4s ease-in-out infinite; }
+    @keyframes demo-float { 50% { transform: translateY(-8px); } }
+    @keyframes demo-breathe { 50% { transform: translateY(-4px) scale(1.012); } }
+    .demo-scene .clue-float {
+      position: absolute; left: 50%; top: 16%; transform: translateX(-50%); z-index: 12;
+      max-width: min(460px, 80vw); padding: 12px 20px; border-radius: 16px;
+      border: 1px solid rgba(180,210,170,.5); background: rgba(28,42,30,.85); backdrop-filter: blur(6px);
+      color: #e8f0dc; font-size: 13.5px; line-height: 1.8; text-align: center;
+      box-shadow: 0 14px 34px rgba(0,0,0,.4); animation: clue-rise .6s ease both;
+    }
+    @keyframes clue-rise { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+    /* ===== 对话框 ===== */
+    .demo-dialog {
+      position: absolute; left: 50%; bottom: clamp(14px, 2.2vh, 26px); transform: translateX(-50%);
+      z-index: 30; width: min(calc(100% - clamp(30px, 5vw, 80px)), 900px);
+      max-height: min(38vh, 340px); display: flex; flex-direction: column; overflow: hidden;
+      border: 1px solid rgba(255,236,205,.4); border-radius: 20px;
+      color: #3a2c22;
+      background:
+        radial-gradient(circle at 94% 4%, rgba(219,148,79,.16), transparent 30%),
+        linear-gradient(150deg, rgba(255,250,240,.96), rgba(250,238,214,.94));
+      box-shadow: inset 0 1px rgba(255,255,255,.7), 0 20px 50px rgba(20,14,8,.42);
+      backdrop-filter: blur(10px);
+    }
+    .demo-dialog .d-head {
+      display: flex; align-items: center; gap: 10px; flex: 0 0 auto;
+      padding: 10px 18px 8px; border-bottom: 1px solid rgba(180,150,105,.28);
+    }
+    .demo-dialog .d-bar { width: 4px; align-self: stretch; border-radius: 2px; flex: none; }
+    .demo-dialog .d-name { font: 700 14px "STSong", serif; letter-spacing: .08em; }
+    .demo-dialog .d-role { font-size: 10px; color: #9a8a76; letter-spacing: .06em; margin-top: 1px; }
+    .demo-dialog .d-tag { margin-left: auto; font-size: 10px; color: #b09a7c; letter-spacing: .1em; }
+    .demo-dialog .d-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 18px 6px; scrollbar-width: thin; }
+    .demo-dialog .d-text {
+      min-height: 56px; color: #4c3c31; font: 600 15px/1.85 "STSong", serif; letter-spacing: .03em; white-space: pre-wrap;
+    }
+    .demo-dialog .d-options { flex: 0 0 auto; display: grid; gap: 6px; padding: 8px 18px 14px; }
+    .demo-dialog .d-options button {
+      text-align: left; padding: 10px 14px; cursor: pointer; border-radius: 12px;
+      border: 1px solid rgba(190,160,115,.4); background: rgba(255,255,255,.55); color: #5a4634;
+      font-size: 13.5px; line-height: 1.6; transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+    .demo-dialog .d-options button:hover { border-color: #c17a4d; background: #fff6e8; transform: translateX(3px); }
+    .demo-dialog .d-input { flex: 0 0 auto; display: none; gap: 8px; padding: 8px 18px 14px; }
+    .demo-dialog .d-input.on { display: flex; }
+    .demo-dialog .d-input textarea {
+      flex: 1; min-height: 56px; padding: 10px 12px; border: 1px solid #d1bea8; border-radius: 12px;
+      color: #40342b; background: #fffdf8; font-size: 13.5px; line-height: 1.6; resize: none;
+    }
+    .demo-dialog .d-input textarea:focus { border-color: #c17a4d; outline: 2px solid rgba(193,122,77,.2); }
+    .demo-dialog .d-input button { align-self: flex-end; padding: 10px 18px; border: 0; border-radius: 12px; cursor: pointer; color: #fff; font-weight: 700; background: linear-gradient(160deg, #bd6840, #8f4b31); }
+    .demo-dialog .d-feedback { flex: 0 0 auto; display: none; margin: 0 18px 12px; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.7; }
+    .demo-dialog .d-feedback.on { display: block; }
+    .demo-dialog .d-feedback.success { background: #e8f2e2; color: #3d5a34; border: 1px solid #a9c89a; }
+    .demo-dialog .d-feedback.info { background: #f3ecd9; color: #6d5a3a; border: 1px solid #d8c7a2; }
+    .demo-dialog .d-feedback.needs_review { background: #fbe9e0; color: #8a4a33; border: 1px solid #e0b29c; }
+    /* 法器选择条 */
+    .d-artifacts {
+      flex: 0 0 auto; display: none; align-items: center; gap: 8px; padding: 8px 18px 0;
+    }
+    .d-artifacts.on { display: flex; }
+    .d-artifacts .art-label { color: #9a8a76; font-size: 11px; letter-spacing: .1em; margin-right: 2px; }
+    .d-artifacts .art {
+      display: flex; align-items: center; gap: 6px; padding: 5px 12px 5px 6px; cursor: pointer;
+      border: 1px solid rgba(190,160,115,.4); border-radius: 999px; background: rgba(255,255,255,.5);
+      color: #5a4634; font-size: 12px; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .d-artifacts .art img { width: 26px; height: 26px; object-fit: contain; }
+    .d-artifacts .art:hover { transform: translateY(-2px); }
+    .d-artifacts .art.sel { border-color: #c17a4d; box-shadow: 0 0 0 3px rgba(193,122,77,.18); transform: translateY(-2px); }
+    .d-artifacts .art:disabled { opacity: .45; cursor: not-allowed; }
+    /* 法术三段演出：蓄力 → 弹道 → 爆开 */
+    .spell-charge {
+      position: fixed; z-index: 44; pointer-events: none; transform: translate(-50%, -50%);
+      width: 110px; height: 110px;
+    }
+    .spell-charge img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 26px rgba(255,200,110,.7)); animation: charge-pulse .55s ease both; }
+    @keyframes charge-pulse {
+      0% { opacity: 0; transform: scale(.35) rotate(-14deg); }
+      45% { opacity: 1; transform: scale(1.22) rotate(4deg); }
+      100% { opacity: .85; transform: scale(1); }
+    }
+    .spell-trail {
+      position: fixed; z-index: 44; pointer-events: none;
+      width: 150px; height: 60px; margin-left: -75px; margin-top: -30px;
+      will-change: left, top;
+    }
+    .spell-trail img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 18px rgba(255,210,130,.55)); }
+    .spell-burst {
+      position: fixed; z-index: 45; pointer-events: none; transform: translate(-50%, -50%);
+      animation: burst-pop .85s cubic-bezier(.2,.85,.3,1.1) both;
+    }
+    .spell-burst img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 22px rgba(255,190,90,.55)); }
+    .spell-burst .ring { position: absolute; inset: -30%; border-radius: 50%; border: 3px solid rgba(255,210,130,.75); animation: burst-ring .7s ease-out both; }
+    @keyframes burst-pop { 0% { opacity: 0; transform: translate(-50%,-50%) scale(.3); } 35% { opacity: 1; transform: translate(-50%,-50%) scale(1.25); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); } }
+    @keyframes burst-ring { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(1.4); } }
+    /* 角色区分：左侧色条 + 名牌配色（无圆形图标装饰） */
+    .demo-dialog[data-speaker="柿小吉"] .d-bar { background: linear-gradient(180deg, #e8a24d, #c9781f); }
+    .demo-dialog[data-speaker="柿小吉"] .d-name { color: #a35d16; }
+    .demo-dialog[data-speaker="旁白"] .d-bar { background: linear-gradient(180deg, #8a8578, #5d584d); }
+    .demo-dialog[data-speaker="旁白"] .d-name { color: #6d6659; }
+    .demo-dialog[data-speaker="墨魇之主"] .d-bar { background: linear-gradient(180deg, #5b4a6b, #332a40); }
+    .demo-dialog[data-speaker="墨魇之主"] .d-name { color: #4a3a5e; }
+    .demo-dialog[data-speaker="墨迹兽"] .d-bar { background: linear-gradient(180deg, #6b6f7a, #45484f); }
+    .demo-dialog[data-speaker="墨迹兽"] .d-name { color: #4a4f58; }
+    .demo-dialog[data-speaker="旅者"] .d-bar { background: linear-gradient(180deg, #4f8a7a, #2f5f53); }
+    .demo-dialog[data-speaker="旅者"] .d-name { color: #2f6a5a; }
+
+    /* ===== 顶部进度 ===== */
+    .demo-top {
+      position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 40;
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 999px;
+      background: rgba(35,25,17,.6); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,220,170,.28); color: #ffe9c4; font-size: 12px; letter-spacing: .08em;
+    }
+    .demo-top i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.18); }
+    .demo-top i.on { background: #f2b767; box-shadow: 0 0 8px rgba(242,183,103,.8); }
+
+    /* ===== 胜利结算 ===== */
+    #victory {
+      position: fixed; inset: 0; z-index: 60; display: none;
+      align-items: center; justify-content: center; flex-direction: column; gap: 16px; text-align: center;
+      background: radial-gradient(900px 500px at 50% 30%, rgba(120,160,120,.25), transparent 60%), linear-gradient(180deg, #232c3a, #221710);
+    }
+    #victory.on { display: flex; }
+    #victory .badge {
+      width: 110px; height: 110px; border-radius: 28px; display: grid; place-items: center;
+      font: 700 52px serif; color: #fff7e7;
+      background: linear-gradient(145deg, #e8a24d, #c9781f);
+      box-shadow: 0 0 0 6px rgba(232,162,77,.25), 0 24px 60px rgba(0,0,0,.5);
+      animation: badge-pop .7s cubic-bezier(.2,.9,.3,1.4) both;
+    }
+    @keyframes badge-pop { from { transform: scale(.3) rotate(-12deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+    #victory h2 { font: 700 clamp(26px, 3vw, 36px)/1.3 "STSong", serif; color: #ffe9c4; margin: 6px 0 0; letter-spacing: .12em; }
+    #victory p { color: rgba(245,233,216,.78); max-width: 460px; line-height: 1.8; font-size: 14px; margin: 0; }
+    #victory button {
+      margin-top: 10px; padding: 13px 26px; border: 1px solid rgba(255,220,170,.5); border-radius: 999px; cursor: pointer;
+      color: #fff2dd; font: 700 15px "STSong", serif; letter-spacing: .1em;
+      background: linear-gradient(140deg, #7a5230, #5d3a24);
+      box-shadow: 0 14px 36px rgba(0,0,0,.45); transition: transform .16s ease;
+    }
+    #victory button:hover { transform: translateY(-2px); }
+    #victory .back-main {
+      background: transparent; border-color: rgba(255,220,170,.3); color: rgba(245,233,216,.65);
+      font-size: 12px; letter-spacing: .08em; padding: 9px 18px;
+    }
+    #victory .back-main:hover { color: #f2b767; }
+    .loading-dot { display: inline-block; animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: .35; } }
+  
+    .topic-chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+    .topic-chips span { color: rgba(245,233,216,.55); font-size: 12px; letter-spacing: .08em; }
+    .topic-chips button {
+      padding: 6px 14px; border: 1px solid rgba(255,220,170,.3); border-radius: 999px; cursor: pointer;
+      color: rgba(245,233,216,.85); font-size: 12px; background: rgba(255,255,255,.06);
+      transition: border-color .15s ease, color .15s ease, transform .15s ease;
+    }
+    .topic-chips button:hover { border-color: #f2b767; color: #ffe9c4; transform: translateY(-1px); }
+    .generating {
+      margin-top: 18px; padding: 12px 20px; border: 1px solid rgba(242,183,103,.4); border-radius: 999px;
+      color: #ffe9c4; font-size: 13px; letter-spacing: .04em; text-align: center;
+      background: rgba(242,183,103,.1); animation: gen-blink 1.4s ease-in-out infinite;
+    }
+    @keyframes gen-blink { 50% { opacity: .55; } }
+</style>
+</head>
+<body>
+  <!-- 角色选择 -->
+  <!-- 返回对话（所有界面常驻） -->
+  <button type="button" class="back-dialog" id="backDialogBtn">← 返回对话</button>
+
+  <section id="roleSelect">
+    <!-- 第一步：输入学习主题 -->
+    <div id="stepTopic">
+      <h1>拾光漫游</h1>
+      <div class="sub">先写下你想学懂的主题——整段冒险会围绕它展开</div>
+      <div class="topic-row">
+        <input class="topic-box" id="topicInput" maxlength="40" placeholder="本次学习主题（如：机器学习与模型评估）" />
+        <button type="button" class="topic-next" id="topicNext">下一步：选择身份</button>
+      </div>
+      <div class="topic-chips" id="topicChips">
+        <span>试试：</span>
+        <button type="button" data-topic="机器学习与模型评估">机器学习</button>
+        <button type="button" data-topic="微积分">微积分</button>
+        <button type="button" data-topic="英语一般过去时">英语时态</button>
+        <button type="button" data-topic="Python 循环">Python 循环</button>
+        <button type="button" data-topic="光合作用">光合作用</button>
+      </div>
+      <div class="generating" id="generating" hidden>✦ 柿小吉正在围绕这个主题编织剧情与题目，请稍候…</div>
+    </div>
+    <!-- 第二步：选择身份 + 历史存档 -->
+    <div id="stepRole" hidden>
+      <h1>拾光漫游</h1>
+      <div class="sub" id="roleTopicLabel">选择你的身份，与柿小吉一起出发</div>
+      <div class="role-cards" id="roleCards">
+        <div class="role-card is-custom" data-role="custom" id="customCard">
+          <strong>自定义形象</strong>
+          <span>用你自己的名字走进丰穗谷，柿小吉会这样称呼你。</span>
+          <em>输入名字 · 选一个形象</em>
+          <div class="custom-form" id="customForm">
+            <input id="customName" maxlength="8" placeholder="你的名字（如：小林）" />
+            <div class="swatches" id="customSwatches">
+              <i data-c="fire" style="background:linear-gradient(145deg,#e8824a,#b0461f)" title="炎火"></i>
+              <i data-c="water" style="background:linear-gradient(145deg,#6fb2c4,#2e6e86)" title="清流"></i>
+              <i data-c="wind" style="background:linear-gradient(145deg,#9fc9a8,#4c8f63)" title="回风"></i>
+              <i data-c="wood" style="background:linear-gradient(145deg,#e0b060,#a8782f)" title="金穗"></i>
+            </div>
+            <button type="button" class="go" id="customGo">以这个名字出发</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="topic-back" id="topicBack">← 换个主题</button>
+      <div class="archive-list" id="archiveList" hidden></div>
+    </div>
+  </section>
+
+  <!-- 游戏主场景 -->
+  <section id="game">
+    <div class="demo-top" id="stageProgress"></div>
+    <div class="demo-scene" id="scene">
+      <img class="char mascot" id="charMascot" alt="柿小吉">
+      <img class="char player" id="charPlayer" alt="旅者">
+      <img class="char enemy" id="charEnemy" alt="墨迹兽">
+      <img class="char boss" id="charBoss" alt="墨魇之主">
+      <div class="clue-float" id="clueFloat" hidden></div>
+    </div>
+    <div class="demo-dialog" id="dialog" data-speaker="柿小吉">
+      <div class="d-head">
+        <i class="d-bar" id="dBar"></i>
+        <div>
+          <div class="d-name" id="dName">柿小吉</div>
+          <div class="d-role" id="dRole">学习同伴 · 丰穗谷</div>
+        </div>
+        <div class="d-tag" id="dTag"></div>
+      </div>
+      <div class="d-body"><div class="d-text" id="dText"></div></div>
+      <div class="d-artifacts" id="dArtifacts">
+        <span class="art-label">法器</span>
+        <button type="button" class="art" data-s="fire"><img src="/ai-workspace/assets/adventure/spells/fire_emblem.png" alt=""><span>炎火</span></button>
+        <button type="button" class="art" data-s="water"><img src="/ai-workspace/assets/adventure/spells/water_emblem.png" alt=""><span>清流</span></button>
+        <button type="button" class="art" data-s="wind"><img src="/ai-workspace/assets/adventure/spells/wind_emblem.png" alt=""><span>回风</span></button>
+        <button type="button" class="art" data-s="wood"><img src="/ai-workspace/assets/adventure/spells/wood_emblem.png" alt=""><span>金穗</span></button>
+      </div>
+      <div class="d-options" id="dOptions"></div>
+      <div class="d-input" id="dInput">
+        <textarea id="dAnswer" placeholder="写下你的回答；不需要很长，但要留下可判断的证据。"></textarea>
+        <button type="button" id="dSubmit">提交回答</button>
+      </div>
+      <div class="d-feedback" id="dFeedback"></div>
+    </div>
+  </section>
+
+  <!-- 胜利结算 -->
+  <section id="victory">
+    <div class="badge">印</div>
+    <h2 id="victoryTitle">拾光有成</h2>
+    <p id="victoryText"></p>
+    <button type="button" id="restartBtn">再走一次</button>
+    <button type="button" class="back-main" id="backMainBtn">返回主程序</button>
+  </section>
+
+  <script src="/ai-workspace/scripts/shiguang-demo.js?v=20260822"></script>
+</body>
+</html>

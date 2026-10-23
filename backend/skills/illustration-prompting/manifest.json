@@ -1,0 +1,14 @@
+{
+  "name": "illustration-prompting",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing text-free, morandi-family asset rules (ART_ASSET_BRIEF contract).",
+    "methodology_references": ["DARYA ART_ASSET_BRIEF visual family contract"]
+  },
+  "applies": {
+    "agents": ["illustration_skill", "document_agent_illustration"],
+    "resource_kinds": ["illustration", "presentation_cover"]
+  }
+}

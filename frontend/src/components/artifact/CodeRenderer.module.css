@@ -1,0 +1,499 @@
+.codeRenderer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  color: #342820;
+}
+.labBrief {
+  display: grid;
+  gap: 5px;
+  margin: 0 12px;
+  padding: 12px 14px;
+  border-left: 3px solid #6f8477;
+  background: #f2f6f2;
+}
+.labBrief span {
+  font-size: 11px;
+  color: #617268;
+  letter-spacing: 0.08em;
+}
+.labBrief strong {
+  font-size: 15px;
+}
+.labBrief p {
+  margin: 0;
+  color: #6f625a;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.fileBar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eadfd4;
+}
+.fileBar > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.fileBar span {
+  font-size: 12px;
+  color: #84736a;
+}
+.fileBar button,
+.footerActions button,
+.runPane button,
+.revisionPanel button {
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: #f4e8dc;
+  color: #5c4436;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.runButton {
+  background: #526b5d !important;
+  color: white !important;
+}
+.submitButton {
+  background: #d96b28 !important;
+  color: white !important;
+  font-weight: 700;
+}
+.mainGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
+  min-height: 540px;
+}
+.editorPane {
+  min-width: 0;
+  background: #202423;
+  color: #f7f2eb;
+}
+.editorPane > pre {
+  margin: 0;
+  min-height: 540px;
+  overflow: auto;
+  padding: 18px 0;
+  font:
+    13px/1.65 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+.editorPane > pre > div {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  padding-right: 18px;
+}
+.editorPane > pre > div > span {
+  color: #7f8b86;
+  text-align: right;
+  padding-right: 16px;
+  user-select: none;
+}
+.editorPane code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.editorPane > textarea {
+  width: 100%;
+  min-height: 540px;
+  box-sizing: border-box;
+  border: 0;
+  resize: vertical;
+  background: #202423;
+  color: #f7f2eb;
+  padding: 18px;
+  font:
+    13px/1.65 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  tab-size: 4;
+}
+.editorPane > textarea:focus {
+  outline: 2px solid #83998d;
+  outline-offset: -2px;
+}
+.runPane {
+  border-left: 1px solid #eadfd4;
+  background: #fffaf4;
+  padding: 14px;
+  overflow: auto;
+}
+.runPane > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.runPane > header > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.emptyRun {
+  min-height: 190px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 7px;
+  text-align: center;
+  color: #7d6c62;
+}
+.emptyRun svg {
+  width: 32px;
+  height: 32px;
+}
+.runSummary {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #eadfd4;
+}
+.runSummary svg {
+  flex: none;
+}
+.runSummary div {
+  display: grid;
+  gap: 3px;
+}
+.runSummary span,
+.runSummary small {
+  font-size: 12px;
+  color: #7e6c62;
+}
+.observation {
+  display: grid;
+  gap: 3px;
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 3px solid #d99055;
+  background: #fff2e4;
+}
+.observation span {
+  font-size: 13px;
+}
+.runPane section h3 {
+  font-size: 12px;
+  margin: 12px 0 5px;
+  color: #735f52;
+}
+.runPane section pre {
+  margin: 0;
+  max-height: 150px;
+  overflow: auto;
+  background: #2a2d2b;
+  color: #f7f2eb;
+  padding: 10px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font:
+    12px/1.55 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+.history {
+  display: grid;
+  gap: 5px;
+  margin-top: 14px;
+}
+.history > button {
+  justify-content: space-between;
+  background: transparent;
+  border: 1px solid #eadfd4;
+}
+.history > button[data-active="true"] {
+  border-color: #6f8477;
+  background: #eef4ef;
+}
+.history span {
+  font-size: 11px;
+}
+.revisionPanel {
+  background: #fffaf4;
+  color: #392d26;
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+.revisionPanel label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+.revisionPanel textarea {
+  min-height: 74px;
+  padding: 9px;
+  border: 1px solid #d8c7ba;
+  border-radius: 8px;
+  font: 13px/1.5 var(--font-body);
+}
+.revisionPanel p {
+  margin: 0;
+  font-size: 12px;
+  color: #806f65;
+}
+.revisionPanel button {
+  justify-self: start;
+  background: #d96b28;
+  color: white;
+}
+.inlineError {
+  padding: 9px 10px;
+  border-left: 3px solid #b65042;
+  background: #fff0ed;
+  color: #84362d;
+  font-size: 13px;
+}
+.errorJump {
+  margin-top: 10px;
+  background: #fff0e6 !important;
+}
+.judgment,
+.nextPlan {
+  margin-top: 12px;
+  padding: 11px 12px !important;
+  border: 1px solid #d9cabc;
+  border-radius: 9px;
+  background: white;
+}
+.judgment[data-correct="true"] {
+  border-color: #9bb7a5;
+  background: #f3f8f4;
+}
+.judgment[data-correct="false"] {
+  border-color: #d8a79e;
+  background: #fff5f3;
+}
+.judgment p,
+.nextPlan p {
+  margin: 5px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.nextPlan dl {
+  display: grid;
+  gap: 7px;
+  margin: 9px 0 0;
+}
+.nextPlan dl div {
+  display: grid;
+  gap: 2px;
+}
+.nextPlan dt {
+  font-size: 11px;
+  color: #75665e;
+}
+.nextPlan dd {
+  margin: 0;
+  font-size: 13px;
+}
+.submissionHistory {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #eadfd4;
+}
+.submissionHistory span {
+  font-size: 12px;
+  color: #6e6057;
+}
+.footerActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 12px 12px;
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 900px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+  .runPane {
+    border-left: 0;
+    border-top: 1px solid #eadfd4;
+  }
+  .fileBar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .editorPane > pre {
+    min-height: 390px;
+  }
+  .footerActions {
+    justify-content: flex-start;
+  }
+}
+
+/* DARYA Code Lab: editor-first, with Run and judged Submit kept distinct. */
+.codeRenderer[data-product="darya"] {
+  gap: 0;
+  color: var(--tide-ink);
+  background: var(--tide-paper, oklch(98.2% 0.008 205));
+}
+.codeRenderer[data-product="darya"] .labBrief {
+  margin: 0;
+  padding: 13px 18px;
+  border: 0;
+  border-bottom: 1px solid var(--tide-line-soft);
+  background: transparent;
+}
+.codeRenderer[data-product="darya"] .labBrief span { color: var(--tide-sea-deep); }
+.codeRenderer[data-product="darya"] .labBrief p { max-width: 82ch; color: var(--tide-ink-muted); }
+.codeRenderer[data-product="darya"] .fileBar {
+  padding: 10px 18px;
+  border-bottom-color: var(--tide-line-soft);
+  background: var(--tide-light, oklch(97% 0.01 205));
+}
+.codeRenderer[data-product="darya"] .fileBar span { color: var(--tide-ink-faint); }
+.codeRenderer[data-product="darya"] .fileBar button,
+.codeRenderer[data-product="darya"] .footerActions button,
+.codeRenderer[data-product="darya"] .runPane button,
+.codeRenderer[data-product="darya"] .revisionPanel button {
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.22rem;
+  color: var(--tide-sea-deep);
+  background: transparent;
+}
+.codeRenderer[data-product="darya"] .runButton {
+  border-color: var(--tide-line-active) !important;
+  color: var(--tide-sand-deep) !important;
+  background: var(--tide-focus-soft) !important;
+}
+.codeRenderer[data-product="darya"] .submitButton {
+  border-color: var(--tide-sea-deep) !important;
+  color: white !important;
+  background: var(--tide-sea-deep) !important;
+}
+.codeRenderer[data-product="darya"] .editorPane,
+.codeRenderer[data-product="darya"] .editorPane > textarea {
+  color: var(--tide-code-ink);
+  background: var(--tide-code);
+}
+.codeRenderer[data-product="darya"] .runPane {
+  border-left-color: var(--tide-line-soft);
+  background: var(--tide-sand-pale, oklch(96.8% 0.01 205));
+}
+.codeRenderer[data-product="darya"] .runSummary,
+.codeRenderer[data-product="darya"] .submissionHistory { border-color: var(--tide-line-soft); }
+.codeRenderer[data-product="darya"] .runSummary span,
+.codeRenderer[data-product="darya"] .runSummary small,
+.codeRenderer[data-product="darya"] .emptyRun { color: var(--tide-ink-faint); }
+.codeRenderer[data-product="darya"] .observation {
+  border-left-color: var(--tide-sea);
+  background: var(--tide-focus-soft);
+}
+.codeRenderer[data-product="darya"] .history > button {
+  border-color: var(--tide-line-standard);
+  background: transparent;
+}
+.codeRenderer[data-product="darya"] .history > button[data-active="true"] {
+  border-color: var(--tide-line-active);
+  background: var(--tide-focus-soft);
+}
+.codeRenderer[data-product="darya"] .revisionPanel {
+  color: var(--tide-ink);
+  background: var(--tide-sand-pale, oklch(96.5% 0.01 205));
+}
+.codeRenderer[data-product="darya"] .revisionPanel textarea {
+  border-color: var(--tide-line-standard);
+  background: var(--tide-paper, oklch(99% 0.004 205));
+}
+.codeRenderer[data-product="darya"] .revisionPanel button {
+  color: white;
+  background: var(--tide-sea-deep);
+}
+.codeRenderer[data-product="darya"] .judgment,
+.codeRenderer[data-product="darya"] .nextPlan {
+  border-color: var(--tide-line-standard);
+  background: var(--tide-paper, oklch(99% 0.004 205));
+}
+
+/* 运行失败的三层呈现：发生了什么 / 定位 / 建议；完整 traceback 折叠。 */
+.failureBlock {
+  margin-top: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--tide-danger-line, rgba(176, 82, 63, 0.32));
+  border-left: 3px solid var(--tide-danger, #b0523f);
+  border-radius: 9px;
+  background: color-mix(in oklch, var(--tide-danger, #b0523f) 5%, var(--tide-paper, #fffdf9));
+}
+.failureBlock h3 {
+  margin: 0 0 6px;
+  color: var(--tide-danger, #b0523f);
+}
+.failureBlock[data-failed='false'] {
+  border-left-color: var(--tide-warning, #ad7a39);
+}
+.failureSummary {
+  margin: 0;
+  color: var(--tide-ink, #3a332b);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.failureRow {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--tide-ink-muted, #5f554a);
+}
+.failureRow > span {
+  color: var(--tide-ink-faint, #948878);
+  font-weight: 700;
+}
+.failureRow code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11.5px;
+  word-break: break-all;
+}
+.techDetails {
+  margin-top: 10px;
+}
+.techDetails summary {
+  cursor: pointer;
+  color: var(--tide-ink-faint, #948878);
+  font-size: 12px;
+  user-select: none;
+}
+.techDetails summary:hover {
+  color: var(--tide-ink-muted, #5f554a);
+}
+.techMeta {
+  margin: 8px 0 0;
+  color: var(--tide-ink-faint, #948878);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.techDetails pre {
+  margin: 8px 0 0;
+  max-height: 180px;
+  overflow: auto;
+  background: #2a2d2b;
+  color: #f7f2eb;
+  padding: 10px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font: 11.5px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+}

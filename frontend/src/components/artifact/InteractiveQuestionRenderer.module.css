@@ -1,0 +1,409 @@
+.renderer {
+  max-width: 900px;
+  margin: 0 auto;
+  color: #392d25;
+}
+.progressHeader {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.progressHeader > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.progressHeader span {
+  font-size: 12px;
+  color: #9b5c32;
+}
+.progressHeader small {
+  color: #7e6d63;
+}
+.progressBar {
+  height: 6px;
+  background: #eee2d8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progressBar span {
+  display: block;
+  height: 100%;
+  background: #d96b28;
+}
+.questionCard {
+  padding: 4px 0 22px;
+}
+.stepLabel {
+  font-size: 13px;
+  color: #94613f;
+}
+.questionCard h2 {
+  font-size: 24px;
+  line-height: 1.45;
+  margin: 8px 0 20px;
+}
+.options {
+  display: grid;
+  gap: 10px;
+}
+.options button {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 14px;
+  border: 1px solid #e5d8cc;
+  border-radius: 11px;
+  background: #fffdf9;
+  color: #403229;
+  text-align: left;
+  cursor: pointer;
+  font: 15px/1.5 var(--font-body);
+}
+.options button > span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #f3e5d8;
+  color: #8b542f;
+  font-weight: 800;
+}
+.options button[data-selected="true"] {
+  border-color: #d96b28;
+  background: #fff5eb;
+}
+.options button[data-result="correct"] {
+  border-color: #6e9e69;
+  background: #f2f8ef;
+}
+.options button[data-result="wrong"] {
+  border-color: #c57866;
+  background: #fff2ee;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.actions button,
+.navigation button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 9px;
+  padding: 9px 12px;
+  background: #f2e6da;
+  color: #604838;
+  cursor: pointer;
+}
+.actions .submit {
+  background: #d96b28;
+  color: white;
+  margin-left: auto;
+}
+.hint,
+.solution,
+.correct,
+.wrong,
+.error {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 3px solid #d79658;
+  background: #fff5e9;
+}
+.hint p,
+.solution p,
+.correct p,
+.wrong p {
+  margin: 4px 0 0;
+}
+.correct,
+.wrong {
+  display: flex;
+  gap: 9px;
+}
+.correct {
+  border-color: #6e9e69;
+  background: #f0f7ed;
+}
+.wrong {
+  border-color: #c57b65;
+  background: #fff2ee;
+}
+.error {
+  border-color: #b95043;
+  background: #fff0ed;
+  color: #84362d;
+}
+.solution {
+  border-color: #927258;
+  background: #faf4ee;
+}
+.evaluation {
+  margin-top: 18px;
+  padding: 15px;
+  border-top: 1px solid #e8dbcf;
+  border-bottom: 1px solid #e8dbcf;
+  background: #fffaf4;
+}
+.evaluation p {
+  margin: 5px 0;
+  color: #5d4b40;
+}
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid #eadfd4;
+}
+.navigation span {
+  font-size: 12px;
+  color: #7f6e64;
+  text-align: center;
+}
+.empty {
+  min-height: 340px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  color: #7f6e64;
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 760px) {
+  .renderer {
+    max-width: none;
+  }
+  .questionCard h2 {
+    font-size: 20px;
+  }
+  .actions .submit {
+    margin-left: 0;
+  }
+  .navigation {
+    align-items: stretch;
+  }
+  .navigation span {
+    display: none;
+  }
+  .navigation button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.restoreNote {
+  margin-top: 10px;
+  color: #755f4f;
+  font-size: 13px;
+}
+.evaluationPending {
+  margin: 14px 0;
+  padding: 10px 14px;
+  border-left: 3px solid #d89042;
+  background: #fff7ea;
+  color: #6b4e38;
+  font-size: 14px;
+}
+
+.evaluationPending {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.evaluationPending button {
+  border: 1px solid #d9aa76;
+  background: #fffdf9;
+  color: #7a4e2f;
+  border-radius: 7px;
+  padding: 6px 10px;
+}
+
+.semanticStatus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #6c584b;
+  font-size: 12px;
+}
+.semanticStatus span {
+  padding: 3px 8px;
+  border-left: 2px solid #d9904d;
+  background: #fff8ef;
+}
+
+/* Focused DARYA assessment grammar. */
+.renderer[data-product="darya"] {
+  max-width: 820px;
+  color: var(--tide-ink);
+}
+.renderer[data-product="darya"] .progressHeader {
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--tide-line-soft);
+}
+.renderer[data-product="darya"] .progressHeader span,
+.renderer[data-product="darya"] .stepLabel {
+  color: var(--tide-sea-deep);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+.renderer[data-product="darya"] .progressHeader small {
+  color: var(--tide-ink-faint);
+}
+.renderer[data-product="darya"] .progressBar {
+  height: 3px;
+  background: var(--tide-sand-pale, oklch(90% 0.012 205));
+}
+.renderer[data-product="darya"] .progressBar span {
+  background: var(--tide-sea);
+}
+.renderer[data-product="darya"] .questionCard {
+  padding-bottom: 26px;
+}
+.renderer[data-product="darya"] .questionCard h2 {
+  max-width: 34ch;
+  margin: 10px 0 24px;
+  color: var(--tide-ink);
+  font-family: var(--tide-font-editorial);
+  font-size: 27px;
+  font-weight: 580;
+}
+.renderer[data-product="darya"] .options {
+  gap: 9px;
+}
+.renderer[data-product="darya"] .options button {
+  padding: 14px 16px;
+  border-color: var(--tide-line-standard);
+  border-radius: 0.28rem;
+  color: var(--tide-ink);
+  background: var(--tide-paper, oklch(99% 0.004 205));
+  box-shadow: none;
+}
+.renderer[data-product="darya"] .options button:hover {
+  border-color: var(--tide-line-active);
+  background: var(--tide-focus-soft);
+}
+.renderer[data-product="darya"] .options button > span {
+  border: 1px solid var(--tide-line-standard);
+  color: var(--tide-sea-deep);
+  background: transparent;
+}
+.renderer[data-product="darya"] .options button[data-selected="true"] {
+  border-color: var(--tide-line-active);
+  background: var(--tide-sand-pale, oklch(94.5% 0.018 205));
+}
+.renderer[data-product="darya"] .actions button,
+.renderer[data-product="darya"] .navigation button {
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.22rem;
+  color: var(--tide-sea-deep);
+  background: transparent;
+}
+.renderer[data-product="darya"] .actions .submit {
+  border-color: var(--tide-sea-deep);
+  color: white;
+  background: var(--tide-sea-deep);
+}
+.renderer[data-product="darya"] .hint,
+.renderer[data-product="darya"] .solution,
+.renderer[data-product="darya"] .evaluationPending {
+  border-left-color: var(--tide-sea);
+  color: var(--tide-ink-muted);
+  background: var(--tide-light, oklch(95% 0.013 205));
+}
+.renderer[data-product="darya"] .evaluation,
+.renderer[data-product="darya"] .navigation {
+  border-color: var(--tide-line-soft);
+  background: transparent;
+}
+.renderer[data-product="darya"] .semanticStatus {
+  color: var(--tide-ink-faint);
+}
+.renderer[data-product="darya"] .semanticStatus span {
+  border-left-color: var(--tide-sea);
+  background: var(--tide-focus-soft);
+}
+.renderer[data-product="darya"] .assessmentResult {
+  border-color: var(--tide-line-soft);
+  background: linear-gradient(
+    90deg,
+    oklch(94.5% 0.018 175 / 0.72),
+    transparent
+  );
+}
+.renderer[data-product="darya"] .assessmentResult[data-outcome="REMEDIATION"] {
+  background: linear-gradient(90deg, oklch(95% 0.016 45 / 0.6), transparent);
+}
+.assessmentResult {
+  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 1px solid #d8ddd7;
+  border-bottom: 1px solid #d8ddd7;
+  background: linear-gradient(
+    90deg,
+    rgba(239, 246, 240, 0.75),
+    rgba(255, 253, 249, 0)
+  );
+  color: #344239;
+}
+.assessmentResult[data-outcome="REMEDIATION"] {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 244, 230, 0.82),
+    rgba(255, 253, 249, 0)
+  );
+  color: #594333;
+}
+.resultEyebrow {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #55775e;
+}
+.assessmentResult h3 {
+  margin: 5px 0 13px;
+  font-size: 21px;
+}
+.assessmentResult dl {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+.assessmentResult dl > div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+}
+.assessmentResult dt {
+  font-weight: 700;
+  color: #6f776f;
+}
+.assessmentResult dd {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.renderer[data-product="darya"] .assessmentResult {
+  border-color: var(--tide-line-soft);
+  background: linear-gradient(90deg, oklch(94.5% 0.018 175 / 0.72), transparent);
+}
+
+.renderer[data-product="darya"] .assessmentResult[data-outcome="REMEDIATION"] {
+  background: linear-gradient(90deg, oklch(95% 0.016 45 / 0.6), transparent);
+}

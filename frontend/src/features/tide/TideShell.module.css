@@ -1,0 +1,63 @@
+.shell {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--tide-ink);
+  background: var(--tide-sand);
+  font-family: var(--tide-font-body);
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.primary {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  /* 左栏（这条对话的消息流）+ 主区 + 右栏（当前工作，默认收起）。
+     左栏宽度固定，主区拿剩下的 —— 黑板就在主区里，它是唯一需要"装得下"的东西。 */
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1), transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The sidebar owns its actual width: the collapsed rail must not reserve 15.5rem. */
+.shell[data-board-full='true'] .primary {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.primary[data-receded='true'] {
+  pointer-events: none;
+  opacity: 0.18;
+  transform: scale(0.994) translateZ(0);
+  filter: blur(1.5px) brightness(0.98);
+  will-change: opacity, transform, filter;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell *,
+  .shell *::before,
+  .shell *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+  
+  .primary[data-receded='true'] {
+    filter: blur(1.5px) !important;
+    transform: scale(0.994) !important;
+    will-change: auto !important;
+    backface-visibility: visible !important;
+  }
+}

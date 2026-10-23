@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>柿小吉眼中的你 · 结构优化预览</title>
+<style>
+  :root {
+    --ink: #241c15;
+    --ink-2: #3f332a;
+    --ink-3: #5f5146;
+    --muted: #8c7b6d;
+    --faint: #b4a294;
+    --line: #ecdfd2;
+    --line-strong: #ddc9b8;
+    --paper: #fdfbf8;
+    --sand: #f6efe7;
+    --sand-2: #f1e7dc;
+    --accent: #d2602a;
+    --accent-deep: #b0481a;
+    --accent-soft: #f6e5d6;
+    --accent-glow: rgba(210, 96, 42, 0.14);
+    --bg: #f4efe9;
+    --shadow-sm: 0 1px 2px rgba(60, 40, 22, 0.04), 0 2px 8px rgba(60, 40, 22, 0.04);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    background:
+      radial-gradient(900px 440px at 85% -10%, rgba(210, 96, 42, 0.07), transparent 60%),
+      radial-gradient(700px 360px at -10% 110%, rgba(190, 140, 90, 0.06), transparent 55%),
+      var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 56px;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-note {
+    max-width: 920px;
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding: 8px 14px;
+    background: rgba(255, 253, 249, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .page-note code {
+    background: var(--sand-2);
+    padding: 0 6px;
+    border-radius: 5px;
+    color: var(--accent-deep);
+    font-size: 11.5px;
+  }
+
+  /* ===== 弹窗容器 ===== */
+  .backdrop { width: 100%; display: grid; place-items: center; }
+  .panel {
+    width: min(920px, 100%);
+    max-height: 720px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    background: var(--paper);
+    box-shadow: 0 22px 60px rgba(70, 45, 25, 0.15), 0 4px 14px rgba(70, 45, 25, 0.06);
+  }
+
+  /* ===== Header ===== */
+  .panel header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, #fffdfb, #fdfaf6);
+  }
+  .panel header .head-main { display: flex; align-items: center; gap: 11px; }
+  .avatar-icon {
+    position: relative;
+    display: grid; place-items: center;
+    width: 36px; height: 36px;
+    border-radius: 11px;
+    background: linear-gradient(150deg, #ef7a3a, #c04c1e);
+    color: #fff; font-weight: 800; font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 14px rgba(192, 76, 30, 0.26);
+  }
+  .panel header .head-text strong {
+    display: block;
+    font-size: 16px;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    font-weight: 800;
+  }
+  .panel header .sub-label {
+    display: block;
+    margin-top: 1px;
+    color: var(--muted);
+    font-size: 11.5px;
+    letter-spacing: 0.2px;
+  }
+  .close-btn {
+    display: grid; place-items: center;
+    width: 32px; height: 32px; border: 1px solid transparent; border-radius: 50%;
+    background: transparent; color: var(--faint); cursor: pointer; font-size: 17px;
+    transition: all 0.15s ease;
+  }
+  .close-btn:hover { background: var(--sand); color: var(--ink-3); border-color: var(--line); }
+
+  /* ===== Main scroll area ===== */
+  .panel main { overflow: auto; padding: 18px 22px 22px; display: grid; gap: 14px; }
+
+  /* ===== Hero：复合卡片 ===== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 200px) 1fr;
+    gap: 20px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background:
+      radial-gradient(360px 200px at 10% 0%, rgba(210, 96, 42, 0.08), transparent 65%),
+      linear-gradient(150deg, #fdf7f0, #f7eee4);
+    border: 1px solid var(--line);
+  }
+
+  /* --- 左：学习进展（垂直步进） --- */
+  .growth-structure { display: flex; flex-direction: column; gap: 8px; }
+  .section-header {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    letter-spacing: 0.6px;
+  }
+  .section-header .bar {
+    width: 20px; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .stage-flow { display: flex; flex-direction: column; }
+  .stage-item {
+    padding: 5px 0 5px 26px;
+    position: relative;
+  }
+  .stage-item .stage-body { position: relative; }
+  .stage-item .stage-body::before {
+    content: "";
+    position: absolute;
+    left: -21px; top: 5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--faint);
+    transition: all 0.2s ease;
+  }
+  .stage-item .stage-body .name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+  .stage-item .stage-body .desc {
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 0;
+    line-height: 1.5;
+  }
+  .stage-item:not(:last-child) .stage-body::after {
+    content: "";
+    position: absolute;
+    left: -17px; top: 24px; bottom: -8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--line-strong), var(--line));
+  }
+  .stage-item.done .stage-body::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .stage-item.done .stage-body .name { color: var(--ink-2); }
+  .stage-item.current .stage-body::before {
+    border-color: var(--accent-deep);
+    background: radial-gradient(circle at 32% 30%, #ff9a58, var(--accent-deep) 70%);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+  }
+  .stage-item.current .stage-body .name { color: var(--accent-deep); font-weight: 800; }
+  .stage-item.current .stage-body .desc { color: var(--accent); font-weight: 600; }
+  .stage-item.current .stage-body .current-tag {
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: 1px;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    padding: 1px 8px;
+    border-radius: 999px;
+  }
+
+  /* --- 右：主题 + 进度 + 我发现（复合） --- */
+  .hero-right { display: grid; gap: 12px; align-content: start; }
+  .topic-block {
+    padding: 0 0 12px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .topic-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .topic-kicker {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--faint);
+    letter-spacing: 0.6px;
+    margin-bottom: 4px;
+  }
+  .topic-name {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.25;
+    letter-spacing: 0.3px;
+  }
+  .topic-meta {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  /* 复合进度条：阶段标签 + 进度 + 位置 */
+  .progress-composite {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .progress-composite .pos-label {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    white-space: nowrap;
+  }
+  .progress-composite .seg-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .progress-composite .seg {
+    height: 5px;
+    border-radius: 5px;
+    background: var(--sand-2);
+    position: relative;
+  }
+  .progress-composite .seg.filled { background: linear-gradient(90deg, var(--accent), #e07a3e); }
+  .progress-composite .seg.half {
+    background: linear-gradient(90deg, var(--accent), #e07a3e 50%, var(--sand-2) 50%, var(--sand-2));
+  }
+  .progress-composite .seg.current { box-shadow: 0 0 8px rgba(210, 96, 42, 0.4); }
+  .progress-composite .stage-text {
+    font-size: 11.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .insight {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .insight .insight-kicker {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    white-space: nowrap;
+  }
+  .insight .insight-text {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.75;
+    font-weight: 500;
+  }
+  .insight .insight-text em {
+    font-style: normal;
+    color: var(--accent-deep);
+    font-weight: 700;
+    background: linear-gradient(180deg, transparent 60%, var(--accent-soft) 60%);
+  }
+
+  /* ===== 三个模块（紧凑复合卡） ===== */
+  .modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .module {
+    display: grid;
+    gap: 8px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: var(--shadow-sm);
+  }
+  .module .badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 0.3px;
+  }
+  .module .badge .num {
+    display: grid; place-items: center;
+    width: 22px; height: 22px;
+    border-radius: 7px;
+    background: linear-gradient(150deg, #ef7a3a, #c04c1e);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 3px 8px rgba(192, 76, 30, 0.22);
+  }
+  .module .divider {
+    width: 26px; height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--line-strong), transparent);
+  }
+  .module .main-text {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+  .module .sub-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .module .change-flow {
+    display: grid;
+    gap: 6px;
+    padding: 10px 12px;
+    background: linear-gradient(160deg, #faf4ec, #f6ede3);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .module .change-flow .row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+  }
+  .module .change-flow .row .from-to { font-weight: 600; color: var(--ink-3); }
+  .module .change-flow .row .to { color: var(--accent-deep); font-weight: 800; }
+  .module .change-flow .arrow {
+    display: grid; place-items: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+  .module.wide { grid-column: 1 / -1; }
+  .module .future-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .module .future-list .item {
+    display: grid;
+    gap: 3px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    background: linear-gradient(160deg, #faf4ec, #f7efe5);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.6;
+  }
+  .module .future-list .item .tag {
+    justify-self: start;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    padding: 1px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+  }
+
+  /* ===== 数据不足演示 ===== */
+  .demo-bar {
+    margin-top: 26px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    justify-content: center;
+    font-size: 13px; color: var(--muted);
+  }
+  .demo-bar button {
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink-3);
+    padding: 7px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+  .demo-bar button:hover { border-color: var(--accent); color: var(--accent-deep); background: var(--accent-soft); }
+  body[data-lack="1"] .module[data-lack-hide] { display: none; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 18px; }
+    .modules { grid-template-columns: 1fr; }
+    .module.wide { grid-column: auto; }
+    .panel main { padding: 14px 16px 18px; }
+    .module .future-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <p class="page-note">
+    <b>结构优化预览 · 紧凑复合版</b> — 弹窗整体缩小，信息用复合组件承载（主题 + 阶段 + 进度 + 发现合一）。内容均由真实数据字段映射（<code>current_topic</code>、<code>preferred_modalities</code>、<code>recent_learning_events</code>、<code>next_teaching_focus</code>、<code>recent_evidence</code> 等）。
+  </p>
+
+  <div class="backdrop">
+    <section class="panel" role="dialog" aria-modal="true" aria-label="柿小吉眼中的你">
+      <header>
+        <div class="head-main">
+          <span class="avatar-icon">柿</span>
+          <div class="head-text">
+            <strong>柿小吉眼中的你</strong>
+            <span class="sub-label">根据你的学习记录，我在慢慢了解你</span>
+          </div>
+        </div>
+        <button type="button" class="close-btn" aria-label="关闭">×</button>
+      </header>
+
+      <main>
+        <!-- Hero：复合卡片 -->
+        <section class="hero">
+          <!-- 左：学习进展（紧凑步进） -->
+          <div class="growth-structure">
+            <div class="section-header"><span class="bar"></span>学习进展</div>
+            <div class="stage-flow">
+              <div class="stage-item done">
+                <div class="stage-body">
+                  <div class="name">开始学习</div>
+                </div>
+              </div>
+              <div class="stage-item done">
+                <div class="stage-body">
+                  <div class="name">理解概念</div>
+                </div>
+              </div>
+              <div class="stage-item current">
+                <div class="stage-body">
+                  <div class="name">练习巩固<span class="current-tag">现在</span></div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-body">
+                  <div class="name">持续提升</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右：主题 + 进度 + 我发现（一个复合组件） -->
+          <div class="hero-right">
+            <div class="topic-block">
+              <div class="topic-kicker">最近正在学习</div>
+              <div class="topic-row">
+                <div class="topic-name">KNN 最近邻算法</div>
+                <span class="topic-meta">概念理解 → 练习巩固</span>
+              </div>
+              <div class="progress-composite">
+                <span class="pos-label">练习巩固</span>
+                <span class="seg-track" aria-hidden="true">
+                  <span class="seg filled"></span>
+                  <span class="seg filled"></span>
+                  <span class="seg half current"></span>
+                  <span class="seg"></span>
+                </span>
+                <span class="stage-text">第 3 阶段 / 共 4 阶段</span>
+              </div>
+            </div>
+            <div class="insight">
+              <span class="insight-kicker">我发现</span>
+              <span class="insight-text">
+                你更喜欢先把<em>整体结构</em>弄明白，再通过练习把知识<em>用起来</em>。
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 三个模块 -->
+        <section class="modules">
+          <!-- 模块 1：你的学习方式 -->
+          <article class="module">
+            <div class="badge">你的学习方式</div>
+            <div class="divider"></div>
+            <div class="main-text">
+              习惯先搭好知识框架，再慢慢深入细节。
+            </div>
+            <div class="sub-text">
+              从你最近看资料、做练习的方式里，我慢慢看出来的。
+            </div>
+          </article>
+
+          <!-- 模块 2：最近的变化 -->
+          <article class="module" data-lack-hide>
+            <div class="badge">最近的变化</div>
+            <div class="divider"></div>
+            <div class="change-flow">
+              <div class="row">
+                <span class="from-to">以前：记住一个个知识点</span>
+              </div>
+              <div class="row">
+                <span class="arrow">↓</span>
+                <span class="from-to to">现在：开始看懂它们之间的联系</span>
+              </div>
+            </div>
+            <div class="sub-text">最近的练习里，你开始把概念串起来思考了。</div>
+          </article>
+
+          <!-- 模块 3：接下来我会这样陪你 -->
+          <article class="module wide">
+            <div class="badge">接下来我会这样陪你</div>
+            <div class="divider"></div>
+            <div class="main-text">
+              先把知识结构理清楚，再陪你把练习一步步做完。
+            </div>
+            <div class="future-list">
+              <div class="item">
+                <div class="tag">先理结构</div>
+                混淆矩阵和分类边界，我讲给你听
+              </div>
+              <div class="item">
+                <div class="tag">再练一练</div>
+                2~3 道循序渐进的小练习，一起做
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div class="demo-bar">
+    <span>演示：</span>
+    <button type="button" id="btnLack">切换「数据不足」状态</button>
+  </div>
+
+  <script>
+    document.getElementById('btnLack').addEventListener('click', function () {
+      var lack = document.body.dataset.lack === '1';
+      document.body.dataset.lack = lack ? '0' : '1';
+      this.textContent = lack ? '切换「数据不足」状态' : '恢复完整数据';
+    });
+  </script>
+</body>
+</html>

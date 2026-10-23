@@ -1,0 +1,82 @@
+/* 顶栏的钟：安静，但一直在动。 */
+
+.clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 11px 5px 9px;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--tide-paper) 82%, transparent);
+  color: var(--tide-ink-muted);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 220ms ease, color 220ms ease, background 220ms ease;
+}
+
+.clock:hover {
+  border-color: var(--tide-line-standard);
+  color: var(--tide-ink);
+}
+
+.clock:focus-visible {
+  outline: 2px solid var(--tide-focus);
+  outline-offset: 2px;
+}
+
+.dial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+/* 一下一下的呼吸，只在真的在计时的时候出现。
+   它是这个组件唯一的动作语言：没有它，数字涨得再准也只是一个数字。 */
+.pulse {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--tide-sand-deep);
+  opacity: 0.16;
+  animation: study-clock-breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes study-clock-breathe {
+  0%, 100% { transform: scale(0.72); opacity: 0.1; }
+  50% { transform: scale(1.06); opacity: 0.22; }
+}
+
+.readout {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 1;
+}
+
+.readout b {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--tide-ink);
+  /* 数字每秒都在变，等宽字形才不会让整个胶囊左右抖。 */
+  font-variant-numeric: tabular-nums;
+}
+
+.readout em {
+  font-size: 10.5px;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  color: var(--tide-ink-faint);
+}
+
+@media (max-width: 720px) {
+  .readout em { display: none; }
+  .clock { padding: 5px 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none; opacity: 0.18; }
+}

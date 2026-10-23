@@ -1,0 +1,142 @@
+/* 等待期间的那一行：像有个人在那边做事，而不是一块静止的屏幕。 */
+
+.trace {
+  display: grid;
+  gap: 0.34rem;
+  margin: 0 0 0.9rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.step {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  animation: traceIn 420ms ease-out both;
+}
+
+.step[data-state='done'] {
+  color: var(--tide-ink-faint);
+  opacity: 0.55;
+}
+
+.step[data-state='active'] {
+  color: var(--tide-ink-muted);
+}
+
+/* 已经做完的那一步：一个小小的对勾，出现时不抢眼 */
+.tick {
+  flex: 0 0 auto;
+  width: 0.85rem;
+  color: var(--tide-leaf);
+  font-size: 0.72rem;
+}
+
+/* 正在做的那一步：一颗呼吸的点 */
+.pulse {
+  flex: 0 0 auto;
+  width: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse::before {
+  content: '';
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 50%;
+  background: var(--tide-sand-deep);
+  animation: tracePulse 1.5s ease-in-out infinite;
+}
+
+/* 当前那句：一道很淡的光缓慢扫过，像灯下有人在写 */
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--tide-ink-faint) 0%,
+    var(--tide-ink-faint) 38%,
+    var(--tide-ink) 50%,
+    var(--tide-ink-faint) 62%,
+    var(--tide-ink-faint) 100%
+  );
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: traceShimmer 2.4s linear infinite;
+}
+
+@keyframes tracePulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes traceShimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+@keyframes traceIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 光标：回答正在长出来时跟在末尾 */
+.caret {
+  display: inline-block;
+  width: 0.42rem;
+  height: 1.05em;
+  margin-left: 0.16rem;
+  vertical-align: -0.16em;
+  border-radius: 1px;
+  background: var(--tide-sand-deep);
+  opacity: 0.5;
+  animation: caretBreathe 1.6s ease-in-out infinite;
+}
+
+@keyframes caretBreathe {
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step,
+  .pulse::before,
+  .shimmer,
+  .caret {
+    animation: none;
+  }
+
+  .shimmer {
+    background: none;
+    color: var(--tide-ink-muted);
+  }
+
+  .caret {
+    opacity: 0.4;
+  }
+}

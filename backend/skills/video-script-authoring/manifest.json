@@ -1,0 +1,14 @@
+{
+  "name": "video-script-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing teaching-script contract; factual-consistency boundary follows the product's honest-degradation rule.",
+    "methodology_references": ["Spoken-script structuring for instructional video (open literature)"]
+  },
+  "applies": {
+    "agents": ["cloud_video_script", "video_agent"],
+    "resource_kinds": ["workspace_video", "video_script"]
+  }
+}

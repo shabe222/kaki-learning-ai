@@ -1,0 +1,425 @@
+.host {
+  position: fixed;
+  z-index: 58;
+  top: 0;
+  left: 0;
+  width: clamp(100px, 7.2vw, 138px);
+  height: clamp(100px, 7.2vw, 138px);
+  border: 0;
+  border-radius: 44%;
+  outline: 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+  transition: transform 420ms cubic-bezier(.22, .78, .28, 1), opacity 220ms ease, visibility 220ms ease;
+}
+
+.host:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.host:active {
+  cursor: grabbing;
+}
+
+/* Content-heavy learning surfaces already expose the same companion through
+   their header/right rail/tool entry. A second draggable layer obscures real
+   controls, especially on mobile, so the floating renderer is intentionally
+   removed on those routes instead of merely shrinking over the content.
+   NOTE: Restored per user request — digital human should be permanently visible. */
+/* .host[data-page-key="ai-learning"],
+.host[data-page-key="learning"],
+.host[data-page-key="notes"],
+.host[data-page-key="exam"],
+.host[data-page-key="resources"],
+.host[data-page-key="artifacts"] {
+  display: none;
+} */
+
+.visual {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 78%;
+  filter: drop-shadow(0 9px 12px var(--line));
+  animation: breathe 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.visual img {
+  display: block;
+  width: 118%;
+  height: 118%;
+  margin: -12% -9% -6%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.spriteStage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.sprite {
+  position: absolute;
+  inset: 0;
+  background-image: url("/ai-workspace/assets/avatars/kaki-tutor-sprite-normalized.png");
+  background-repeat: no-repeat;
+  background-size: 500% 400%;
+}
+
+.sprite {
+  background-position: var(--mascot-frame-x) var(--mascot-frame-y);
+}
+
+.quickActions {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: calc(100% - 4px);
+  display: flex;
+  gap: 7px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.quickActions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid rgba(214, 104, 48, .32);
+  border-radius: 999px;
+  color: #94441f;
+  background: rgba(255, 253, 249, .96);
+  box-shadow: 0 5px 12px rgba(94, 47, 24, .14);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.quickActions button i {
+  font-style: normal;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.quickActions button:hover,
+.quickActions button:focus-visible { color: #fff; border-color: #d66129; background: #dc6b35; outline: none; }
+
+.bubble {
+  position: absolute;
+  z-index: 2;
+  top: 2px;
+  width: min(248px, calc(100vw - 36px));
+  min-height: 54px;
+  padding: 12px 34px 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 17px 17px 8px;
+  color: var(--ink);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-card);
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: .02em;
+  pointer-events: auto;
+  animation: bubbleIn 220ms ease both;
+}
+
+.host[data-edge="right"] .bubble {
+  right: calc(100% - 5px);
+}
+
+.host[data-edge="left"] .bubble {
+  left: calc(100% - 5px);
+  border-radius: 17px 17px 17px 8px;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 34px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  transform: rotate(45deg);
+}
+
+.host[data-edge="right"] .bubble::after {
+  right: -7px;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.host[data-edge="left"] .bubble::after {
+  left: -7px;
+  border-top: 0;
+  border-right: 0;
+}
+
+.bubble button {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.bubble button:hover,
+.bubble button:focus-visible {
+  color: var(--primary-dark);
+  background: var(--hover);
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.controls {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  display: grid;
+  gap: 5px;
+  width: 132px;
+  padding: 7px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-card);
+  pointer-events: auto;
+}
+
+.host[data-edge="right"] .controls {
+  right: calc(100% + 8px);
+}
+
+.host[data-edge="left"] .controls {
+  left: calc(100% + 8px);
+}
+
+.controls button,
+.restoreButton {
+  min-height: 36px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--surface-soft);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.controls button:hover,
+.controls button:focus-visible,
+.restoreButton:hover,
+.restoreButton:focus-visible {
+  color: var(--primary-dark);
+  border-color: var(--primary);
+  background: var(--hover);
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.restoreButton {
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: 108px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  pointer-events: auto;
+}
+
+.state_appearing .visual {
+  animation: appear 620ms cubic-bezier(.2, .8, .25, 1) both;
+}
+
+.state_blinking .visual {
+  animation: blinkNod 280ms ease both;
+}
+
+.state_looking .visual {
+  animation: lookAround 1.2s ease-in-out both;
+}
+
+.state_waving .visual,
+.state_reacting .visual {
+  animation: happyNod 720ms ease-in-out 2;
+}
+
+.state_thinking .visual {
+  animation: thinking 1.8s ease-in-out infinite;
+}
+
+.state_speaking .visual {
+  animation: speaking 720ms ease-in-out infinite;
+}
+
+.state_dragging {
+  transition: none;
+}
+
+.state_dragging .visual {
+  animation: pickedUp 420ms ease-in-out infinite alternate;
+  filter: drop-shadow(0 15px 16px var(--line));
+}
+
+.state_snapping .visual {
+  animation: tidyPose 430ms ease both;
+}
+
+.state_celebrating .visual {
+  animation: celebrateSpin 3.55s cubic-bezier(.3, .7, .25, 1) 1 both;
+}
+
+.state_resting .visual {
+  animation: resting 4.8s ease-in-out infinite;
+}
+
+.state_disappearing .visual {
+  animation: disappear 360ms ease both;
+}
+
+.gameHidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.userHidden {
+  width: 108px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: default;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.012); }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px) scale(.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(4px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes blinkNod {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px) scaleY(.98); }
+}
+
+@keyframes lookAround {
+  0%, 100% { transform: rotate(0); }
+  35% { transform: rotate(-2.2deg); }
+  70% { transform: rotate(1.8deg); }
+}
+
+@keyframes happyNod {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(-2deg); }
+}
+
+@keyframes thinking {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-3px) rotate(2deg); }
+}
+
+@keyframes speaking {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.025); }
+}
+
+@keyframes pickedUp {
+  from { transform: translateY(-6px) rotate(-2deg); }
+  to { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes tidyPose {
+  0% { transform: rotate(-3deg); }
+  62% { transform: rotate(2deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes celebrateSpin {
+  0% { opacity: 0; transform: translateY(8px) rotate(0) scale(.88); }
+  18% { opacity: 1; transform: translateY(-5px) rotate(-5deg) scale(1.04); }
+  64% { opacity: 1; transform: translateY(-8px) rotate(365deg) scale(1.08); }
+  82% { transform: translateY(-4px) rotate(354deg) scale(1.04); }
+  100% { opacity: 1; transform: translateY(0) rotate(360deg) scale(1); }
+}
+
+@keyframes resting {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .92; }
+  50% { transform: translateY(1px) scale(.995); opacity: .84; }
+}
+
+@keyframes disappear {
+  to { opacity: 0; transform: translateY(10px) scale(.92); }
+}
+
+@media (max-width: 1400px) {
+  .host {
+    width: clamp(94px, 7vw, 116px);
+    height: clamp(94px, 7vw, 116px);
+  }
+
+  .bubble {
+    width: min(226px, calc(100vw - 28px));
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 900px) {
+  .host {
+    width: 92px;
+    height: 92px;
+  }
+
+  .controls {
+    top: auto;
+    bottom: calc(100% + 6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .host,
+  .visual,
+  .state_appearing .visual,
+  .state_blinking .visual,
+  .state_looking .visual,
+  .state_waving .visual,
+  .state_reacting .visual,
+  .state_thinking .visual,
+  .state_speaking .visual,
+  .state_dragging .visual,
+  .state_snapping .visual,
+  .state_resting .visual {
+    animation: none;
+    transition-duration: 80ms;
+  }
+
+  .state_celebrating .visual {
+    animation: reducedCelebrate 820ms ease 1 both;
+  }
+}
+
+@keyframes reducedCelebrate {
+  0% { opacity: 0; transform: scale(.96); }
+  55% { opacity: 1; transform: scale(1.025); }
+  100% { opacity: 1; transform: scale(1); }
+}

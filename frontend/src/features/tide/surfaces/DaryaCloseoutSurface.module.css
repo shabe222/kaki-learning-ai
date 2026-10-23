@@ -1,0 +1,503 @@
+.learningDecision {
+  display: grid;
+  gap: 0.52rem;
+  max-width: 62rem;
+  margin: 0 auto 1.7rem;
+  padding: 1rem 0 1.15rem;
+  border-block: 1px solid var(--tide-line-soft);
+}
+
+.learningDecision > span,
+.themeSettings > header > span {
+  color: var(--tide-sea-deep);
+  font-size: 0.64rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+}
+
+.learningDecision > strong {
+  color: var(--tide-ink);
+  font: 520 1.08rem/1.55 var(--tide-font-editorial);
+}
+
+.learningDecision > p,
+.themeSettings > header > p {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--tide-ink-muted);
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+.learningDecision dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 2rem;
+  margin: 0.35rem 0 0;
+}
+
+.learningDecision dl > div {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.learningDecision dt {
+  color: var(--tide-ink-faint);
+  font-size: 0.64rem;
+}
+
+.learningDecision dd {
+  margin: 0;
+  color: var(--tide-ink);
+  font-size: 0.76rem;
+  line-height: 1.62;
+}
+
+/* 「DARYA 眼中的我」的行式分区：文字 + 分隔线 + 留白，不做卡片 */
+.understandSection {
+  max-width: 62rem;
+  margin: 0 auto 2.1rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--tide-line-soft);
+}
+
+.understandSection:first-of-type {
+  padding-top: 0.2rem;
+  border-top: 0;
+}
+
+.understandSection h3 {
+  margin: 0;
+  color: var(--tide-ink);
+  font: 520 1.22rem/1.4 var(--tide-font-editorial);
+}
+
+.understandSection > strong {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--tide-ink);
+  font: 520 1.05rem/1.55 var(--tide-font-editorial);
+}
+
+.understandSection > p {
+  max-width: 68ch;
+  margin: 0.3rem 0 0;
+  color: var(--tide-ink-muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.understandSection dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 2rem;
+  margin: 0.85rem 0 0;
+  max-width: 54rem;
+}
+
+.understandSection dl > div {
+  display: grid;
+  gap: 0.2rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--tide-line-soft);
+}
+
+.understandSection dt {
+  color: var(--tide-ink-faint);
+  font-size: 0.64rem;
+}
+
+.understandSection dd {
+  margin: 0;
+  color: var(--tide-ink);
+  font-size: 0.78rem;
+  line-height: 1.62;
+}
+
+.sectionQuiet {
+  max-width: 62ch;
+  margin: 0.5rem 0 0 !important;
+  color: var(--tide-ink-muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.sectionNote {
+  margin: 0.3rem 0 0.9rem !important;
+  color: var(--tide-ink-faint);
+  font-size: 0.72rem;
+}
+
+/* Learner State 的只读理解行 */
+.stateLines {
+  display: grid;
+  max-width: 54rem;
+  border-top: 1px solid var(--tide-line-soft);
+}
+
+.stateLines > div {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0.15rem;
+  border-bottom: 1px solid var(--tide-line-soft);
+}
+
+.stateLines span {
+  color: var(--tide-ink-faint);
+  font-size: 0.7rem;
+}
+
+.stateLines strong {
+  color: var(--tide-ink);
+  font-size: 0.79rem;
+  font-weight: 540;
+  line-height: 1.6;
+}
+
+/* 设置页的账户 / 安全行 */
+.accountRows {
+  display: grid;
+  border-top: 1px solid var(--tide-line-soft);
+}
+
+.accountRows > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.72rem 0.15rem;
+  border-bottom: 1px solid var(--tide-line-soft);
+}
+
+.accountRows span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--tide-ink-muted);
+  font-size: 0.75rem;
+}
+
+.accountRows strong {
+  color: var(--tide-ink);
+  font-size: 0.8rem;
+  font-weight: 560;
+  text-align: right;
+}
+
+.personalLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.72rem 0.15rem;
+  border: 0;
+  border-bottom: 1px solid var(--tide-line-soft);
+  background: transparent;
+  color: var(--tide-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.personalLink span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--tide-ink);
+  font-size: 0.78rem;
+}
+
+.personalLink strong {
+  display: inline-flex;
+  align-items: center;
+  color: var(--tide-sand-deep);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.personalLink:hover strong { text-decoration: underline; }
+
+.settingsActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.8rem;
+}
+
+.settingsActions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tide-danger);
+  font: 600 0.74rem var(--tide-font-body);
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.settingsActions button:hover {
+  background: color-mix(in oklch, var(--tide-danger) 8%, transparent);
+}
+
+.themeSettings {
+  min-width: 0;
+  padding: 1.05rem 1.1rem 1.15rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 1rem;
+  background: color-mix(in oklch, var(--tide-paper) 72%, transparent);
+  box-shadow: 0 0.55rem 1.6rem oklch(28% 0.025 220 / 0.045);
+}
+
+.themeSettings > header {
+  display: grid;
+  gap: 0.3rem;
+  padding-bottom: 0.78rem;
+}
+
+.themeSettings h3 {
+  margin: 0;
+  color: var(--tide-ink);
+  font: 520 1.18rem var(--tide-font-editorial);
+}
+
+.settingsContent {
+  padding-top: 1.35rem;
+}
+
+.settingsLayout {
+  display: grid;
+  grid-template-columns: 11.25rem minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 3.25rem);
+  width: min(100%, 78rem);
+  margin: 0 auto;
+}
+
+.settingsNav {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.5rem 0.1rem;
+}
+
+.settingsNav > span {
+  margin-bottom: 0.38rem;
+  color: var(--tide-ink-faint);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.settingsNav a {
+  padding: 0.48rem 0.62rem;
+  border-left: 2px solid transparent;
+  color: var(--tide-ink-muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.settingsNav a:hover,
+.settingsNav a:focus-visible {
+  border-left-color: var(--tide-sand-deep);
+  background: color-mix(in oklch, var(--tide-focus-soft) 50%, transparent);
+  color: var(--tide-ink);
+  outline: 0;
+}
+
+.settingsPanels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.settingsWide {
+  grid-column: 1 / -1;
+}
+
+.themeChoices {
+  display: grid;
+  gap: 0;
+  border-block: 1px solid var(--tide-line-soft);
+}
+
+.themeChoices[data-compact-options='true'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  border: 0;
+}
+
+.themeChoices button {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) 1.5rem;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--tide-line-soft);
+  background: transparent;
+  color: var(--tide-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.themeChoices[data-compact-options='true'] button {
+  grid-template-columns: 2.8rem minmax(0, 1fr) 1.2rem;
+  gap: 0.7rem;
+  min-height: 5.25rem;
+  padding: 0.75rem;
+  border: 1px solid var(--tide-line-soft);
+  border-radius: 0.78rem;
+}
+
+.themeChoices button:last-child {
+  border-bottom: 0;
+}
+
+.themeChoices button:hover,
+.themeChoices button[data-active='true'] {
+  background: color-mix(in oklch, var(--tide-focus-soft) 72%, transparent);
+}
+
+.themeChoices[data-compact-options='true'] button:hover {
+  border-color: var(--tide-line-standard);
+  transform: translateY(-1px);
+}
+
+.themeChoices[data-compact-options='true'] button[data-active='true'] {
+  border-color: var(--tide-sea-deep);
+}
+
+.themeChoices button > span:nth-child(2) {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.themeChoices strong {
+  font: 560 0.94rem var(--tide-font-editorial);
+}
+
+.themeChoices small {
+  color: var(--tide-ink-muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.themeSwatch {
+  width: 3rem;
+  height: 2rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.6rem;
+  background: linear-gradient(145deg, oklch(94% 0.035 78), oklch(69% 0.07 47));
+}
+
+/* 声音选项没有色块可用，但 .themeChoices button 是三列网格
+   （标记 / 文字 / 勾选）。第一列空着，文字就会被挤进 3.5rem 那条缝里——
+   实测渲染成「晓晓女 / 声，温和清 / 楚」。所以给一个真的标记：性别。 */
+.voiceMark {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 2rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.6rem;
+  background: color-mix(in oklch, var(--tide-focus-soft) 55%, transparent);
+  color: var(--tide-ink-muted);
+  font-size: 0.78rem;
+  font-weight: 620;
+}
+
+/* 语速 / 音调：三档，一行就够，不需要卡片那么重。 */
+.voiceTuning {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--tide-line-soft);
+}
+
+.voiceTuningRow {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.voiceTuningRow > span {
+  color: var(--tide-ink-muted);
+  font-size: 0.75rem;
+}
+
+.voiceTuningOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.voiceTuningOptions button {
+  padding: 0.34rem 0.85rem;
+  border: 1px solid var(--tide-line-standard);
+  border-radius: 0.6rem;
+  background: transparent;
+  color: var(--tide-ink);
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.voiceTuningOptions button[data-active='true'] {
+  border-color: var(--tide-sea-deep);
+  background: color-mix(in oklch, var(--tide-focus-soft) 72%, transparent);
+  font-weight: 620;
+}
+
+.themeSwatch[data-theme='ocean'] {
+  background: linear-gradient(145deg, oklch(94% 0.018 205), oklch(58% 0.055 216));
+}
+
+@media (max-width: 44rem) {
+  .settingsLayout,
+  .settingsPanels {
+    grid-template-columns: 1fr;
+  }
+
+  .settingsNav {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0;
+  }
+
+  .settingsNav > span {
+    grid-column: 1 / -1;
+  }
+
+  .settingsWide {
+    grid-column: auto;
+  }
+
+  .themeChoices[data-compact-options='true'] {
+    grid-template-columns: 1fr;
+  }
+
+  .learningDecision dl,
+  .understandSection dl {
+    grid-template-columns: 1fr;
+  }
+
+  .stateLines > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .themeChoices button {
+    grid-template-columns: 3rem minmax(0, 1fr) 1.25rem;
+  }
+}

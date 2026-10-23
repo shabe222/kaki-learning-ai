@@ -1,0 +1,152 @@
+/**
+ * DaryaOceanSurface Wave 01 增强
+ * 最小、安全的交互反馈增强，与既有设计系统完全兼容
+ * 
+ * 增强范围：
+ * - 按钮 hover 微妙提升感
+ * - 输入框/文本域 focus 微妙发光
+ * - 卡片 hover 微妙阴影
+ * - 完整 prefers-reduced-motion 支持
+ */
+
+/* ========================================
+   返回按钮增强
+   ======================================== */
+
+.back:hover,
+.artifactBack button:hover {
+  transform: translateX(-1px);
+  color: var(--tide-sea-deep);
+}
+
+.back:active,
+.artifactBack button:active {
+  transform: translateX(0);
+}
+
+/* ========================================
+   过滤按钮增强
+   ======================================== */
+
+.filters button:hover {
+  transform: translateY(-0.5px);
+  border-color: var(--tide-line-soft);
+}
+
+.filters button:active {
+  transform: translateY(0);
+}
+
+.filters button[data-active="true"]:hover {
+  box-shadow: 0 1px 3px oklch(var(--tide-sea-oklch) / 0.12);
+}
+
+/* ========================================
+   搜索框增强
+   ======================================== */
+
+.search:focus-within {
+  border-bottom-color: var(--tide-line-active);
+  box-shadow: 0 1px 0 0 var(--tide-line-active),
+              0 2px 4px oklch(var(--tide-sea-oklch) / 0.08);
+}
+
+/* ========================================
+   材料卡片增强
+   ======================================== */
+
+.materialList button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px oklch(33% 0.03 215 / 0.08);
+}
+
+.materialList button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Claim 操作按钮增强
+   ======================================== */
+
+.claimActions button:hover {
+  transform: translateY(-0.5px);
+}
+
+.claimActions button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   编辑器文本域增强
+   ======================================== */
+
+.editor textarea:focus {
+  border-color: var(--tide-line-active);
+  box-shadow: 0 0 0 1px var(--tide-line-active),
+              0 2px 8px oklch(var(--tide-sea-oklch) / 0.08);
+  outline: none;
+}
+
+/* ========================================
+   编辑器按钮增强
+   ======================================== */
+
+.editor button:hover,
+.confirmForget button:hover {
+  transform: translateY(-0.5px);
+}
+
+.editor button:active,
+.confirmForget button:active {
+  transform: translateY(0);
+}
+
+.editor button:first-child:hover,
+.confirmForget button:first-child:hover {
+  box-shadow: 0 1px 3px oklch(var(--tide-sea-oklch) / 0.12);
+}
+
+/* ========================================
+   表面入场微调
+   ======================================== */
+
+.surface {
+  /* 入场动画已存在，微调阴影层次 */
+}
+
+.surface:focus-within {
+  box-shadow: 0 1.2rem 4rem oklch(25% 0.02 220 / 0.16);
+}
+
+/* ========================================
+   prefers-reduced-motion 支持
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .back:hover,
+  .back:active,
+  .artifactBack button:hover,
+  .artifactBack button:active,
+  .filters button:hover,
+  .filters button:active,
+  .materialList button:hover,
+  .materialList button:active,
+  .claimActions button:hover,
+  .claimActions button:active,
+  .editor button:hover,
+  .editor button:active,
+  .confirmForget button:hover,
+  .confirmForget button:active {
+    transform: none;
+  }
+  
+  .filters button[data-active="true"]:hover,
+  .search:focus-within,
+  .materialList button:hover,
+  .editor textarea:focus,
+  .editor button:first-child:hover,
+  .confirmForget button:first-child:hover,
+  .surface:focus-within {
+    box-shadow: none;
+  }
+}

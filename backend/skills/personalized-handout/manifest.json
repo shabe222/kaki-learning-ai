@@ -1,0 +1,17 @@
+{
+  "name": "personalized-handout",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA; methodology grounded in open learning-science practice (retrieval-practice feedback, worked-example scaffolding, misconception-first repair). No third-party text copied.",
+    "methodology_references": [
+      "Retrieval practice / testing effect (open literature)",
+      "Worked example effect & fading (open literature)"
+    ]
+  },
+  "applies": {
+    "agents": ["document_agent", "personalized_artifacts", "conversation_capability_actions"],
+    "resource_kinds": ["personalized_handout", "practical_guide", "workspace_lecture"]
+  }
+}

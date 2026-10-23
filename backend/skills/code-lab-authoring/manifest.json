@@ -1,0 +1,14 @@
+{
+  "name": "code-lab-authoring",
+  "version": "1.0.0",
+  "standard": "Agent Skills SKILL.md v1 (agentskills.io/specification)",
+  "source": {
+    "type": "authored",
+    "note": "Skill body authored for DARYA around the existing sandbox whitelist contract.",
+    "methodology_references": ["Sandbox-constrained code generation contract (DARYA code_executor)"]
+  },
+  "applies": {
+    "agents": ["code_agent", "workspace_code"],
+    "resource_kinds": ["workspace_code"]
+  }
+}

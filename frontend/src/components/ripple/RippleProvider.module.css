@@ -1,0 +1,32 @@
+/* 全局点击水波反馈：柔和涟漪，柿子橙主色 + 暖白光晕 */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 245, 230, 0.35) 0%,
+    rgba(230, 120, 50, 0.18) 42%,
+    rgba(230, 120, 50, 0.06) 72%,
+    transparent 100%
+  );
+  transform: scale(0);
+  animation: ripple-wave 450ms ease-out forwards;
+  will-change: transform, opacity;
+  z-index: 9999;
+}
+
+@keyframes ripple-wave {
+  0% {
+    transform: scale(0);
+    opacity: 0.9;
+  }
+  22% {
+    transform: scale(0.32);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}

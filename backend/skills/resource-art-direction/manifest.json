@@ -1,0 +1,5 @@
+{
+  "standard": "agentskills.io",
+  "applies": {"resource_kinds": ["presentation", "lecture", "video", "illustration"]},
+  "source": {"type": "authored", "methodology_references": ["content-first information design"]}
+}

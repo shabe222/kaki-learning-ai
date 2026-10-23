@@ -1,0 +1,121 @@
+/* KAKI Motion Language — controlled product motion primitives.
+   State remains authoritative in the existing runtime; motion only makes changes legible. */
+:root {
+  --kaki-motion-fast: 140ms;
+  --kaki-motion-base: 220ms;
+  --kaki-motion-emphasis: 360ms;
+  --kaki-motion-curve: cubic-bezier(.2,.75,.24,1);
+  --kaki-motion-soft-curve: cubic-bezier(.22,.61,.36,1);
+}
+
+/* prepare → move → settle: a short, restrained workspace arrival.
+   Fill mode must stay `backwards`: with `both`, the final keyframe's
+   identity transform persists forever, turning #workspaceApp into a
+   permanent containing block + stacking context that traps fixed
+   overlays (adventure journey, dialogs) under the shell topbar. */
+#workspaceApp {
+  animation: kaki-workspace-settle var(--kaki-motion-emphasis) var(--kaki-motion-curve) backwards;
+}
+
+/* User-triggered surfaces settle into place without masking content. */
+#workspaceApp .tutor-plan-card,
+#workspaceApp .artifact-card,
+#workspaceApp .search-result-card,
+#workspaceApp .material-row,
+#workspaceApp .mode-card {
+  animation: kaki-surface-settle var(--kaki-motion-base) var(--kaki-motion-curve) both;
+}
+
+/* Resource opening is the strongest non-game transition. */
+#workspaceApp .drawer:not([hidden]) .drawer-panel,
+#artifactDrawer:not([hidden]) .drawer-panel,
+[data-testid="ai-workspace-artifact-shell"] {
+  animation: kaki-resource-enter var(--kaki-motion-emphasis) var(--kaki-motion-curve) both;
+}
+
+/* Task/Tutor state changes: move little, settle clearly. */
+#workspaceApp .tutor-decision-panel,
+#workspaceApp .tutor-pedagogy-status,
+#workspaceApp .task-context-status,
+#workspaceApp .tutor-orchestration-stop,
+#workspaceApp .search-result-error,
+#workspaceApp .material-row[data-status="failed"] {
+  transition: background-color var(--kaki-motion-base) var(--kaki-motion-soft-curve),
+              border-color var(--kaki-motion-base) var(--kaki-motion-soft-curve),
+              color var(--kaki-motion-base) var(--kaki-motion-soft-curve),
+              opacity var(--kaki-motion-fast) ease;
+}
+#workspaceApp .tutor-pedagogy-status.is-changing,
+#workspaceApp .task-context-status[data-state="failed"],
+#workspaceApp .tutor-orchestration-stop,
+#workspaceApp .search-result-error,
+#workspaceApp .material-row[data-status="failed"] {
+  animation: kaki-state-attention var(--kaki-motion-base) var(--kaki-motion-curve) both;
+}
+
+/* Press/release feedback is tactile but never continuous. */
+#workspaceApp button,
+#workspaceApp [role="button"],
+[data-testid="ai-workspace-artifact-shell"] button {
+  transition: transform var(--kaki-motion-fast) var(--kaki-motion-curve),
+              box-shadow var(--kaki-motion-fast) ease,
+              background-color var(--kaki-motion-base) ease,
+              border-color var(--kaki-motion-base) ease,
+              color var(--kaki-motion-base) ease,
+              opacity var(--kaki-motion-fast) ease;
+}
+#workspaceApp button:not(:disabled):active,
+#workspaceApp [role="button"]:not([aria-disabled="true"]):active,
+[data-testid="ai-workspace-artifact-shell"] button:not(:disabled):active {
+  transform: translateY(1px) scale(.985);
+}
+#workspaceApp button:disabled,
+[data-testid="ai-workspace-artifact-shell"] button:disabled {
+  transform: none;
+}
+
+@keyframes kaki-workspace-settle {
+  0% { opacity: .76; transform: translateY(5px); }
+  56% { opacity: 1; transform: translateY(-1px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes kaki-surface-settle {
+  0% { opacity: .7; transform: translateY(7px) scale(.995); }
+  62% { opacity: 1; transform: translateY(-1px) scale(1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes kaki-resource-enter {
+  0% { opacity: .64; transform: translateX(10px) scale(.995); }
+  58% { opacity: 1; transform: translateX(-1px) scale(1); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes kaki-state-attention {
+  0% { opacity: .72; transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #workspaceApp,
+  #workspaceApp .tutor-plan-card,
+  #workspaceApp .artifact-card,
+  #workspaceApp .search-result-card,
+  #workspaceApp .material-row,
+  #workspaceApp .mode-card,
+  #workspaceApp .drawer:not([hidden]) .drawer-panel,
+  #artifactDrawer:not([hidden]) .drawer-panel,
+  [data-testid="ai-workspace-artifact-shell"],
+  #workspaceApp .tutor-pedagogy-status.is-changing,
+  #workspaceApp .task-context-status[data-state="failed"],
+  #workspaceApp .tutor-orchestration-stop,
+  #workspaceApp .search-result-error,
+  #workspaceApp .material-row[data-status="failed"] {
+    animation: none !important;
+  }
+  #workspaceApp *,
+  [data-testid="ai-workspace-artifact-shell"],
+  [data-testid="ai-workspace-artifact-shell"] * {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

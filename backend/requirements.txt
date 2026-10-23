@@ -1,0 +1,71 @@
+# Web framework
+fastapi==0.104.1
+starlette==0.27.0
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# LangGraph and LangChain (fix: 0.0.55 + 0.1.0 had langchain-core mutex conflict)
+langgraph==0.2.0
+langchain==0.2.0
+# langchain-core is pulled by langgraph 0.2.0 (>=0.2.27,<0.3)
+
+# Database - PostgreSQL (prod) + SQLite (dev)
+sqlalchemy[asyncio]==2.0.23
+asyncpg==0.29.0
+aiosqlite==0.19.0
+alembic==1.13.0
+
+# Redis cache and session management
+redis==5.0.1
+hiredis==2.2.3
+
+# HTTP client
+httpx==0.25.2
+
+# Auth and crypto
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==5.0.0
+
+# Config
+python-dotenv==1.0.1
+pydantic>=2.8,<3
+pydantic-settings==2.1.0
+
+# Async
+aiofiles==23.2.1
+
+# iFlyTek Spark official SDK (handles auth automatically)
+spark-ai-python>=0.4.5
+
+# Vector database
+pymilvus>=3.0.0
+
+# OSS object storage
+minio>=7.2.7
+
+# Numeric computing (for vectors and OCR)
+numpy==1.26.4
+
+# Unified AI workspace input adapters (real local OCR + ASR)
+rapidocr-onnxruntime==1.4.4
+opencv-python==4.11.0.86
+faster-whisper==1.2.1
+Pillow>=10.0.0
+
+# Shared workspace material parsers
+pdfplumber>=0.10.0
+PyMuPDF>=1.23.0
+python-docx>=1.1.0
+edge-tts==7.2.8
+
+# Editable PPTX export for the dual-theme presentation contract
+# (services/workspace_presentations.py imports pptx at export time)
+python-pptx==1.0.2
+
+# Tests
+pytest==7.4.4
+pytest-asyncio==0.23.8
+
+# FSRS spaced-repetition scheduler (MIT, open-spaced-repetition/py-fsrs)
+fsrs
